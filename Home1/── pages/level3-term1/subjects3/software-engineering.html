@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Software Engineering</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: rgba(143, 143, 143, 0.33);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: url('../../../images/img.jpg') center / cover no-repeat;
+            filter: blur(3px);
+            transform: scale(1.1);
+            z-index: -1;
+        }
+
+        header {
+            padding: 18px 60px;
+            background: rgba(0, 26, 85, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            color: white;
+            margin: 0;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: rgba(206, 206, 206, 0.23);
+            border-radius: 15px;
+            padding: 12px;
+            box-shadow: 0 4px 15px rgb(0, 26, 85);
+        }
+
+        .sidebar h3 {
+            text-align: center;
+            color: rgba(13, 42, 107, 0.85);
+            margin-top: 0;
+        }
+
+        .lecture-item {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: rgba(7, 36, 102, 0.9);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .lecture-item:hover {
+            background: #002e94;
+            transform: scale(1.03);
+        }
+
+        /* Content */
+        .content {
+            background: rgba(215, 215, 215, 0.48);
+            border-radius: 15px;
+            padding: 30px;
+            min-height: 350px;
+            box-shadow: 0 0px 16px rgba(0, 33, 107, 0.85);
+        }
+
+        .placeholder {
+            text-align: center;
+            color: #555;
+            font-size: 18px;
+            margin-top: 120px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>Innovation University</h2>
+    <nav>
+        <a href="./quizzes3/software-engineering-quiz.html">Quiz</a>
+     <a href="../level3-term1-pdf.html">Courses</a>
+        <a href="../level3-term1-video.html">Videos</a>
+        <a href="../../iu.html">Home</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>Software Engineering</h3>
+
+        <div class="lecture-item" onclick="showLecture(0)">Lecture 1 – Introduction to Software Engineering</div>
+        <div class="lecture-item" onclick="showLecture(1)">Lecture 2 – Software Development Life Cycle</div>
+        <div class="lecture-item" onclick="showLecture(2)">Lecture 3 – Requirements Engineering</div>
+        <div class="lecture-item" onclick="showLecture(3)">Lecture 4 – Software Design</div>
+        <div class="lecture-item" onclick="showLecture(4)">Lecture 5 – Software Testing</div>
+        <div class="lecture-item" onclick="showLecture(5)">Lecture 6 – Software Maintenance</div>
+        <div class="lecture-item" onclick="showLecture(6)">Lecture 7 – Agile Methodologies</div>
+        <div class="lecture-item" onclick="showLecture(7)">Lecture 8 – Project Management</div>
+    </div>
+
+    <!-- Content -->
+    <div class="content" id="content">
+        <div class="placeholder">
+            💻 Select a lecture from the left to view its content
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const lectures = [
+        {
+            title: "Lecture 1: Introduction to Software Engineering",
+            content: "Software Engineering is the discipline of designing, developing, and maintaining software systems."
+        },
+        {
+            title: "Lecture 2: Software Development Life Cycle",
+            content: "SDLC defines the phases involved in software development from planning to maintenance."
+        },
+        {
+            title: "Lecture 3: Requirements Engineering",
+            content: "This phase focuses on gathering, analyzing, and documenting software requirements."
+        },
+        {
+            title: "Lecture 4: Software Design",
+            content: "Software design defines the architecture and components of a system."
+        },
+        {
+            title: "Lecture 5: Software Testing",
+            content: "Testing ensures that the software meets requirements and is free of defects."
+        },
+        {
+            title: "Lecture 6: Software Maintenance",
+            content: "Maintenance involves updating and improving software after deployment."
+        },
+        {
+            title: "Lecture 7: Agile Methodologies",
+            content: "Agile promotes iterative development and continuous feedback."
+        },
+        {
+            title: "Lecture 8: Project Management",
+            content: "Project management ensures software projects are delivered on time and within scope."
+        }
+    ];
+
+    function showLecture(index) {
+        const content = document.getElementById("content");
+        content.innerHTML = `
+            <h1>${lectures[index].title}</h1>
+            <p>${lectures[index].content}</p>
+        `;
+    }
+</script>
+
+</body>
+</html>

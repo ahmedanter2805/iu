@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Math 0 Course</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background: rgba(143, 143, 143, 0.33);
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: url('../../../images/img.jpg') center / cover no-repeat;
+        filter: blur(3px);
+        transform: scale(1.1);
+        z-index: -1;
+    }
+
+    header {
+        padding: 18px 60px;
+        background: rgba(0, 26, 85, 0.9);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    header h2 {
+        color: white;
+        margin: 0;
+    }
+
+    nav a {
+        margin-left: 20px;
+        text-decoration: none;
+        color: #ffffff;
+        font-weight: 600;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 40px auto;
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 30px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        background: rgba(206, 206, 206, 0.23);
+        border-radius: 15px;
+        padding: 12px;
+        box-shadow: 0 4px 15px rgb(0, 26, 85);
+    }
+
+    .sidebar h3 {
+        text-align: center;
+        color: rgba(13, 42, 107, 0.85);
+        margin-top: 0;
+    }
+
+    .lecture-item {
+        padding: 10px;
+        margin-bottom: 8px;
+        background: rgba(7, 36, 102, 0.9);
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 14px;
+    }
+
+    .lecture-item:hover {
+        background: #002e94;
+        transform: scale(1.03);
+    }
+
+    /* Content */
+    .content {
+        background: rgba(215, 215, 215, 0.48);
+        border-radius: 15px;
+        padding: 30px;
+        min-height: 350px;
+        box-shadow: 0 0px 16px rgba(0, 33, 107, 0.85);
+    }
+
+    .placeholder {
+        text-align: center;
+        color: #555;
+        font-size: 18px;
+        margin-top: 120px;
+    }
+
+    @media (max-width: 900px) {
+        .container {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>Innovation University</h2>
+    <nav>
+        <a href="../quizzes/math0-quiz.html">quiz</a>
+        <a href="../level1-term1-pdf.html">courses</a>
+        <a href="../level1-term1-video.html">Videos</a>
+        <a href="../../iu.html">Home</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>Math 0 (10 Lectures)</h3>
+
+        <div class="lecture-item" onclick="showLecture(0)">Lecture 1 – Real Numbers</div>
+        <div class="lecture-item" onclick="showLecture(1)">Lecture 2 – Algebra Basics</div>
+        <div class="lecture-item" onclick="showLecture(2)">Lecture 3 – Exponents</div>
+        <div class="lecture-item" onclick="showLecture(3)">Lecture 4 – Roots</div>
+        <div class="lecture-item" onclick="showLecture(4)">Lecture 5 – Linear Equations</div>
+        <div class="lecture-item" onclick="showLecture(5)">Lecture 6 – Inequalities</div>
+        <div class="lecture-item" onclick="showLecture(6)">Lecture 7 – Polynomials</div>
+        <div class="lecture-item" onclick="showLecture(7)">Lecture 8 – Factoring</div>
+        <div class="lecture-item" onclick="showLecture(8)">Lecture 9 – Functions</div>
+        <div class="lecture-item" onclick="showLecture(9)">Lecture 10 – Revision</div>
+    </div>
+
+    <!-- Content -->
+    <div class="content" id="content">
+        <div class="placeholder">
+            📐 Select a lecture from the left to view its content
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const lectures = [
+        { title: "Lecture 1 – Real Numbers", content: "Real numbers include integers, rational and irrational numbers." },
+        { title: "Lecture 2 – Algebra Basics", content: "Algebra deals with symbols and rules for manipulating expressions." },
+        { title: "Lecture 3 – Exponents", content: "Exponents represent repeated multiplication of a number." },
+        { title: "Lecture 4 – Roots", content: "Roots are the inverse operation of exponents." },
+        { title: "Lecture 5 – Linear Equations", content: "Linear equations are equations of the first degree." },
+        { title: "Lecture 6 – Inequalities", content: "Inequalities compare values using greater or less symbols." },
+        { title: "Lecture 7 – Polynomials", content: "Polynomials are expressions with variables and coefficients." },
+        { title: "Lecture 8 – Factoring", content: "Factoring breaks expressions into simpler parts." },
+        { title: "Lecture 9 – Functions", content: "A function relates inputs to exactly one output." },
+        { title: "Lecture 10 – Revision", content: "Revision of all Math 0 topics." }
+    ];
+
+    function showLecture(index) {
+        const content = document.getElementById("content");
+        content.innerHTML = `
+            <h1>${lectures[index].title}</h1>
+            <p>${lectures[index].content}</p>
+        `;
+    }
+</script>
+
+</body>
+</html>

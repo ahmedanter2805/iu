@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Computer and Cyber Security</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: rgba(143, 143, 143, 0.33);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: url('../../../images/img.jpg') center / cover no-repeat;
+            filter: blur(3px);
+            transform: scale(1.1);
+            z-index: -1;
+        }
+
+        header {
+            padding: 18px 60px;
+            background: rgba(0, 26, 85, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            color: white;
+            margin: 0;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: rgba(206, 206, 206, 0.23);
+            border-radius: 15px;
+            padding: 12px;
+            box-shadow: 0 4px 15px rgb(0, 26, 85);
+        }
+
+        .sidebar h3 {
+            text-align: center;
+            color: rgba(13, 42, 107, 0.85);
+            margin-top: 0;
+        }
+
+        .lecture-item {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: rgba(7, 36, 102, 0.9);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .lecture-item:hover {
+            background: #002e94;
+            transform: scale(1.03);
+        }
+
+        /* Content */
+        .content {
+            background: rgba(215, 215, 215, 0.48);
+            border-radius: 15px;
+            padding: 30px;
+            min-height: 350px;
+            box-shadow: 0 0px 16px rgba(0, 33, 107, 0.85);
+        }
+
+        .placeholder {
+            text-align: center;
+            color: #555;
+            font-size: 18px;
+            margin-top: 120px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>Innovation University</h2>
+    <nav>
+               <a href="./quizzes4/computer-cyber-security-quiz.html">Quiz</a>
+               <a href="../level4-term1-pdf.html">Courses</a>
+               <a href="../level4-term1-video.html">Videos</a>
+               <a href="../../iu.html">Home</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>Computer &amp; Cyber Security (8 Lectures)</h3>
+
+        <div class="lecture-item" onclick="showLecture(0)">Lecture 1 – Introduction to Cyber Security</div>
+        <div class="lecture-item" onclick="showLecture(1)">Lecture 2 – Types of Cyber Threats</div>
+        <div class="lecture-item" onclick="showLecture(2)">Lecture 3 – Malware &amp; Viruses</div>
+        <div class="lecture-item" onclick="showLecture(3)">Lecture 4 – Network Security</div>
+        <div class="lecture-item" onclick="showLecture(4)">Lecture 5 – Cryptography Basics</div>
+        <div class="lecture-item" onclick="showLecture(5)">Lecture 6 – Authentication &amp; Authorization</div>
+        <div class="lecture-item" onclick="showLecture(6)">Lecture 7 – Firewalls &amp; IDS</div>
+        <div class="lecture-item" onclick="showLecture(7)">Lecture 8 – Cyber Security Best Practices</div>
+    </div>
+
+    <!-- Content -->
+    <div class="content" id="content">
+        <div class="placeholder">
+            🔐 Select a lecture from the left to view its content
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const lectures = [
+        {
+            title: "Lecture 1: Introduction to Cyber Security",
+            content: "Cyber security focuses on protecting systems, networks, and data from digital attacks."
+        },
+        {
+            title: "Lecture 2: Types of Cyber Threats",
+            content: "Cyber threats include hacking, phishing, ransomware, and insider attacks."
+        },
+        {
+            title: "Lecture 3: Malware & Viruses",
+            content: "Malware is malicious software designed to harm or exploit computer systems."
+        },
+        {
+            title: "Lecture 4: Network Security",
+            content: "Network security protects data during transmission using secure protocols."
+        },
+        {
+            title: "Lecture 5: Cryptography Basics",
+            content: "Cryptography secures data using encryption and decryption techniques."
+        },
+        {
+            title: "Lecture 6: Authentication & Authorization",
+            content: "Authentication verifies identity, while authorization controls access."
+        },
+        {
+            title: "Lecture 7: Firewalls & IDS",
+            content: "Firewalls and intrusion detection systems protect networks from attacks."
+        },
+        {
+            title: "Lecture 8: Cyber Security Best Practices",
+            content: "Best practices include strong passwords, updates, and awareness training."
+        }
+    ];
+
+    function showLecture(index) {
+        const content = document.getElementById("content");
+        content.innerHTML = `
+            <h1>${lectures[index].title}</h1>
+            <p>${lectures[index].content}</p>
+        `;
+    }
+</script>
+
+</body>
+</html>
