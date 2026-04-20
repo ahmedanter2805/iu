@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Web Application Development</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* نفس الستايل */
+body{
+margin:0;
+font-family:'Inter',sans-serif;
+background:rgba(143,143,143,.33)
+}
+
+body::before {
+content:"";
+position:fixed;
+inset:0;
+background:url('../../../images/img.jpg') center/cover no-repeat;
+filter:blur(3px);
+transform:scale(1.1);z-index:-1
+}
+
+header{
+padding:18px 60px;
+background:rgba(0,26,85,.9);
+display:flex;
+justify-content:space-between
+}
+
+header h2{
+color:white;
+margin:0
+}
+
+nav a{
+margin-left:20px;
+color:white;
+text-decoration:none;
+font-weight:600
+}
+
+.container{
+max-width:1200px;
+margin:40px auto;
+display:grid;
+grid-template-columns:300px 1fr;
+gap:30px
+}
+
+.sidebar{
+background:rgba(206,206,206,.23);
+border-radius:15px;
+padding:12px
+}
+
+.lecture{
+padding:10px;
+margin-bottom:8px;
+background:#002e94;
+color:white;
+border-radius:8px;
+cursor:pointer
+}
+
+.lecture:hover{
+background:#001f6f
+}
+
+.content{
+background:rgba(215,215,215,.48);
+border-radius:15px;
+padding:30px
+}
+
+</style>
+</head>
+<body>
+
+<header>
+<h2>Innovation University</h2>
+<nav>
+    <a href="./quizzes3/web-app-development-quiz.html">Quiz</a>
+     <a href="../level3-term1-pdf.html">Courses</a>
+        <a href="../level3-term1-video.html">Videos</a>
+        <a href="../../iu.html">Home</a>
+</nav>
+</header>
+
+<div class="container">
+<div class="sidebar">
+<h3>Web Development</h3>
+<div class="lecture" onclick="show(0)">HTML &amp; CSS</div>
+<div class="lecture" onclick="show(1)">JavaScript</div>
+<div class="lecture" onclick="show(2)">Frontend Frameworks</div>
+<div class="lecture" onclick="show(3)">Backend Basics</div>
+<div class="lecture" onclick="show(4)">Deployment</div>
+</div>
+
+<div class="content" id="content"></div>
+</div>
+
+<script>
+const data=[
+"Structure and styling of web pages.",
+"Client-side scripting.",
+"Modern frontend frameworks.",
+"Server-side development basics.",
+"Deploying web applications."
+];
+function show(i){
+content.innerHTML=`<h2>${data[i].split('.')[0]}</h2><p>${data[i]}</p>`;
+}
+</script>
+</body>
+</html>

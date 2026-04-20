@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IUS | Presentation & Team</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/iu-logo.png" />
+    <style>
+        :root {
+            --primary: #002b5b;
+            --blue: rgb(0, 0, 0);
+            --white-glow: rgba(255, 255, 255, 0.9);
+            --gray-text: rgb(255, 255, 255);
+            --glass: white;
+            --border: rgb(255, 255, 255);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #0f172a;
+            /* Dark background */
+            color: #fff;
+            text-shadow: 0 0 5px #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            padding: 50px 20px;
+            position: relative;
+        }
+
+        /* Background Blur Effect */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: url('images/img.jpg') center/cover no-repeat;
+            filter: blur(10px);
+            transform: scale(1.1);
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .presentation-container {
+            width: 90%;
+            max-width: 900px;
+            height: 600px;
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 41px;
+            box-sizing: border-box;
+            border-radius: 30px;
+            background: rgba(136, 136, 136, 0.24);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 38, 98, 0.43);
+            text-align: center;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #00296e;
+            font-size: 30px;
+            margin-bottom: 24px;
+            font-weight: 1060;
+            text-shadow: 0 0 2px #fff;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #fff;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            display: inline-block;
+        }
+
+        ul li {
+            margin: 15px 0;
+            font-size: 18px;
+            color: white;
+        }
+
+        ul li i {
+            color: #07295f;
+            margin-right: 8px;
+        }
+
+        /* Team Cards */
+        .team-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .member-card {
+            background: rgba(255, 255, 255, 0.23);
+            padding: 20px;
+            border-radius: 20px;
+            width: 200px;
+            border: 1px solid var(--border);
+        }
+
+        .member-card i {
+            font-size: 50px;
+            margin-bottom: 15px;
+            display: block;
+            color: rgba(255, 255, 255, 0.1);
+        }
+
+        .member-card h3 {
+            color: var(--white-glow);
+        }
+
+        .member-card p {
+            color: var(--blue);
+            font-size: 14px;
+        }
+
+        /* Navigation Buttons */
+        .nav-btns {
+            position: absolute;
+            bottom: -60px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            background: rgba(0, 38, 98, 0.99);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            text-shadow: 0 0 5px #fff;
+        }
+
+        button:hover {
+            background: rgba(0, 38, 98, 0.99);
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 38, 98, 0.99), 0 0 20px rgba(0, 38, 98, 0.99);
+        }
+
+        button:disabled {
+            background: #475569;
+            cursor: not-allowed;
+        }
+
+        .mini-btn {
+            display: inline-block;
+            margin-left: 10px;
+            background: rgba(0, 38, 98, 0.99);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            text-shadow: 0 0 5px #fff;
+        }
+
+        .mini-btn:hover {
+            background: rgba(0, 38, 98, 0.99);
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 38, 98, 0.99), 0 0 20px rgba(0, 38, 98, 0.99);
+        }
+
+        .open-btn {
+            display: inline-block;
+            margin-top: 15px;
+            background: rgba(0, 38, 98, 0.99);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            text-shadow: 0 0 5px #fff;
+        }
+
+        .open-btn:hover {
+            background: rgba(0, 38, 98, 0.99);
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 38, 98, 0.99), 0 0 20px rgba(0, 38, 98, 0.99);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="presentation-container">
+
+        <div class="slide active">
+            <h1>Innovation University System (IUS)</h1>
+            <p>A Comprehensive Digital Ecosystem for Modern Education</p>
+            <div style="margin-top: 20px; font-weight: bold; color: var(--blue);">Presented by: Shahd Alaa &amp; Ebrahim
+                Lotfy &amp; Adham Mohamed</div>
+        </div>
+
+        <div class="slide">
+            <h1>The Challenge</h1>
+            <ul>
+                <li><i class="fas fa-exclamation-circle"></i> Student distraction across multiple platforms.</li>
+                <li><i class="fas fa-clock"></i> Difficulty in tracking assignments and deadlines.</li>
+                <li><i class="fas fa-chart-line"></i> Lack of real-time academic performance analytics.</li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h1>Vision &amp; Strategy</h1>
+            <p>To create a smart, unified, and paperless learning environment that empowers students to achieve academic
+                excellence through technology.</p>
+        </div>
+
+        <div class="slide">
+            <h1>Academic Hub</h1>
+            <ul class="feature-list">
+                <li>
+                    <span>
+                        <i class="fas fa-video"></i>
+                        <b>Video Lectures</b>
+                    </span>
+                    <a href="./levels-term1/level1-term1-video.html" class="mini-btn">Open</a>
+                </li>
+                <li>
+                    <span>
+                        <i class="fas fa-file-pdf"></i>
+                        <b>PDF Lectures</b>
+                    </span>
+                    <a href="./levels-term1/level1-term1-pdf.html" class="mini-btn">Open</a>
+                </li>
+                <li>
+                    <span>
+                        <i class="fas fa-vial"></i>
+                        <b>Smart Quizzes</b>
+                    </span>
+                    <a href="./levels-term1/level1-quizzes.html" class="mini-btn">Open</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h1>Intelligent Dashboard</h1>
+            <ul>
+                <li><i class="fas fa-chart-pie"></i> Visualized study hours using Chart.js.</li>
+                <li><i class="fas fa-graduation-cap"></i> Real-time GPA &amp; Progress tracking.</li>
+                <li><i class="fas fa-lightbulb"></i> Personalized insights for improvement.</li>
+            </ul>
+            <a href="dashboard-STU.html" class="open-btn">Open Module</a>
+        </div>
+
+        <div class="slide">
+            <h1>Assignment System</h1>
+            <ul>
+                <li><i class="fas fa-bell"></i> Automatic deadline notifications.</li>
+                <li><i class="fas fa-upload"></i> Direct file upload functionality.</li>
+                <li><i class="fas fa-check-double"></i> Submission status tracking (Pending/Submitted).</li>
+            </ul>
+            <a href="assignments.html" class="mini-btn">Open Module</a>
+        </div>
+
+        <div class="slide">
+            <h1>Organization &amp; Attendance</h1>
+            <ul>
+                <li><i class="fas fa-calendar-alt"></i> <b>Smart Schedule:</b> Personalized weekly time-table.</li>
+                <li><i class="fas fa-user-check"></i> <b>Attendance:</b> Automated tracking for student discipline.</li>
+            </ul>
+            <a href="attendance.html" class="mini-btn">Open Module</a>
+        </div>
+
+        <div class="slide">
+            <h1>Design Innovation</h1>
+            <ul>
+                <li><i class="fas fa-gem"></i> <b>Glassmorphism:</b> A modern, sleek glass-style UI.</li>
+                <li><i class="fas fa-mobile-alt"></i> <b>Fully Responsive:</b> Optimized for Mobile &amp; Desktop.</li>
+                <li><i class="fas fa-mouse-pointer"></i> <b>Seamless Navigation:</b> User-friendly sidebar layout.</li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h1>Technology Stack</h1>
+            <ul>
+                <li><i class="fab fa-html5"></i> HTML &amp; Semantic Web Structure.</li>
+                <li><i class="fab fa-css3-alt"></i> CSS (Custom Glassmorphism &amp; Animations).</li>
+                <li><i class="fab fa-js"></i> JavaScript &amp; Chart.js for Interactivity.</li>
+                <li><i class="fas fa-pencil-ruler"></i> UI/UX Design Principles (Wireframes, Prototyping)</li>
+            </ul>
+        </div>
+
+        <div class="slide future">
+            <h1>Future Upgrades</h1>
+            <ul class="feature-list">
+                <li><i class="fas fa-server"></i> Full-featured Backend System for seamless integration.</li>
+                <li><i class="fas fa-chart-pie"></i> Intelligent Dashboard with predictive analytics.</li>
+                <li><i class="fas fa-mobile-alt"></i> Mobile Application with offline access and notifications.</li>
+                <li><i class="fas fa-id-card"></i> Digital Attendance System for automated tracking.</li>
+                <li><i class="fas fa-robot"></i> AI-powered Study Assistant for personalized learning.</li>
+                <li><i class="fas fa-cloud-upload-alt"></i> Cloud-based Storage for files and lectures.</li>
+                <li><i class="fas fa-gamepad"></i> Gamification &amp; Rewards to motivate students.</li>
+                <li><i class="fas fa-bell"></i> Smart Notifications &amp; Alerts for deadlines and events.</li>
+                <li><i class="fas fa-plug"></i> Integration with external tools like Zoom, Google Calendar, Teams.</li>
+            </ul>
+            <p style="margin-top: 20px; font-style: italic; color: var(--blue);">
+                “Innovating education, one upgrade at a time.”
+            </p>
+        </div>
+
+        <div class="slide">
+            <h1>Our Creative Team</h1>
+            <div class="team-grid">
+                <div class="member-card">
+                    <i class="fas fa-user-ninja"></i>
+                    <h3>Shahd Alaa</h3>
+                    <p>UI/UX &amp; Frontend Lead</p>
+                </div>
+                <div class="member-card">
+                    <i class="fas fa-user-tie"></i>
+                    <h3>Ebrahim Lotfy</h3>
+                    <p>Developer &amp; Analyst</p>
+                </div>
+            </div>
+            <p style="margin-top: 20px; font-style: italic;">"Innovation is our core value."</p>
+        </div>
+
+        <div class="nav-btns">
+            <button id="prevBtn" onclick="changeSlide(-1)" disabled>Previous</button>
+            <button id="nextBtn" onclick="changeSlide(1)">Next</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function changeSlide(direction) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide += direction;
+            slides[currentSlide].classList.add('active');
+
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+
+            nextBtn.innerHTML = currentSlide === slides.length - 1 ? "Finish" : "Next";
+        }
+    </script>
+
+</body>
+
+</html>

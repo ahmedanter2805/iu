@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Data Visualization &amp; Analytics</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: rgba(143,143,143,0.33);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url('../../../../images/img.jpg') center/cover no-repeat;
+    filter: blur(3px);
+    transform: scale(1.1);
+    z-index: -1;
+}
+
+header {
+    padding: 18px 60px;
+    background: rgba(0,26,85,0.9);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h2 { color: white; margin: 0; }
+nav a { color: white; margin-left: 20px; text-decoration: none; }
+
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
+}
+
+.sidebar {
+    background: rgba(206,206,206,0.3);
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.lesson {
+    padding: 10px;
+    margin-bottom: 8px;
+    background: #002b5b;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.lesson:hover {
+    background: #0040a6;
+}
+
+.content {
+    background: rgba(215,215,215,0.5);
+    border-radius: 15px;
+    padding: 25px;
+}
+
+iframe {
+    width: 100%;
+    height: 420px;
+    border-radius: 12px;
+}
+
+.placeholder {
+    text-align: center;
+    margin-top: 150px;
+    font-size: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>Innovation University</h2>
+    <nav>
+             <a href="../quizzes3/data-visualization-analytics-quiz.html">Quiz</a>
+               <a href="../../level3-term1-video.html">Courses</a>
+               <a href="../../level3-term1-pdf.html">PDF</a>
+               <a href="../../../iu.html">Home</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <div class="sidebar" id="lessonList">
+        <h3>Data Visualization &amp; Analytics</h3>
+    </div>
+
+    <div class="content" id="content">
+        <div class="placeholder">▶️ Select a lecture</div>
+    </div>
+
+</div>
+
+<script>
+const lectures = [
+    {
+        title: "Lecture 1 – Introduction to Data Visualization",
+        video: "https://www.youtube.com/embed/yourVideoID1",
+        desc: "Overview of data visualization concepts."
+    },
+    {
+        title: "Lecture 2 – Charts & Graphs",
+        video: "https://www.youtube.com/embed/yourVideoID2",
+        desc: "Using charts to represent data."
+    },
+    {
+        title: "Lecture 3 – Data Analytics Basics",
+        video: "https://www.youtube.com/embed/yourVideoID3",
+        desc: "Basic analytical techniques."
+    }
+];
+
+const lessonList = document.getElementById("lessonList");
+
+lectures.forEach((lec, i) => {
+    const div = document.createElement("div");
+    div.className = "lesson";
+    div.textContent = lec.title;
+    div.onclick = () => loadLecture(i);
+    lessonList.appendChild(div);
+});
+
+function loadLecture(i) {
+    const lec = lectures[i];
+    document.getElementById("content").innerHTML = `
+        <h3>${lec.title}</h3>
+        <iframe src="${lec.video}" allowfullscreen></iframe>
+        <p>${lec.desc}</p>
+    `;
+}
+</script>
+
+</body>
+</html>

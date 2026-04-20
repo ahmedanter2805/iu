@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IU UNIVERSITY</title>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="../images/iu-logo.png" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: rgba(103, 105, 111, 0.03);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+           background: url('images/img.jpg') center/cover no-repeat;
+            filter: blur(3px);
+            transform: scale(1.1);
+            z-index: -1;
+        }
+
+
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px 15px;
+            background: rgba(0, 26, 85, 0.9);
+            color: white;
+
+        }
+
+
+        header h1 {
+            color: rgb(255, 255, 255);
+        }
+
+        header nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        header nav a:hover {
+            color: #000268;
+        }
+
+        /* Summary Cards */
+        .summary {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .summary div {
+            flex: 1;
+            background: rgba(0, 26, 85, 0.9);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        button {
+            padding: 8px 14px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .add-btn {
+            background: #22c55e;
+            color: white;
+        }
+
+        .add-btn:hover {
+            background: #16a34a;
+        }
+
+        .action-btn {
+            background: rgba(0, 26, 85, 0.9);
+            color: white;
+            margin-left: 5px;
+        }
+
+        .action-btn:hover {
+            background: rgba(0, 26, 85, 0.9);
+        }
+
+        .btn-view {
+            background: #0284c7;
+            color: white;
+        }
+
+        .btn-view:hover {
+            background: #0369a1;
+        }
+
+        .btn-quiz {
+            background: #f97316;
+            color: white;
+        }
+
+        .btn-quiz:hover {
+            background: #ea580c;
+        }
+
+        .btn-delete {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #b91c1c;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .filter-section select {
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid #94a3b8;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            backdrop-filter: blur(9px);
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px #030675;
+        }
+
+        th,
+        td {
+            padding: 12px 10px;
+            text-align: center;
+        }
+
+        th {
+            background: rgba(0, 26, 85, 0.9);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: rgba(241, 245, 249, 0.26);
+        }
+
+        tr:hover {
+            background: rgba(52, 74, 148, 0.45);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: rgba(226, 232, 240, 0.48);
+            border-radius: 6px;
+            height: 14px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 6px;
+            text-align: right;
+            padding-right: 5px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .high {
+            background: #ef4444;
+        }
+
+        .medium {
+            background: #fbbf24;
+            color: black;
+        }
+
+        .low {
+            background: #3b82f6;
+        }
+
+        .completed {
+            background: #22c55e;
+        }
+
+        .inprogress {
+            background: #0ea5e9;
+        }
+
+        .notstarted {
+            background: #64748b;
+        }
+
+        /* Chart */
+        /* Chart Container - نسخة أصغر */
+        .chart-container {
+            margin-top: 15px;
+            /* قلل المسافة فوق */
+            background: rgba(199, 199, 199, 0.46);
+            backdrop-filter: blur(8px);
+            padding: 17px;
+            /* قلل الحشو */
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 26, 85, 0.9);
+            max-width: 1500px;
+            /* تحديد عرض الكارت */
+        }
+
+        /* Canvas الرسم البياني */
+        .chart-container canvas {
+            height: 200px !important;
+            /* قلل ارتفاع الرسم البياني */
+        }
+
+
+        /* Responsive */
+        @media(max-width:768px) {
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
+                display: block;
+            }
+
+            tr {
+                margin-bottom: 15px;
+            }
+
+            td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                width: 45%;
+                font-weight: 600;
+                text-align: left;
+                color: #0f172a;
+            }
+
+            th {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>IU University</h1>
+        <nav>
+            <a href="./levels-term1/level1-term1-pdf.html">Courses</a>
+            <a href="dashboard-STU.html">Dashboard</a>
+            <a href="./levels-term1/level1-quizzes.html">Quiz</a>
+            <a href="iu.html">Home</a>
+        </nav>
+    </header>
+
+    <!-- Summary -->
+    <div class="summary">
+        <div id="subCount">Subjects: 5</div>
+        <div id="totalDuration">Total Duration: 10h</div>
+        <div id="statusCount">Completed: 1</div>
+    </div>
+
+    <!-- Filters + Actions -->
+    <div class="filter-section">
+        <select id="filter-day">
+            <option value="">All Days</option>
+            <option>Sunday</option>
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+        </select>
+        <select id="filter-course">
+            <option value="">All Courses</option>
+            <option>Web Development</option>
+            <option>Database Systems</option>
+            <option>Networks</option>
+            <option>UI/UX Design</option>
+            <option>Programming</option>
+        </select>
+        <select id="filter-status">
+            <option value="">All Status</option>
+            <option>Completed</option>
+            <option>In Progress</option>
+            <option>Not Started</option>
+        </select>
+        <button class="add-btn" onclick="addRow()">+ Add Subject</button>
+        <button class="action-btn" onclick="autoFill()">Auto-Fill</button>
+        <button class="action-btn" onclick="printSchedule()">🖨 Print</button>
+        <button class="action-btn" onclick="saveSchedule()">💾 Save</button>
+    </div>
+
+    <!-- Table -->
+    <table id="scheduleTable">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Day</th>
+                <th>Time</th>
+                <th>Duration</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Progress</th>
+                <th>View</th>
+                <th>Quiz</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div class="chart-container">
+        <h3>Weekly Study Hours</h3>
+        <canvas id="studyChart" height="100"></canvas>
+    </div>
+
+
+
+    <!-- Chart -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Chart
+        const ctx = document.getElementById('studyChart').getContext('2d');
+        let studyChart = new Chart(ctx, {
+            type: 'line',
+            data: { labels: [], datasets: [{ label: 'Hours', data: [], borderColor: '#6366f1', backgroundColor: '#c7d2fe99', fill: true, tension: 0.4, pointRadius: 5 }] },
+            options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true }, x: {} } }
+        });
+
+        // Functions
+        document.addEventListener("DOMContentLoaded", loadFromStorage);
+
+        function addRow(subject = "", day = "", time = "", duration = "", priority = "Medium", status = "Not Started") {
+            const tbody = document.querySelector("#scheduleTable tbody");
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+        <td data-label="Subject"><input value="${subject}" placeholder="Subject"></td>
+        <td data-label="Day"><select>
+            <option>Select Day</option>
+            ${["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"].map(d => `<option ${d === day ? "selected" : ""}>${d}</option>`).join("")}
+        </select></td>
+        <td data-label="Time"><input type="time" value="${time}"></td>
+        <td data-label="Duration"><input placeholder="e.g. 2h" value="${duration}"></td>
+        <td data-label="Priority">
+            <select>
+                <option ${priority === "High" ? "selected" : ""}>High</option>
+                <option ${priority === "Medium" ? "selected" : ""}>Medium</option>
+                <option ${priority === "Low" ? "selected" : ""}>Low</option>
+            </select>
+        </td>
+        <td data-label="Status">
+            <select>
+                <option ${status === "Not Started" ? "selected" : ""}>Not Started</option>
+                <option ${status === "In Progress" ? "selected" : ""}>In Progress</option>
+                <option ${status === "Completed" ? "selected" : ""}>Completed</option>
+            </select>
+        </td>
+        <td data-label="Progress">
+            <div class="progress-container">
+                <div class="progress-bar ${getPriorityClass(priority)}" style="width:${getProgressValue(status)}%">${getProgressValue(status)}%</div>
+            </div>
+        </td>
+        <td data-label="View"><button class="btn-view" onclick="viewCourse(this)">View</button></td>
+        <td data-label="Quiz"><button class="btn-quiz" onclick="takeQuiz(this)">Quiz</button></td>
+        <td data-label="Delete"><button class="btn-delete" onclick="deleteRow(this)">🗑</button></td>
+    `;
+            tbody.appendChild(tr);
+            tr.querySelectorAll("input, select").forEach(el => el.addEventListener("change", saveSchedule));
+            updateSummary();
+        }
+
+        function deleteRow(btn) { btn.closest("tr").remove(); saveSchedule(); updateSummary(); }
+        function viewCourse(btn) { alert("View course: " + btn.closest("tr").querySelector("td input").value); }
+        function takeQuiz(btn) { alert("Take quiz: " + btn.closest("tr").querySelector("td input").value); }
+
+        function getPriorityClass(priority) {
+            if (priority === "High") return "high";
+            if (priority === "Medium") return "medium";
+            if (priority === "Low") return "low";
+            return "notstarted";
+        }
+        function getProgressValue(status) {
+            if (status === "Not Started") return 0;
+            if (status === "In Progress") return 50;
+            if (status === "Completed") return 100;
+            return 0;
+        }
+
+        function updateSummary() {
+            const rows = [...document.querySelectorAll("#scheduleTable tbody tr")];
+            document.getElementById("subCount").innerText = "Subjects: " + rows.length;
+            let totalH = 0, completed = 0, chartLabels = [], chartData = [];
+            rows.forEach(tr => {
+                const dur = tr.querySelector("td:nth-child(4) input").value;
+                if (dur.match(/\d+/)) totalH += parseInt(dur.match(/\d+/)[0]);
+                if (tr.querySelector("td:nth-child(6) select").value === "Completed") completed++;
+                const pr = tr.querySelector(".progress-bar");
+                const status = tr.querySelector("td:nth-child(6) select").value;
+                const priority = tr.querySelector("td:nth-child(5) select").value;
+                pr.style.width = getProgressValue(status) + "%";
+                pr.className = "progress-bar " + getPriorityClass(priority);
+                pr.textContent = getProgressValue(status) + "%";
+                chartLabels.push(tr.querySelector("td:nth-child(1) input").value);
+                chartData.push(dur.match(/\d+/) ? parseInt(dur.match(/\d+/)[0]) : 0);
+            });
+            document.getElementById("totalDuration").innerText = "Total Duration: " + totalH + "h";
+            document.getElementById("statusCount").innerText = "Completed: " + completed;
+            studyChart.data.labels = chartLabels;
+            studyChart.data.datasets[0].data = chartData;
+            studyChart.update();
+        }
+
+        function autoFill() { const rows = [...document.querySelectorAll("#scheduleTable tbody tr")]; let dayIndex = 0; const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]; rows.sort((a, b) => ["High", "Medium", "Low"].indexOf(a.querySelector("td:nth-child(5) select").value) - ["High", "Medium", "Low"].indexOf(b.querySelector("td:nth-child(5) select").value)).forEach(tr => { tr.querySelector("td:nth-child(2) select").value = days[dayIndex % 7]; tr.querySelector("td:nth-child(3) input").value = "09:00"; dayIndex++; }); saveSchedule(); }
+
+        function saveSchedule() {
+            const rows = [...document.querySelectorAll("#scheduleTable tbody tr")].map(tr => ({
+                subject: tr.querySelector("td:nth-child(1) input").value,
+                day: tr.querySelector("td:nth-child(2) select").value,
+                time: tr.querySelector("td:nth-child(3) input").value,
+                duration: tr.querySelector("td:nth-child(4) input").value,
+                priority: tr.querySelector("td:nth-child(5) select").value,
+                status: tr.querySelector("td:nth-child(6) select").value
+            }));
+            localStorage.setItem("StudyScheduleData", JSON.stringify(rows));
+            updateSummary();
+        }
+
+        function loadFromStorage() {
+            const saved = JSON.parse(localStorage.getItem("StudyScheduleData") || "[]");
+            saved.forEach(r => addRow(r.subject, r.day, r.time, r.duration, r.priority, r.status));
+            updateSummary();
+        }
+
+        function printSchedule() { window.print(); }
+
+        // Filters
+        document.getElementById("filter-day").addEventListener("change", applyFilters);
+        document.getElementById("filter-course").addEventListener("change", applyFilters);
+        document.getElementById("filter-status").addEventListener("change", applyFilters);
+
+        function applyFilters() {
+            const day = document.getElementById("filter-day").value;
+            const course = document.getElementById("filter-course").value;
+            const status = document.getElementById("filter-status").value;
+            document.querySelectorAll("#scheduleTable tbody tr").forEach(tr => {
+                const tDay = tr.querySelector("td:nth-child(2) select").value;
+                const tCourse = tr.querySelector("td:nth-child(1) input").value;
+                const tStatus = tr.querySelector("td:nth-child(6) select").value;
+                tr.style.display = ((!day || tDay === day) && (!course || tCourse === course) && (!status || tStatus === status)) ? "" : "none";
+            });
+        }
+    </script>
+</body>
+
+</html>

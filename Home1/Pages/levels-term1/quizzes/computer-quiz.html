@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction to Computer Quizzes</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --neon-blue:#00c3ff;
+  --neon-dark:#071a2f;
+}
+
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  display:flex;
+  color:#fff;
+  background: var(--neon-dark);
+  overflow-x:hidden;
+}
+body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    background:rgba(143,143,143,.33)
+    }
+    
+body::before{
+    content:"";position:fixed;
+    inset:0;
+    background:url('../../../images/img.jpg') center/cover no-repeat;
+    filter:blur(3px);
+    transform:scale(1.1);
+    z-index:-1
+    }
+/* Sidebar */
+.sidebar{
+  width:220px;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(12px);
+  border-right:1px solid rgba(255,255,255,0.1);
+  padding:20px;
+}
+.sidebar h2{text-align:center;color:#7fdcff;}
+.sidebar li{
+  margin:12px 0;
+  cursor:pointer;
+  padding:8px;
+  border-radius:8px;
+  transition:.3s;
+}
+.sidebar li:hover, .sidebar li.active{
+  background:rgba(127,220,255,0.2);
+  color:#00c3ff;
+}
+
+/* Main */
+.main{flex:1;padding:40px;}
+.quiz-card{
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(14px);
+  border-radius:18px;
+  padding:25px;
+  border:1px solid rgba(0,195,255,0.6);
+  box-shadow:0 0 10px #00c3ff55;
+  max-width:900px;
+  margin:auto;
+}
+
+/* Progress */
+.progress{
+  background:rgba(255,255,255,0.2);
+  height:10px;
+  border-radius:20px;
+  margin:15px 0;
+}
+.progress-bar{
+  height:100%;
+  background:linear-gradient(90deg,#00c3ff,#008cff);
+  border-radius:20px;
+}
+
+/* Options */
+.option{
+  display:block;
+  border:1px solid rgba(255,255,255,0.3);
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:10px;
+  cursor:pointer;
+  transition:.3s;
+}
+.option:hover{
+  background:rgba(0,195,255,0.12);
+  border-color:#00c3ff;
+}
+
+/* Buttons */
+.btn{
+  background:#00c3ff;
+  border:none;
+  padding:10px 20px;
+  border-radius:25px;
+  cursor:pointer;
+  font-weight:600;
+  margin-top:10px;
+}
+.btn:hover{background:#00e0ff;}
+
+.correct{background:#d4edda;color:green;padding:6px;border-radius:6px;}
+.wrong{background:#f8d7da;color:red;padding:6px;border-radius:6px;}
+</style>
+</head>
+
+<body>
+
+
+<div class="sidebar">
+  <h2>Introduction to Computer</h2>
+  <ul id="quizList">
+    <li class="active" onclick="showQuiz(0)">Quiz 1</li>
+    <li onclick="showQuiz(1)">Quiz 2</li>
+    <li onclick="showQuiz(2)">Quiz 3</li>
+    <li onclick="showQuiz(3)">Quiz 4</li>
+    <li onclick="showQuiz(4)">Quiz 5</li>
+    <li onclick="showQuiz(5)">Quiz 6</li>
+    <li onclick="showQuiz(6)">Quiz 7</li>
+    <li onclick="showQuiz(7)">Quiz 8</li>
+    <li onclick="showQuiz(8)">Quiz 9</li>
+    <li onclick="showQuiz(9)">Quiz 10</li>
+  </ul>
+</div>
+
+<div class="main">
+  <h1>Introduction to Computer</h1>
+  <div class="quiz-card" id="quizContent"></div>
+</div>
+
+<script>
+
+/* ===== 10 QUIZZES ===== */
+const quizzes = [
+[
+{q:"What is a computer?",o:["Electronic device","Book","Pen","Table"],a:0,e:"Computer is an electronic device."},
+{q:"CPU stands for?",o:["Central Processing Unit","Computer Personal Unit","Central Print Unit","Control Unit"],a:0,e:"CPU is Central Processing Unit."},
+{q:"Input device?",o:["Keyboard","Monitor","Speaker","Printer"],a:0,e:"Keyboard is input device."}
+],
+[
+{q:"Output device?",o:["Monitor","Mouse","Scanner","Keyboard"],a:0,e:"Monitor is output."},
+{q:"RAM is?",o:["Temporary memory","Permanent","Storage","None"],a:0,e:"RAM is temporary memory."},
+{q:"Hard disk used for?",o:["Storage","Input","Output","None"],a:0,e:"Used for storage."}
+],
+[
+{q:"Brain of computer?",o:["CPU","RAM","Disk","Mouse"],a:0,e:"CPU is brain."},
+{q:"Mouse used for?",o:["Point & click","Typing","Printing","None"],a:0,e:"Mouse controls pointer."},
+{q:"Keyboard type?",o:["Input","Output","Storage","None"],a:0,e:"Keyboard is input."}
+],
+[
+{q:"Software is?",o:["Programs","Hardware","Device","None"],a:0,e:"Software = programs."},
+{q:"Hardware is?",o:["Physical parts","Programs","None","Data"],a:0,e:"Hardware is physical."},
+{q:"OS example?",o:["Windows","Word","Excel","Paint"],a:0,e:"Windows is OS."}
+],
+[
+{q:"Computer works on?",o:["Binary","Decimal","Roman","None"],a:0,e:"Computer uses binary."},
+{q:"1 byte = ?",o:["8 bits","4 bits","16 bits","2 bits"],a:0,e:"1 byte = 8 bits."},
+{q:"Bit means?",o:["Binary digit","Byte","Number","None"],a:0,e:"Bit is binary digit."}
+],
+[
+{q:"Primary memory?",o:["RAM","Disk","USB","CD"],a:0,e:"RAM is primary."},
+{q:"Secondary memory?",o:["Hard disk","RAM","CPU","Cache"],a:0,e:"Hard disk is secondary."},
+{q:"Printer type?",o:["Output","Input","Storage","None"],a:0,e:"Printer output."}
+],
+[
+{q:"Computer generation?",o:["Five","Two","Ten","None"],a:0,e:"5 generations."},
+{q:"LAN means?",o:["Local Area Network","Large Area Net","None","Line Area"],a:0,e:"LAN local network."},
+{q:"Internet is?",o:["Network","Device","Software","None"],a:0,e:"Internet is network."}
+],
+[
+{q:"Virus is?",o:["Malicious software","Hardware","Program","None"],a:0,e:"Virus harmful software."},
+{q:"Antivirus?",o:["Protects computer","Deletes data","None","Virus"],a:0,e:"Protects system."},
+{q:"Firewall?",o:["Security system","Printer","None","Disk"],a:0,e:"Firewall protects network."}
+],
+[
+{q:"Data is?",o:["Raw facts","Information","None","Programs"],a:0,e:"Data raw facts."},
+{q:"Information is?",o:["Processed data","Raw","None","Code"],a:0,e:"Information processed."},
+{q:"Storage unit?",o:["GB","Meter","Liter","None"],a:0,e:"GB is storage."}
+],
+[
+{q:"Computer advantage?",o:["Speed","Slow","None","Heavy"],a:0,e:"Computer fast."},
+{q:"Disadvantage?",o:["No intelligence","Speed","None","Memory"],a:0,e:"No intelligence."},
+{q:"Future of computers?",o:["AI","None","Stop","Slow"],a:0,e:"Future AI."}
+]
+];
+
+let quizIndex=0, qIndex=0, answers=[];
+
+function showQuiz(i){
+quizIndex=i; qIndex=0; answers=[];
+document.querySelectorAll("#quizList li").forEach(li=>li.classList.remove("active"));
+document.querySelectorAll("#quizList li")[i].classList.add("active");
+loadQ();
+}
+
+function loadQ(){
+const q=quizzes[quizIndex][qIndex];
+let html=`<div class="progress"><div class="progress-bar" style="width:${((qIndex+1)/3)*100}%"></div></div>`;
+html+=`<h3>Question ${qIndex+1}</h3><h4>${q.q}</h4>`;
+q.o.forEach((opt,i)=>html+=`<label class="option"><input type="radio" name="o" value="${i}"> ${opt}</label>`);
+html+=`<button class="btn" onclick="nextQ()">${qIndex==2?'Finish':'Next'}</button>`;
+document.getElementById("quizContent").innerHTML=html;
+}
+
+function nextQ(){
+const sel=document.querySelector('input[name="o"]:checked');
+if(!sel){alert("Choose answer");return;}
+answers[qIndex]=+sel.value;
+if(qIndex<2){qIndex++;loadQ();}else showResult();
+}
+
+function showResult(){
+let score=0;
+quizzes[quizIndex].forEach((q,i)=>{if(answers[i]==q.a)score++;});
+document.getElementById("quizContent").innerHTML=`
+<h2>Quiz Completed</h2>
+<h3>Score: ${score} / 3</h3>
+<button class="btn" onclick="review()">Review</button>
+<button class="btn" onclick="showQuiz(${quizIndex})">Retake</button>`;
+}
+function goToLevels(){ window.location.href="level1-quizzes.html"; }
+function review(){
+let html="<h2>Review</h2>";
+quizzes[quizIndex].forEach((q,i)=>{
+html+=`<h4>${q.q}</h4>`;
+q.o.forEach((opt,j)=>{
+let c="";
+if(j==q.a)c="correct";
+if(answers[i]==j && j!=q.a)c="wrong";
+html+=`<div class="${c}">${opt}</div>`;
+});
+html+=`<p><i>${q.e}</i></p><hr>`;
+});
+document.getElementById("quizContent").innerHTML=html;
+}
+
+showQuiz(0);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/iu-logo.png" />
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+           background: url('images/img.jpg') center/cover no-repeat;
+            filter: blur(3px);
+            transform: scale(1.1);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background: rgba(56, 189, 248, 0.04);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #1e293b;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: #000000;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: none;
+            outline: none;
+            background: rgba(0, 0, 0, 0.34);
+            color: #e5e7eb;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: none;
+            height: 90px;
+        }
+
+        input[type="file"] {
+            padding: 8px;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+        }
+
+        .save {
+            background: #22c55e;
+            color: #020617;
+        }
+
+        .cancel {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        @media(max-width:600px) {
+            .skills {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .profile-img-container {
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Edit-Profile</h2>
+
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="name">
+        </div>
+
+        <div class="form-group">
+            <label>status</label>
+            <input type="text" id="role">
+        </div>
+
+        <div class="form-group">
+            <label>BIO</label>
+            <textarea id="bio"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email">
+        </div>
+
+        <div class="form-group">
+            <label>Phone</label>
+            <input type="text" id="phone">
+        </div>
+
+        <div class="form-group">
+            <label>City</label>
+            <input type="text" id="city">
+        </div>
+
+        <div class="form-group">
+            <label>ID</label>
+            <input type="text" id="ID">
+        </div>
+
+        <div class="form-group">
+            <label>الصورة الشخصية</label>
+            <div class="profile-img-container">
+                <img id="preview-img" src="../images/Hema.jpeg" alt="Profile Image" class="profile-img">
+                <input type="file" id="image" accept="image/*" style="margin-top:10px;">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>SKILLS (%)</label>
+            <div class="skills">
+                <input type="number" placeholder="HTML">
+                <input type="number" placeholder="CSS">
+                <input type="number" placeholder="JavaScript">
+                <input type="number" placeholder="C#">
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="save" onclick="saveProfile()">حفظ التعديلات</button>
+            <button class="cancel" onclick="cancelEdit()">إلغاء</button>
+        </div>
+    </div>
+
+    <script>
+        const uploadInput = document.getElementById("image");
+        const previewImg = document.getElementById("preview-img");
+
+        // تحميل البيانات عند فتح الصفحة
+        window.addEventListener("DOMContentLoaded", function () {
+            const data = JSON.parse(localStorage.getItem("profileData"));
+            if (data) {
+                document.getElementById("name").value = data.name || "";
+                document.getElementById("role").value = data.role || "";
+                document.getElementById("bio").value = data.bio || "";
+                document.getElementById("email").value = data.email || "";
+                document.getElementById("phone").value = data.phone || "";
+                document.getElementById("city").value = data.city || "";
+                document.getElementById("ID").value = data.ID || "";
+
+                const skills = document.querySelectorAll('.skills input');
+                skills[0].value = data.skills.html || 0;
+                skills[1].value = data.skills.css || 0;
+                skills[2].value = data.skills.js || 0;
+                skills[3].value = data.skills.csharp || 0;
+
+                if (data.imageUrl) {
+                    previewImg.src = data.imageUrl;
+                }
+            }
+        });
+
+        // عرض الصورة فور رفعها
+        uploadInput.addEventListener("change", function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function () {
+                    previewImg.src = reader.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function saveProfile() {
+            const oldData = JSON.parse(localStorage.getItem("profileData")) || {};
+            const profileData = {
+                name: document.getElementById("name").value,
+                role: document.getElementById("role").value,
+                bio: document.getElementById("bio").value,
+                email: document.getElementById("email").value,
+                phone: document.getElementById("phone").value,
+                city: document.getElementById("city").value,
+                ID: document.getElementById("ID").value,
+                imageUrl: previewImg.src,
+        interests: oldData.interests || [],
+                skills: {
+                    html: document.querySelectorAll('.skills input')[0].value,
+                    css: document.querySelectorAll('.skills input')[1].value,
+                    js: document.querySelectorAll('.skills input')[2].value,
+                    csharp: document.querySelectorAll('.skills input')[3].value
+                }
+            };
+
+            localStorage.setItem("profileData", JSON.stringify(profileData));
+            alert("تم حفظ التعديلات بنجاح");
+            window.location.href = "profile.html";
+        }
+
+        function cancelEdit() {
+            window.history.back();
+        }
+    </script>
+
+</body>
+
+</html>
