@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attendance Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+
+body{
+  background: radial-gradient(circle at top,#0f172a,#020617);
+  color:#fff;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  padding:40px 0;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url('../images/img.jpg') center/cover no-repeat;
+  filter:blur(6px) brightness(0.6);
+  transform:scale(1.1);
+  z-index:-1;
+}
+
+.container{width:1000px;max-width:95%}
+
+/* Header */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.title{
+  font-size:26px;
+  font-weight:700;
+  background:linear-gradient(90deg,#ffffff,#020617);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* Search */
+.search{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(14px);
+  padding:15px;
+  border-radius:14px;
+  display:flex;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.search input{
+  flex:1;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:#020617;
+  color:#fff;
+}
+
+.search button{
+  padding:12px 22px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(90deg,#ffffff,#020617);
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.search button:hover{transform:scale(1.05)}
+
+.message{
+  margin-bottom:10px;
+  font-size:14px;
+  color:#ffffff;
+  display:none;
+}
+
+/* Card */
+.card{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(18px);
+  border-radius:18px;
+  padding:25px;
+  display:none;
+  animation:fade .4s ease;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(15px)}
+  to{opacity:1}
+}
+
+/* Top */
+.top{
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:20px;
+}
+
+.name{font-size:22px;font-weight:700}
+.level{opacity:.7;margin-top:5px}
+
+/* Stats */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin:20px 0;
+}
+
+.stat{
+  background:#020617;
+  padding:14px;
+  border-radius:12px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.stat b{font-size:18px;display:block;margin-top:6px}
+
+/* Badges / Icons */
+.stat .icon{
+  font-size:20px;
+  margin-bottom:5px;
+}
+
+/* Warning */
+.warning{
+  display:none;
+  padding:12px;
+  border-radius:10px;
+  background:rgba(239,68,68,.1);
+  color:#ef4444;
+  margin-bottom:15px;
+  font-size:14px;
+  font-weight:600;
+  animation:shake 0.5s infinite alternate;
+}
+
+@keyframes shake{
+  from{transform:translateX(-2px)}
+  to{transform:translateX(2px)}
+}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin-top:10px}
+
+th,td{padding:12px;text-align:center}
+
+th{background:#020617}
+
+tr:nth-child(even){background:rgba(255,255,255,.03)}
+
+tr.present-row{background:rgba(34,197,94,.1)}
+tr.absent-row{background:rgba(239,68,68,.1)}
+
+tr:hover{background:rgba(255,255,255,0.1);cursor:pointer;}
+
+.badge{
+  padding:4px 10px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:600;
+}
+
+.present{background:rgba(34,197,94,.15);color:#22c55e}
+.absent{background:rgba(239,68,68,.15);color:#ef4444}
+
+/* Footer */
+.footer{
+  display:flex;
+  justify-content:space-between;
+  margin-top:15px;
+  opacity:.7;
+  font-size:13px;
+}
+
+/* Filters */
+.filters{
+  display:flex;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.filters select{
+  padding:8px;
+  border-radius:8px;
+  border:none;
+  background:#020617;
+  color:#fff;
+}
+
+/* Timeline / Recent Activities */
+.timeline{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(14px);
+  border-radius:12px;
+  padding:12px;
+  margin-top:15px;
+}
+
+.timeline h4{
+  font-size:16px;
+  margin-bottom:8px;
+}
+
+.timeline ul{
+  list-style:none;
+}
+
+.timeline li{
+  padding:6px;
+  display:flex;
+  justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.timeline li:last-child{border-bottom:none;}
+
+@media(max-width:700px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="title">Student Attendance Dashboard</div>
+  </div>
+
+  <!-- Search -->
+  <div class="search">
+<div class="back-btn" onclick="goBack()">← Back</div>
+    <input id="id" placeholder="Enter University ID">
+    <button onclick="loadStudent()">Search</button>
+    <button onclick="resetCard()">Reset</button>
+    <button onclick="window.print()">Print Report 🖨️</button>
+  </div>
+
+  <div class="message" id="msg">Student not found!</div>
+
+
+  <!-- Card -->
+  <div class="card" id="card">
+
+    <div class="top">
+      <div>
+        <div class="name" id="name">—</div>
+        <div class="level" id="level">—</div>
+      </div>
+    </div>
+
+    <!-- Stats with Icons -->
+    <div class="stats">
+      <div class="stat"><span class="icon">📚</span>Lectures<b id="lec">0</b></div>
+      <div class="stat"><span class="icon">📝</span>Sections<b id="sec">0</b></div>
+      <div class="stat"><span class="icon">❌</span>Absent<b id="abs">0</b></div>
+      <div class="stat"><span class="icon">🎯</span>Attendance<b id="per">0%</b></div>
+    </div>
+
+    <div class="warning" id="warn">
+      ⚠ Attendance below 75% — You may be at risk
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <select id="filterType" onchange="applyFilter()">
+        <option value="all">All Types</option>
+        <option value="Lecture">Lecture</option>
+        <option value="Section">Section</option>
+      </select>
+      <select id="filterStatus" onchange="applyFilter()">
+        <option value="all">All Status</option>
+        <option value="Present">Present</option>
+        <option value="Absent">Absent</option>
+      </select>
+    </div>
+
+    <!-- Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+
+    <!-- Timeline / Recent Activities -->
+    <div class="timeline" id="timeline">
+      <h4>Recent Activities</h4>
+      <ul id="recentList"></ul>
+    </div>
+
+    <div class="footer">
+      <div>Total Classes: <span id="total">0</span></div>
+      <div>Last Update: Today</div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+/* Demo Students Data */
+const students={
+  "25030087": {
+    name:"Shahd Alaa",
+    level:"Level 2 - Information Systems",
+    lectures:20,
+    sections:18,
+    absent:5,
+    percent:82,
+    records:[
+      {d:"1 May",t:"Lecture",s:1},
+      {d:"3 May",t:"Section",s:1},
+      {d:"5 May",t:"Lecture",s:0},
+      {d:"7 May",t:"Section",s:1},
+      {d:"9 May",t:"Lecture",s:1},
+      {d:"11 May",t:"Section",s:1},
+    ]
+  },
+  "25030410": {
+    name:"Ibrahim lotfi",
+    level:"Level 3 - Computer Science",
+    lectures:15,
+    sections:12,
+    absent:7,
+    percent:90,
+    records:[
+      {d:"1 May",t:"Lecture",s:0},
+      {d:"2 May",t:"Lecture",s:1},
+      {d:"4 May",t:"Section",s:0},
+      {d:"6 May",t:"Lecture",s:1},
+      {d:"8 May",t:"Section",s:1},
+      {d:"9 May",t:"Lecture",s:1},
+      {d:"11 May",t:"Section",s:1},
+    ]
+ },
+
+  "25030418": {
+    name:"Adham Mohamed",
+    level:"Level 1 - Computer Science",
+    lectures:15,
+    sections:12,
+    absent:2,
+    percent:75,
+    records:[
+      {d:"2 May",t:"Lecture",s:1},
+      {d:"4 May",t:"Section",s:0},
+      {d:"6 May",t:"Lecture",s:0},
+      {d:"8 May",t:"Section",s:1},
+      {d:"9 May",t:"Lecture",s:1},
+      {d:"11 May",t:"Section",s:1},
+    ]
+  }
+}
+
+function loadStudent(){
+  const id=document.getElementById("id").value.trim();
+  const msg=document.getElementById("msg");
+  if(!id) return;
+  
+  if(!students[id]){
+    msg.style.display="block";
+    document.getElementById("card").style.display="none";
+    return;
+  } else msg.style.display="none";
+
+  const data=students[id];
+  const card=document.getElementById("card");
+  card.style.display="block";
+
+  document.getElementById("name").innerText=data.name;
+  document.getElementById("level").innerText=data.level;
+  document.getElementById("lec").innerText=data.lectures;
+  document.getElementById("sec").innerText=data.sections;
+  document.getElementById("abs").innerText=data.absent;
+  document.getElementById("per").innerText=data.percent+"%";
+  document.getElementById("total").innerText=data.records.length;
+
+  // Warning
+  document.getElementById("warn").style.display=data.percent<75?"block":"none";
+
+  // Table
+  populateTable(data.records);
+
+  // Timeline
+  populateTimeline(data.records);
+}
+
+// Populate table with optional filters
+function populateTable(records){
+  const tbody=document.getElementById("tbody");
+  tbody.innerHTML="";
+  const typeFilter=document.getElementById("filterType").value;
+  const statusFilter=document.getElementById("filterStatus").value;
+
+  records.forEach(r=>{
+    const status=r.s?"Present":"Absent";
+    if((typeFilter!=="all" && r.t!==typeFilter) || (statusFilter!=="all" && status!==statusFilter)) return;
+
+    const tr=document.createElement("tr");
+    tr.className=r.s?"present-row":"absent-row";
+    tr.innerHTML=`<td>${r.d}</td><td>${r.t}</td><td><span class="badge ${r.s?'present':'absent'}">${status}</span></td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// Populate Timeline (last 5 records)
+function populateTimeline(records){
+  const recentList=document.getElementById("recentList");
+  recentList.innerHTML="";
+  records.slice(-5).reverse().forEach(r=>{
+    const li=document.createElement("li");
+    li.innerHTML=`<span>${r.d} - ${r.t}</span><span class="badge ${r.s?'present':'absent'}">${r.s?'Present':'Absent'}</span>`;
+    recentList.appendChild(li);
+  });
+}
+
+function applyFilter(){
+  const id=document.getElementById("id").value.trim();
+  if(!id || !students[id]) return;
+  populateTable(students[id].records);
+}
+
+function resetCard(){
+  document.getElementById("id").value="";
+  document.getElementById("card").style.display="none";
+  document.getElementById("msg").style.display="none";
+}
+function goBack(){
+  window.location.href="iu.html";   // غيريها لو عايزة
+}
+</script>
+</body>
+</html>

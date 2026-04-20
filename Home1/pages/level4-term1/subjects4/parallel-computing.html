@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parallel Computing</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: rgba(143, 143, 143, 0.33);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: url('../../../images/img.jpg') center / cover no-repeat;
+            filter: blur(3px);
+            transform: scale(1.1);
+            z-index: -1;
+        }
+
+        header {
+            padding: 18px 60px;
+            background: rgba(0, 26, 85, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            color: white;
+            margin: 0;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: rgba(206, 206, 206, 0.23);
+            border-radius: 15px;
+            padding: 12px;
+            box-shadow: 0 4px 15px rgb(0, 26, 85);
+        }
+
+        .sidebar h3 {
+            text-align: center;
+            color: rgba(13, 42, 107, 0.85);
+            margin-top: 0;
+        }
+
+        .lecture-item {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: rgba(7, 36, 102, 0.9);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .lecture-item:hover {
+            background: #002e94;
+            transform: scale(1.03);
+        }
+
+        /* Content */
+        .content {
+            background: rgba(215, 215, 215, 0.48);
+            border-radius: 15px;
+            padding: 30px;
+            min-height: 350px;
+            box-shadow: 0 0px 16px rgba(0, 33, 107, 0.85);
+        }
+
+        .placeholder {
+            text-align: center;
+            color: #555;
+            font-size: 18px;
+            margin-top: 120px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>Innovation University</h2>
+    <nav>
+           <a href="./quizzes4/parallel-computing-quiz.html">Quiz</a>
+           <a href="../level4-term1-pdf.html">Courses</a>
+           <a href="../level4-term1-video.html">Videos</a>
+           <a href="../../iu.html">Home</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>Parallel Computing (8 Lectures)</h3>
+
+        <div class="lecture-item" onclick="showLecture(0)">Lecture 1 – Introduction to Parallel Computing</div>
+        <div class="lecture-item" onclick="showLecture(1)">Lecture 2 – Parallel Architectures</div>
+        <div class="lecture-item" onclick="showLecture(2)">Lecture 3 – Shared vs Distributed Memory</div>
+        <div class="lecture-item" onclick="showLecture(3)">Lecture 4 – Multithreading Concepts</div>
+        <div class="lecture-item" onclick="showLecture(4)">Lecture 5 – Parallel Algorithms</div>
+        <div class="lecture-item" onclick="showLecture(5)">Lecture 6 – Performance Metrics</div>
+        <div class="lecture-item" onclick="showLecture(6)">Lecture 7 – Synchronization Techniques</div>
+        <div class="lecture-item" onclick="showLecture(7)">Lecture 8 – Applications of Parallel Computing</div>
+    </div>
+
+    <!-- Content -->
+    <div class="content" id="content">
+        <div class="placeholder">
+            ⚙️ Select a lecture from the left to view its content
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const lectures = [
+        {
+            title: "Lecture 1: Introduction to Parallel Computing",
+            content: "Parallel computing allows multiple tasks to be processed simultaneously."
+        },
+        {
+            title: "Lecture 2: Parallel Architectures",
+            content: "Parallel architectures include multicore processors and clusters."
+        },
+        {
+            title: "Lecture 3: Shared vs Distributed Memory",
+            content: "Memory models define how processors access and share data."
+        },
+        {
+            title: "Lecture 4: Multithreading Concepts",
+            content: "Multithreading improves performance by executing threads concurrently."
+        },
+        {
+            title: "Lecture 5: Parallel Algorithms",
+            content: "Parallel algorithms divide problems into smaller concurrent tasks."
+        },
+        {
+            title: "Lecture 6: Performance Metrics",
+            content: "Speedup, efficiency, and scalability measure parallel performance."
+        },
+        {
+            title: "Lecture 7: Synchronization Techniques",
+            content: "Synchronization ensures correct execution among parallel processes."
+        },
+        {
+            title: "Lecture 8: Applications of Parallel Computing",
+            content: "Used in AI, scientific simulations, graphics, and big data."
+        }
+    ];
+
+    function showLecture(index) {
+        const content = document.getElementById("content");
+        content.innerHTML = `
+            <h1>${lectures[index].title}</h1>
+            <p>${lectures[index].content}</p>
+        `;
+    }
+</script>
+
+</body>
+</html>

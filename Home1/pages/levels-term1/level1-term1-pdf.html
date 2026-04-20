@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Courses</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0; 
+            font-family: 'Inter', sans-serif;
+            background: rgba(143, 143, 143, 0.33);
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: url('../../images/img.jpg') center / cover no-repeat;
+            filter: blur(3px);
+            transform: scale(1.1);
+            z-index: -1;
+        }
+        header {
+            padding: 18px 60px;
+            background: rgb(0, 43, 91);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.5);
+        }
+        header h2 {
+            color: white;
+            margin: 0;
+        }
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+  h1 {
+      font-size: 40px;
+      color: #0a3d62;
+      margin-bottom: 25px;
+      text-shadow: 0 0 9px #ffffff;
+      font-weight: 836;
+     text-align: center;
+    }
+h2 {
+    font-size: 27px;
+    color: #ffffff;
+    margin-bottom: 17px;
+    text-shadow: 0 0 9px #ffffff;
+    font-weight: 600;
+    text-align: center;
+}
+h4 {
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 17px;
+    text-shadow: 0 0 9px #ffffff;
+    font-weight: 600;
+    text-align: center;
+}
+        .courses {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        /* ======= FLOATING CARDS STYLE ======= */
+        .card {
+            background: rgba(215, 215, 215, 0.15); /* شفاف */
+            backdrop-filter: blur(10px); /* لتأثير الزجاج */
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 2px 21px #002e94;
+            text-align: center;
+            height: 158px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 46, 148, 0.9);
+            background: rgba(183, 183, 183, 0.2);
+        }
+        .card h3 {
+            color: rgb(0, 43, 91);
+            margin-bottom: 6px;
+            font-size: 24px;
+        }
+        .card p {
+            color: #000;
+            font-size: 14px;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .card button {
+            background: rgb(0, 43, 91);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 2px 30px #00346f;
+        }
+        .card button:hover {
+            background: #001f5b;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 900px) {
+            .courses {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .courses {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h2>Innovation University</h2>
+    <nav>
+<h4>
+       
+        <a href="level1-term1-video.html">Videos</a>
+        <a href="./level1-quizzes.html">Quizzes</a>
+        <a href="../select-level.html">Levels</a>
+         <a href="../iu.html">Home</a>
+</h4>
+    </nav>
+</header>
+<div class="container">
+   <h1>Welcome to the Academic PDF Library!</h1>
+ <h3 class="text">Start your learning journey now. You can return to the courses list anytime. </h3>
+    <div class="courses">
+
+        <div class="card">
+            <h3>Programming</h3>
+            <p>Learn basics of programming using C#.</p>
+            <button onclick="openProgramming()">View Course</button>
+        </div>
+
+        <div class="card">
+            <h3>Math1</h3>
+            <p>Equations, algebra and calculus.</p>
+            <button onclick="openMath1()">View Course</button>
+        </div>
+
+        <div class="card">
+            <h3>Physics</h3>
+            <p>Motion, energy and physical laws.</p>
+            <button onclick="openPhysics()">View Course</button>
+        </div>
+
+        <div class="card">
+            <h3>English</h3>
+            <p>Listening, reading and communication skills.</p>
+            <button onclick="openEnglish()">View Course</button>
+        </div>
+
+        <div class="card">
+            <h3>Computer</h3>
+            <p>Computer basics and digital skills.</p>
+            <button onclick="openComputer()">View Course</button>
+        </div>
+
+        <div class="card">
+            <h3>Math0</h3>
+            <p>Basic algebra and calculus foundations.</p>
+            <button onclick="openMath0()">View Course</button>
+        </div>
+
+        <div class="card">
+            <h3>Entrepreneurship &amp; Innovation</h3>
+            <p>Turning ideas into real businesses.</p>
+            <button onclick="openEntrepreneurship()">View Course</button>
+        </div>
+
+        <div class="card">
+            <h3>Human Rights</h3>
+            <p>Protecting dignity, freedom and equality.</p>
+            <button onclick="openHumanRights()">View Course</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function openProgramming() { window.location.href = "subjects/Introduction-to-programing-pdf.html"; }
+    function openMath1() { window.location.href = "subjects/math1-pdf.html"; }
+    function openPhysics() { window.location.href = "subjects/physics-pdf.html"; }
+    function openEnglish() { window.location.href = "subjects/english-pdf.html"; }
+    function openComputer() { window.location.href = "subjects/intro-computers-pdf.html"; }
+    function openMath0() { window.location.href = "subjects/math0.html"; }
+    function openEntrepreneurship() { window.location.href = "subjects/entrepreneurship.html"; }
+    function openHumanRights() { window.location.href = "subjects/human-rights-pdf.html"; }
+</script>
+
+</body>
+</html>

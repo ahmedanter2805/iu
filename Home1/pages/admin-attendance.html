@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Attendance Dashboard</title>
+  <link rel="icon" type="image/png" href="../images/iu-logo.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #020617;
+      --card: rgba(255, 255, 255, .05);
+      --text: #fff;
+      --green: #22c55e;
+      --red: #ef4444;
+      --blue: #3b82f6;
+    }
+
+    .light {
+      --bg: #f1f5f9;
+      --card: #fff;
+      --text: #020617;
+      --green: #16a34a;
+      --red: #dc2626;
+      --blue: #2563eb;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Inter
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      padding: 25px;
+      transition: .3s;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: url('../images/img.jpg') center/cover no-repeat;
+      filter: blur(6px) brightness(0.6);
+      transform: scale(1.1);
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 700
+    }
+
+    .toggle {
+      cursor: pointer;
+      background: var(--blue);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 15px 0
+    }
+
+    .stat {
+      background: var(--card);
+      padding: 12px;
+      border-radius: 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: .3s
+    }
+
+    .stat:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+
+    .stat b {
+      font-size: 18px;
+      margin-top: 6px
+    }
+
+    .stat .icon {
+      font-size: 22px;
+      margin-bottom: 4px
+    }
+
+    .card {
+      background: var(--card);
+      padding: 15px;
+      border-radius: 14px;
+      overflow-x: auto;
+      transition: .3s
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap
+    }
+
+    .controls input,
+    .controls select {
+      padding: 8px;
+      border-radius: 8px;
+      border: none
+    }
+
+    button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: .2s
+    }
+
+    .presentBtn {
+      background: var(--green);
+      color: #fff
+    }
+
+    .absentBtn {
+      background: var(--red);
+      color: #fff
+    }
+
+    .deleteBtn {
+      background: var(--red);
+      color: #fff
+    }
+
+    .editBtn {
+      background: #f59e0b;
+      color: #fff
+    }
+
+    .pdfBtn {
+      background: var(--blue);
+      color: #fff
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      min-width: 700px
+    }
+
+    th,
+    td {
+      padding: 10px;
+      text-align: center
+    }
+
+    th {
+      background: var(--bg);
+    }
+
+    tr:nth-child(even) {
+      background: rgba(255, 255, 255, .03);
+    }
+
+    tr.present-row {
+      background: rgba(34, 197, 94, .1)
+    }
+
+    tr.absent-row {
+      background: rgba(239, 68, 68, .1)
+    }
+
+    tr:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .present {
+      color: var(--green);
+      font-weight: 600
+    }
+
+    .absent {
+      color: var(--red);
+      font-weight: 600
+    }
+
+    .timeline {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 15px;
+      transition: .3s
+    }
+
+    .timeline h4 {
+      font-size: 16px;
+      margin-bottom: 8px
+    }
+
+    .timeline ul {
+      list-style: none
+    }
+
+    .timeline li {
+      padding: 6px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, .1)
+    }
+
+    .timeline li:last-child {
+      border-bottom: none;
+    }
+
+    @media (max-width: 800px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="top">
+      <div class="title">Admin Attendance Dashboard</div>
+      <div class="toggle" onclick="toggleMode()">🌙 / ☀</div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat"><span class="icon">👥</span>Students<br><b id="totalStudents">0</b></div>
+      <div class="stat"><span class="icon">✅</span>Present Today<br><b id="presentToday">0</b></div>
+      <div class="stat"><span class="icon">❌</span>Absent Today<br><b id="absentToday">0</b></div>
+      <div class="stat"><span class="icon">🎯</span>Attendance %<br><b id="percent">0%</b></div>
+    </div>
+
+    <div class="card">
+
+      <div class="controls">
+        <input id="search" placeholder="Search Student ID / Name" oninput="renderTable()">
+        <input type="date" id="date">
+        <select id="type">
+          <option>Lecture</option>
+          <option>Section</option>
+        </select>
+
+        <button class="presentBtn" onclick="mark(true)">Mark Present</button>
+        <button class="absentBtn" onclick="mark(false)">Mark Absent</button>
+        <button class="pdfBtn" onclick="exportPDF()">Export PDF</button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+
+      <!-- Timeline -->
+      <div class="timeline">
+        <h4>Recent Activities</h4>
+        <ul id="recentList"></ul>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let students = [
+      { id: "2023001", name: "Shahd Alaa" },
+      { id: "2023002", name: "Mona Ahmed" },
+      { id: "2023003", name: "Sara Mohamed" }
+    ];
+    let records = [];
+
+    function renderStats() {
+      totalStudents.innerText = students.length;
+      let p = records.filter(r => r.s).length;
+      let a = records.filter(r => !r.s).length;
+      presentToday.innerText = p;
+      absentToday.innerText = a;
+      percent.innerText = records.length ? Math.round((p / records.length) * 100) + "%" : "0%";
+    }
+
+    function renderTable() {
+      tbody.innerHTML = "";
+      let q = search.value.toLowerCase();
+      records.filter(r => r.id.includes(q) || r.name.toLowerCase().includes(q))
+        .forEach((r, i) => {
+          tbody.innerHTML += `
+   <tr class="${r.s ? 'present-row' : 'absent-row'}">
+    <td>${r.id}</td>
+    <td>${r.name}</td>
+    <td>${r.date}</td>
+    <td>${r.type}</td>
+    <td class="${r.s ? 'present' : 'absent'}">${r.s ? 'Present' : 'Absent'}</td>
+    <td>
+      <button class="editBtn" onclick="toggleStatus(${i})">Edit</button>
+      <button class="deleteBtn" onclick="del(${i})">Delete</button>
+    </td>
+   </tr>
+  `;
+        });
+      renderStats();
+      renderTimeline();
+    }
+
+    function mark(present) {
+      let id = search.value.trim();
+      if (!id) return;
+      let student = students.find(s => s.id == id || s.name.toLowerCase() == id.toLowerCase());
+      if (!student) return alert("Student not found");
+      records.push({
+        id: student.id,
+        name: student.name,
+        date: date.value || "Today",
+        type: type.value,
+        s: present
+      });
+      renderTable();
+    }
+
+    function toggleStatus(i) {
+      records[i].s = !records[i].s;
+      renderTable();
+    }
+
+    function del(i) {
+      if (!confirm("Are you sure you want to delete this record?")) return;
+      records.splice(i, 1);
+      renderTable();
+    }
+
+    function toggleMode() {
+      document.body.classList.toggle("light");
+    }
+
+    function exportPDF() {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF();
+      pdf.setFontSize(16);
+      pdf.text("Attendance Report", 20, 20);
+      records.forEach((r, i) => {
+        pdf.text(`${r.id} - ${r.name} - ${r.date} - ${r.type} - ${r.s ? 'Present' : 'Absent'}`, 20, 30 + (i * 8));
+      });
+      pdf.save("attendance-report.pdf");
+    }
+
+    function renderTimeline() {
+      let recentList = document.getElementById("recentList");
+      recentList.innerHTML = "";
+      records.slice(-5).reverse().forEach(r => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span>${r.date} - ${r.name} - ${r.type}</span><span class="${r.s ? 'present' : 'absent'}">${r.s ? 'Present' : 'Absent'}</span>`;
+        recentList.appendChild(li);
+      });
+    }
+
+    renderTable();
+  </script>
+</body>
+
+</html>

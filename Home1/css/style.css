@@ -1,0 +1,251 @@
+/* Global Design System - Innovation University */
+
+:root {
+    /* Primary Colors - Premium Navy & Gold */
+    --primary: #002b5b;
+    --primary-light: #004a9c;
+    --accent: #FFD700;
+    --accent-glow: rgba(255, 215, 0, 0.4);
+    
+    /* Neutral Colors */
+    --bg-dark: #0f172a;
+    --text-light: #f8fafc;
+    --text-muted: #cbd5e1;
+    
+    /* Glassmorphism Defaults */
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --glass-blur: blur(12px);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    
+    /* Transitions */
+    --transition: all 0.3s ease;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Cairo', sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+/* Global Background Logic */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url('../images/img.jpg') center/cover no-repeat;
+    filter: blur(4px); /* Reduced blur for crisper look */
+    transform: scale(1.05); /* Adjusted scale */
+    z-index: -1;
+    opacity: 0.7; /* Increased opacity for better impact */
+}
+
+/* Glassmorphism Card Utility */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: var(--glass-shadow);
+    transition: var(--transition);
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--accent);
+}
+
+/* Premium Buttons */
+.btn-premium {
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    border: 1px solid var(--primary-light);
+}
+
+.btn-primary:hover {
+    background: var(--primary-light);
+    box-shadow: 0 0 15px var(--primary-light);
+    transform: scale(1.05);
+}
+
+.btn-accent {
+    background: var(--accent);
+    color: var(--primary);
+}
+
+.btn-accent:hover {
+    box-shadow: 0 0 20px var(--accent-glow);
+    transform: scale(1.05);
+}
+
+/* Typography Enhancements */
+h1, h2, h3 {
+    font-family: 'Cairo', sans-serif;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+.text-gold {
+    color: var(--accent);
+    text-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* Navigation System Styles */
+header {
+    background: rgba(0, 43, 91, 0.85);
+    backdrop-filter: blur(10px);
+    position: fixed; /* Fixed for better UX */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: var(--transition);
+}
+
+nav a:hover {
+    color: var(--accent);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Auth / Login Styling */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.credentials-panel {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    padding: 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: var(--glass-shadow);
+}
+
+.field-wrapper {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.field-wrapper input {
+    width: 100%;
+    padding: 12px 15px 12px 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: white;
+    outline: none;
+    transition: var(--transition);
+}
+
+.field-wrapper input:focus {
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.field-wrapper i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent);
+}
+
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: var(--accent);
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.submit-button:hover {
+    box-shadow: 0 0 15px var(--accent-glow);
+    transform: scale(1.02);
+}
+
+.back-arrow {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    color: var(--accent);
+    font-size: 1.5rem;
+    z-index: 1001;
+    transition: var(--transition);
+}
+
+.back-arrow:hover {
+    transform: translateX(-5px);
+}
+
+/* Hero Section Base */
+.hero-base {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.hero-base::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    padding: 20px;
+}

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Innovation University - Home Page</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../images/iu-logo.png" />
+    
+    <!-- External Resources -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <style>
+        /* Page Specific Overrides/Extensions */
+        .hero-iu {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 10px;
+        }
+
+        /* Responsive Navbar */
+        .menu-icon {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 992px) {
+            nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--primary);
+                padding: 20px;
+                border-bottom: 1px solid var(--glass-border);
+            }
+            nav.active {
+                display: flex;
+            }
+            .menu-icon {
+                display: block;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; max-width: 1400px; margin: 0 auto;">
+            <div class="logo" style="display: flex; align-items: center; gap: 12px;">
+                <img src="../images/iu-logo.png" alt="IU Logo" style="height: 45px;">
+                <span style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">Innovation University</span>
+            </div>
+
+            <div class="menu-icon" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <nav id="navMenu">
+                <a href="#home"><i class="fas fa-house"></i> Home</a>
+                <a href="iu-details.html"><i class="fas fa-info-circle"></i> IU Details</a>
+                <a href="select-level.html"><i class="fas fa-graduation-cap"></i> Courses</a>
+                <a href="schedule.html"><i class="fas fa-calendar-days"></i> Schedule</a>
+                <a href="dashboard-STU.html"><i class="fas fa-chart-pie"></i> Dashboard</a>
+                <a href="#news"><i class="fas fa-newspaper"></i> News</a>
+                <a href="login.html" class="btn-premium btn-accent" style="margin-left: 15px; padding: 8px 18px;">Login <i class="fas fa-sign-in-alt"></i></a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-iu">
+            <div class="hero-content">
+                <h1 class="hero-title">The Future of <span class="text-gold">Education</span> Starts Here</h1>
+                <p class="hero-subtitle">Innovation University is dedicated to shaping the next generation of creative thinkers, technological pioneers, and global leaders.</p>
+                <div style="display: flex; gap: 20px; justify-content: center;">
+                    <a href="select-level.html" class="btn-premium btn-accent">Explore Courses</a>
+                    <a href="#about" class="btn-premium btn-primary">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="container" style="padding: 100px 5%; max-width: 1200px; margin: 0 auto;">
+            <div class="section-header">
+                <h2>About the University</h2>
+            </div>
+            <div class="glass-card" style="padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+                <div>
+                    <h3 class="text-gold">Shape a Brighter Future</h3>
+                    <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 20px;">
+                        Learning is the key that unlocks endless possibilities. Every step you take in education builds strength, wisdom, and confidence within you. 
+                    </p>
+                    <p style="font-size: 1.1rem; color: var(--text-muted);">
+                        At the University of Innovation, knowledge becomes creativity, and creativity becomes impact. Keep learning, keep growing, and let your ideas change the world.
+                    </p>
+                </div>
+                <div>
+                    <img src="../images/welcome.jpg" alt="University Campus" style="width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                </div>
+            </div>
+        </section>
+
+        <!-- Faculties Section -->
+        <section id="faculties" style="background: rgba(0,0,0,0.2); padding: 100px 5%;">
+            <div class="container" style="max-width: 1200px; margin: 0 auto;">
+                <div class="section-header">
+                    <h2>Our Faculties</h2>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                    <div class="glass-card" style="padding: 30px; text-align: center;">
+                        <i class="fas fa-laptop-code" style="font-size: 3rem; color: var(--accent); margin-bottom: 20px;"></i>
+                        <h3>Computers & IT</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 20px;">It is considered one of the top faculties in Egypt, especially with the global digital transformation and the increasing demand for specialists.</p>
+                        <a href="select-level.html" class="text-gold" style="text-decoration: none; font-weight: 600;">View Curriculum <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Add more faculty placeholders if needed -->
+                    <div class="glass-card" style="padding: 30px; text-align: center;">
+                        <i class="fas fa-microchip" style="font-size: 3rem; color: var(--accent); margin-bottom: 20px;"></i>
+                        <h3>AI & Robotics</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 20px;">Explore the frontiers of artificial intelligence and machine learning in our state-of-the-art laboratory environments.</p>
+                        <span class="badge" style="background: var(--primary); padding: 4px 10px; border-radius: 4px; font-size: 0.8rem;">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section id="news" class="container" style="padding: 100px 5%; max-width: 1200px; margin: 0 auto;">
+            <div class="section-header">
+                <h2>Latest News</h2>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+                <div class="glass-card" style="overflow: hidden;">
+                    <img src="../images/event.jpeg" alt="Huawei Partnership" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 25px;">
+                        <h3 style="font-size: 1.3rem;">Partnership with Huawei</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 15px;">Free courses, post-graduation employment opportunities, and support for student innovative projects.</p>
+                        <a href="#" class="btn-premium btn-primary" style="padding: 5px 15px; font-size: 0.9rem;">Watch Details</a>
+                    </div>
+                </div>
+                <div class="glass-card" style="overflow: hidden;">
+                    <img src="../images/event-image1.png" alt="ICPC Launch" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 25px;">
+                        <h3 style="font-size: 1.3rem;">ICPC Community Launch</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 15px;">Official launch of the competitive programming community featuring world-class speakers and trainers.</p>
+                        <a href="#" class="btn-premium btn-primary" style="padding: 5px 15px; font-size: 0.9rem;">Join Community</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" style="background: var(--primary); padding: 80px 5%; margin-top: 50px;">
+            <div class="container" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;">
+                <div>
+                    <h2 class="text-gold">Innovation University</h2>
+                    <p style="color: var(--text-muted);">Innovating Education, One Step at a Time.</p>
+                    <div style="display: flex; gap: 15px; margin-top: 20px;">
+                        <a href="#" class="text-light" style="font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-light" style="font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-light" style="font-size: 1.5rem;"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-gold">Quick Links</h3>
+                    <ul style="list-style: none; color: var(--text-muted);">
+                        <li><a href="iu-details.html" style="color: inherit; text-decoration: none;">About IU</a></li>
+                        <li><a href="select-level.html" style="color: inherit; text-decoration: none;">Academic Levels</a></li>
+                        <li><a href="schedule.html" style="color: inherit; text-decoration: none;">Class Schedules</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-gold">Contact Info</h3>
+                    <p style="color: var(--text-muted);"><i class="fas fa-envelope"></i> admission@innovation-university.com</p>
+                    <p style="color: var(--text-muted); font-size: 1.2rem; margin-top: 10px;"><i class="fas fa-headset"></i> Hotline: 16856</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="padding: 20px; text-align: center; background: rgba(0,0,0,0.4); font-size: 0.9rem; color: var(--text-muted);">
+        © 2026 Innovation University — All Rights Reserved. Built for Excellence.
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

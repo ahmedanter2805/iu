@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Visualization Quizzes</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --neon-blue:#00c3ff;
+  --neon-dark:#071a2f;
+}
+
+/* Global */
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  display:flex;
+  color:rgb(255, 255, 255);
+  overflow-x:hidden;
+  background: var(--neon-dark);
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url('../../../../images/img.jpg')center/cover no-repeat;
+  filter:blur(6px) brightness(0.8);
+  transform:scale(1.1);
+  z-index:-1;
+}
+
+
+/* Sidebar */
+.sidebar{
+  width:220px;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(12px);
+  border-right:1px solid rgba(255,255,255,0.1);
+  padding:20px;
+}
+.sidebar h2{text-align:center;color:#7fdcff;}
+.sidebar li{
+  margin:12px 0;
+  cursor:pointer;
+  padding:8px;
+  border-radius:8px;
+  transition:.3s;
+}
+.sidebar li:hover, .sidebar li.active{
+  background:rgba(127,220,255,0.2);
+  color:#00c3ff;
+}
+
+/* Main */
+.main{flex:1;padding:40px;}
+.quiz-card{
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(14px);
+  border-radius:18px;
+  padding:25px;
+  border:1px solid rgba(0,195,255,0.6);
+  box-shadow:0 0 10px #00c3ff55;
+  max-width:900px;
+  margin:auto;
+}
+
+/* Progress */
+.progress{
+  background:rgba(255,255,255,0.2);
+  height:10px;
+  border-radius:20px;
+  margin:15px 0;
+}
+.progress-bar{
+  height:100%;
+  background:linear-gradient(90deg,#00c3ff,#008cff);
+  border-radius:20px;
+}
+
+/* Options */
+.option{
+  display:block;
+  border:1px solid rgba(255,255,255,0.3);
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:10px;
+  cursor:pointer;
+  transition:.3s;
+}
+.option:hover{
+  background:rgba(0,195,255,0.12);
+  border-color:#00c3ff;
+}
+
+/* Buttons */
+.btn{
+  background:#00c3ff;
+  border:none;
+  padding:10px 20px;
+  border-radius:25px;
+  cursor:pointer;
+  font-weight:600;
+  margin-top:10px;
+}
+    .back-btn-fixed{
+  position:fixed;
+  top:15px;
+  right:15px;
+  padding:8px 18px;
+  border-radius:50px;
+  background:rgba(0,0,0,0.5);
+  backdrop-filter:blur(6px);
+  color:#7fdcff;
+  border:1px solid rgba(255,255,255,0.2);
+  cursor:pointer;
+  z-index:1000;
+  transition:0.3s;
+}
+.btn:hover{background:#00e0ff;}
+
+.correct{background:#d4edda;color:green;padding:6px;border-radius:6px;}
+.wrong{background:#f8d7da;color:red;padding:6px;border-radius:6px;}
+    .back-btn-fixed{
+  position:fixed;
+  top:15px;
+  right:15px;
+  padding:8px 18px;
+  border-radius:50px;
+  background:rgba(0,0,0,0.5);
+  backdrop-filter:blur(6px);
+  color:#7fdcff;
+  border:1px solid rgba(255,255,255,0.2);
+  cursor:pointer;
+  z-index:1000;
+  transition:0.3s;
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h2>Data Visualization</h2>
+  <ul id="quizList">
+    <li class="active" onclick="showQuiz(0)">Quiz 1</li>
+    <li onclick="showQuiz(1)">Quiz 2</li>
+    <li onclick="showQuiz(2)">Quiz 3</li>
+    <li onclick="showQuiz(3)">Quiz 4</li>
+    <li onclick="showQuiz(4)">Quiz 5</li>
+    <li onclick="showQuiz(5)">Quiz 6</li>
+    <li onclick="showQuiz(6)">Quiz 7</li>
+    <li onclick="showQuiz(7)">Quiz 8</li>
+    <li onclick="showQuiz(8)">Quiz 9</li>
+    <li onclick="showQuiz(9)">Quiz 10</li>
+  </ul>
+</div>
+<div class="back-btn-fixed" onclick="goToLevels()">🏠 Back </div>
+
+<div class="main">
+  <h1 id="quizTitle">Quiz 1</h1>
+  <div class="quiz-card" id="quizContent"></div>
+</div>
+
+<script>
+/* ===== 10 QUIZZES ===== */
+const quizzes = [
+[
+{q:"What is Data Visualization?",o:["Coding","Visual representation of data","Deleting data","Typing"],a:1,e:"It means showing data visually."},
+{q:"Best chart for categories?",o:["Line","Bar","Pie","Scatter"],a:1,e:"Bar chart compares categories."},
+{q:"Trend over time?",o:["Pie","Line","Bar","Histogram"],a:1,e:"Line shows trend over time."}
+],
+[
+{q:"Pie chart shows?",o:["Whole parts","Trend","Random","Nothing"],a:0,e:"Pie shows parts of whole."},
+{q:"Scatter plot shows?",o:["Relation between variables","Trend","Categories","Text"],a:0,e:"Scatter shows relationship."},
+{q:"Histogram used for?",o:["Distribution","Trend","Text","Tables"],a:0,e:"Histogram shows distribution."}
+],
+[
+{q:"Tool for visualization?",o:["Excel","Word","Paint","Notepad"],a:0,e:"Excel creates charts."},
+{q:"Color helps in?",o:["Highlight info","Delete data","Crash","None"],a:0,e:"Colors improve understanding."},
+{q:"Legend means?",o:["Chart key","Error","Delete","None"],a:0,e:"Legend explains colors."}
+],
+[
+{q:"Dashboard means?",o:["Multiple charts","Text only","No data","None"],a:0,e:"Dashboard shows many visuals."},
+{q:"Data label?",o:["Value on chart","Code","Error","None"],a:0,e:"Shows value."},
+{q:"Axis used for?",o:["Measure values","Delete","Crash","None"],a:0,e:"Axis measures data."}
+],
+[
+{q:"Visualization goal?",o:["Understand data","Delete","Break","None"],a:0,e:"To understand data easily."},
+{q:"Best for proportions?",o:["Pie","Bar","Line","Scatter"],a:0,e:"Pie shows proportions."},
+{q:"Heatmap shows?",o:["Density","Trend","Text","None"],a:0,e:"Heatmap shows intensity."}
+],
+[
+{q:"Line chart best for?",o:["Time data","Categories","Text","None"],a:0,e:"Line for time."},
+{q:"Bar chart axis?",o:["X,Y","Z","None","Random"],a:0,e:"Bar uses X and Y."},
+{q:"Visualization improves?",o:["Decision making","Delete","Crash","None"],a:0,e:"Helps decisions."}
+],
+[
+{q:"Chart title?",o:["Explain chart","Delete","Crash","None"],a:0,e:"Title explains chart."},
+{q:"Data source?",o:["Origin of data","Delete","Crash","None"],a:0,e:"Source of data."},
+{q:"Gridlines help?",o:["Read values","Delete","Crash","None"],a:0,e:"Helps reading."}
+],
+[
+{q:"Visual clarity?",o:["Easy understanding","Delete","Crash","None"],a:0,e:"Clear visuals better."},
+{q:"Best dashboard tool?",o:["Power BI","Paint","Word","None"],a:0,e:"Power BI used."},
+{q:"Interactive chart?",o:["User can explore","Delete","Crash","None"],a:0,e:"Interactive charts dynamic."}
+],
+[
+{q:"Big data visualization?",o:["Large datasets","Delete","Crash","None"],a:0,e:"Big data means large sets."},
+{q:"Data storytelling?",o:["Explain with visuals","Delete","Crash","None"],a:0,e:"Telling story using data."},
+{q:"Chart type choice depends on?",o:["Data type","Random","None","Delete"],a:0,e:"Depends on data."}
+],
+[
+{q:"Final goal of visualization?",o:["Insight","Delete","Crash","None"],a:0,e:"Get insights."},
+{q:"Good visualization?",o:["Clear & simple","Complex","Messy","None"],a:0,e:"Clarity best."},
+{q:"Visualization improves learning?",o:["Yes","No","Maybe","None"],a:0,e:"Yes improves understanding."}
+]
+];
+
+let quizIndex=0, qIndex=0, answers=[];
+
+function showQuiz(i){
+quizIndex=i; qIndex=0; answers=[];
+document.querySelectorAll("#quizList li").forEach(li=>li.classList.remove("active"));
+document.querySelectorAll("#quizList li")[i].classList.add("active");
+loadQ();
+}
+
+function loadQ(){
+const q=quizzes[quizIndex][qIndex];
+let html=`<div class="progress"><div class="progress-bar" style="width:${((qIndex+1)/quizzes[quizIndex].length)*100}%"></div></div>`;
+html+=`<h3>Question ${qIndex+1}</h3><h4>${q.q}</h4>`;
+q.o.forEach((opt,i)=>html+=`<label class="option"><input type="radio" name="o" value="${i}"> ${opt}</label>`);
+html+=`<button class="btn" onclick="nextQ()">${qIndex==2?'Finish':'Next'}</button>`;
+document.getElementById("quizContent").innerHTML=html;
+}
+
+function nextQ(){
+const sel=document.querySelector('input[name="o"]:checked');
+if(!sel){alert("Choose answer");return;}
+answers[qIndex]=+sel.value;
+if(qIndex<2){qIndex++;loadQ();}else showResult();
+}
+
+function showResult(){
+let score=0;
+quizzes[quizIndex].forEach((q,i)=>{if(answers[i]==q.a)score++;});
+document.getElementById("quizContent").innerHTML=`
+<h2>Quiz Completed</h2>
+<h3>Score: ${score} / 3</h3>
+<button class="btn" onclick="review()">Review</button>
+<button class="btn" onclick="showQuiz(${quizIndex})">Retake</button>`;
+}
+
+function review(){
+let html="<h2>Review</h2>";
+quizzes[quizIndex].forEach((q,i)=>{
+html+=`<h4>${q.q}</h4>`;
+q.o.forEach((opt,j)=>{
+let c="";
+if(j==q.a)c="correct";
+if(answers[i]==j && j!=q.a)c="wrong";
+html+=`<div class="${c}">${opt}</div>`;
+});
+html+=`<p><i>${q.e}</i></p><hr>`;
+});
+document.getElementById("quizContent").innerHTML=html;
+}
+function goToLevels(){ window.location.href="../../level3-quizzes.html"; }
+showQuiz(0); 
+
+
+</script>
+
+</body>
+</html>

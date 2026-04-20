@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assignments Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{
+  display:flex;
+  background:#020617;
+  color:white;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+  
+
+/* Background Blur */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url('../images/img.jpg') center/cover no-repeat;
+  filter:blur(6px) brightness(0.7);
+  transform:scale(1.1);
+  z-index:-1;
+}
+
+
+/* SIDEBAR */
+.sidebar{
+  width:220px;
+  background:rgba(2, 6, 23, 0.38);
+  border-right:1px solid rgba(0,255,255,0.2);
+  backdrop-filter:blur(10px);
+  padding:30px 20px;
+  box-shadow:0 0 20px rgba(0,255,255,0.2);
+  display:flex;
+  flex-direction:column;
+  width:218px;
+}
+
+/* Sidebar content */
+.sidebar h2{
+  margin-bottom:25px;
+  color:#00f7ff;
+  text-shadow:0 0 15px #ffffff;
+}
+.side-link{
+  display:block;
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:8px;
+  cursor:pointer;
+  transition:.3s;
+}
+.side-link:hover{
+  background:rgba(0,255,255,0.1);
+  box-shadow:0 0 10px #00f7ff;
+}
+
+/* MAIN */
+.main{
+  flex:1;
+  padding:25px 30px;
+  display:flex;
+  flex-direction:column;
+}
+
+/* TOPBAR */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+.search{
+  width:351px;
+  padding:8px 16px;
+  border-radius:10px;
+  border:none;
+  background:rgba(255, 255, 255, 0.43);
+  color:rgb(255, 255, 255);
+}
+.top-right{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+.user{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.user img{
+  border-radius:60%;
+}
+
+/* LARGE ASSIGNMENT CARDS */
+.grid-large{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:22px;
+  margin-bottom:30px;
+}
+.grid-large .neon-card{
+  min-height:150px;
+  padding:15px 20px;
+  font-size:16px;
+  flex-direction:column;
+  gap:10px;
+}
+.grid-large .neon-card h3{
+  font-size:20px;
+  margin-bottom:4px;
+}
+
+/* DASHBOARD SMALL CARDS UNDER */
+.dashboard-header{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(101px,1fr));
+  gap:28px;
+  margin-bottom:13px;
+  width:65%;
+}
+.dashboard-header .neon-card{
+  min-height:60px;
+  padding:23px 24px;
+  flex-direction:column;
+  gap:12px;
+}
+.dashboard-header .neon-card .icon{
+  font-size:31px;
+}
+.dashboard-header .neon-card .info h2{
+  font-size:31px;
+}
+
+/* Neon Cards general */
+.neon-card{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  border-radius:20px;
+  background: rgba(19, 19, 19, 0.14);
+  border: 2px solid rgba(0, 255, 255, 0.32);
+  box-shadow: 0 0 6px rgba(0, 255, 255, 0.64);
+  backdrop-filter: blur(10px);
+  transition:0.3s;
+  flex-direction:column;
+}
+.neon-card:hover{
+  transform:translateY(-5px) scale(1.02);
+  box-shadow:0 0 30px #00f7ff;
+}
+.neon-card .icon{
+  font-size:40px;
+}
+.neon-card .info span{
+  display:block;
+  font-size:14px;
+  color:#94a3b8;
+}
+.neon-card .info h2{
+  font-size:28px;
+  color:white;
+  text-shadow:0 0 10px #00f7ff;
+  margin-top:4px;
+}
+
+/* Chart Card */
+.chart-card{
+  background: rgba(62, 62, 62, 0.1);
+  border-radius:20px;
+  padding:20px;
+  border:1px solid rgba(0,255,255,0.25);
+  box-shadow:0 0 7px rgba(0, 255, 255, 0.84);
+  backdrop-filter: blur(12px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  transition:.3s;
+}
+.chart-card h3{
+  margin-bottom:15px;
+  color:#00f7ff;
+}
+
+/* PROGRESS */
+.progress{
+  height:10px;
+  background:#020617;
+  border-radius:10px;
+  overflow:hidden;
+  margin:12px 0;
+}
+.bar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#00f7ff,#3b82f6);
+  box-shadow:0 0 12px #00f7ff;
+}
+
+/* BUTTON */
+button{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(45deg,#00f7ff,#3b82f6);
+  color:white;
+  cursor:pointer;
+  transition:.3s;
+}
+button:hover{
+  transform:scale(1.03);
+  box-shadow:0 0 12px #00f7ff;
+}
+
+/* File Preview */
+.preview{
+  font-size:13px;
+  color:#94a3b8;
+  margin-top:5px;
+}
+
+/* STATUS BADGES */
+.status{
+  padding:5px 10px;
+  border-radius:8px;
+  font-size:12px;
+  display:inline-block;
+  margin:6px 0;
+}
+.pending{background:#f6000022;color:#ee0000;}
+.submitted{background:#ff000022;color:#0061fe;}
+.locked{background:#ef444422;color:#f87171;}
+
+/* POPUP */
+.popup{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:#020617;
+  border:1px solid #00f7ff;
+  padding:15px 20px;
+  border-radius:10px;
+  box-shadow:0 0 15px #00f7ff;
+  display:none;
+  z-index:999;
+}
+
+/* CALENDAR GRID */
+.calendar{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:7px;
+  margin-top:6px;
+}
+.calendar-day{
+  background: rgba(255,255,255,0.05);
+  border:1px solid rgba(0, 255, 255, 0.53);
+  border-radius:15px;
+  padding:11px;
+  text-align:center;
+  min-height:80px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  transition:.3s;
+}
+.calendar-day:hover{
+  box-shadow:0 0 9px #00f7ff;
+}
+.calendar-day .day-num{
+  font-weight:800;
+  font-size:20px;
+  margin-bottom:2px;
+}
+.calendar-day .assignment{
+  font-size:13px;
+  background: #00f7ff22;
+  color:#00f7ff;
+  border-radius:3px;
+  padding:0px 4px;
+  margin-top:-3px;
+}
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>Assignments</h2>
+  <div class="side-link">Dashboard</div>
+  <div class="side-link">Assignments</div>
+  <div class="side-link">Calendar</div>
+</div>
+
+<div class="main">
+<div class="topbar">
+  <input type="text" placeholder="Search assignment..." class="search">
+  <div class="top-right">
+    <div class="bell">🔔</div>
+    <div class="user">
+      <span>Student</span>
+    </div>
+  </div>
+</div>
+
+<div class="grid-large" id="grid-large"></div>
+
+<div class="dashboard-header">
+  <div class="neon-card">
+    <div class="icon">📚</div>
+    <div class="info">
+      <span>Total Assignments</span>
+      <h2 id="totalAssignments">0</h2>
+    </div>
+  </div>
+  <div class="neon-card">
+    <div class="icon">✅</div>
+    <div class="info">
+      <span>Submitted</span>
+      <h2 id="submittedCount">0</h2>
+    </div>
+  </div>
+  <div class="chart-card">
+    <h3>Submission Chart</h3>
+    <canvas id="chart"></canvas>
+  </div>
+</div>
+
+<!-- Calendar Grid -->
+<div class="calendar" id="calendar"></div>
+
+<div class="popup" id="popup">⚠️ Deadline قريب!</div>
+</div>
+
+<script>
+// Assignments Data
+const data=[
+ {id:1,title:"english-Assignment.3",deadline:"Feb 20, 2026 23:59:00"},
+ {id:2,title:"C#-Assignment.2",deadline:"Feb 22, 2026 23:59:00"},
+ {id:3,title:"math1-Assignment.8",deadline:"Feb 25, 2026 23:59:00"},
+ {id:4,title:"math0-Assignment.6",deadline:"Feb 28, 2026 23:59:00"},
+ {id:5,title:"intro-computers-Assignment.5",deadline:"Mar 2, 2026 23:59:00"},
+ {id:6,title:"physics-Assignment.4",deadline:"Mar 5, 2026 23:59:00"}
+];
+
+// Create Large Cards
+const gridLarge=document.getElementById("grid-large");
+data.forEach(a=>{
+ const saved=localStorage.getItem("a_"+a.id)||"Pending";
+ const card=document.createElement("div");
+ card.className="neon-card";
+ card.innerHTML=`
+   <h3>📄 ${a.title}</h3>
+   Deadline: ${a.deadline}
+   <div id="status_${a.id}" class="status ${saved==="Submitted"?"submitted":"pending"}">${saved}</div>
+   <div class="progress"><div class="bar" id="bar_${a.id}"></div></div>
+   <input type="file" onchange="previewFile(event,${a.id})" id="file_${a.id}">
+   <div class="preview" id="preview_${a.id}"></div>
+   <button onclick="submit(${a.id})">Submit</button>
+   <button onclick="resetAssignment(${a.id})">Delete / Re-submit</button>
+ `;
+ gridLarge.appendChild(card);
+});
+
+// Preview file
+function previewFile(e,id){
+ const file=e.target.files[0];
+ if(file){
+   document.getElementById("preview_"+id).innerText="Selected: "+file.name;
+ }
+}
+
+// Submit / Reset
+function submit(id){
+ const file=document.getElementById("file_"+id).files[0];
+ if(!file){alert("Upload file first"); return;}
+ const deadline=new Date(data.find(x=>x.id==id).deadline).getTime();
+ if(Date.now()>deadline){alert("Deadline finished ❌"); return;}
+ localStorage.setItem("a_"+id,"Submitted");
+ updateStatus(id,"Submitted");
+ updateDashboard();
+}
+function resetAssignment(id){
+ localStorage.removeItem("a_"+id);
+ updateStatus(id,"Pending");
+ document.getElementById("preview_"+id).innerText="";
+ updateDashboard();
+}
+function updateStatus(id,state){
+ const el=document.getElementById("status_"+id);
+ el.innerText=state;
+ el.className="status "+(state==="Submitted"?"submitted":"pending");
+}
+
+// Dashboard Chart
+const ctx=document.getElementById('chart');
+const chart=new Chart(ctx,{
+ type:'doughnut',
+ data:{
+   labels:['Submitted','Pending'],
+   datasets:[{
+     data:[0,data.length],
+     borderWidth:0,
+     backgroundColor:['#22c55e','#fbbf24']
+   }]
+ },
+ options:{
+   plugins:{legend:{display:true,position:'bottom'}},
+   cutout:'70%'
+ }
+});
+function updateDashboard(){
+ let submitted=0;
+ data.forEach(a=>{
+   if(localStorage.getItem("a_"+a.id)==="Submitted") submitted++;
+ });
+ document.getElementById("totalAssignments").innerText=data.length;
+ document.getElementById("submittedCount").innerText=submitted;
+ chart.data.datasets[0].data=[submitted,data.length-submitted];
+ chart.update();
+}
+updateDashboard();
+
+// Progress + Lock + Popup
+setInterval(()=>{
+ data.forEach(a=>{
+   const start=new Date("Feb 10, 2026 00:00:00").getTime();
+   const end=new Date(a.deadline).getTime();
+   const now=Date.now();
+   const percent=Math.min(((now-start)/(end-start))*100,100);
+   document.getElementById("bar_"+a.id).style.width=percent+"%";
+
+   const statusEl=document.getElementById("status_"+a.id);
+   if(now>end && statusEl.innerText!=="Submitted"){
+     statusEl.innerText="Locked";
+     statusEl.className="status locked";
+   }
+
+   if(end-now<86400000 && end-now>0){
+     const popup=document.getElementById("popup");
+     popup.style.display="block";
+     setTimeout(()=>popup.style.display="none",4000);
+   }
+ });
+},1000);
+
+// Generate Calendar for current month
+function generateCalendar(){
+  const calendar=document.getElementById("calendar");
+  const today=new Date();
+  const year=today.getFullYear();
+  const month=today.getMonth(); 
+  const firstDay=new Date(year,month,1).getDay();
+  const daysInMonth=new Date(year,month+1,0).getDate();
+
+  // Add empty days for offset
+  for(let i=0;i<firstDay;i++){
+    const empty=document.createElement("div");
+    calendar.appendChild(empty);
+  }
+
+  for(let d=1; d<=daysInMonth; d++){
+    const dayDiv=document.createElement("div");
+    dayDiv.className="calendar-day";
+    dayDiv.innerHTML=`<div class="day-num">${d}</div>`;
+    // Show assignment if deadline matches
+    data.forEach(a=>{
+      const deadline=new Date(a.deadline);
+      if(deadline.getFullYear()===year && deadline.getMonth()===month && deadline.getDate()===d){
+        const assignDiv=document.createElement("div");
+        assignDiv.className="assignment";
+        assignDiv.innerText=a.title;
+        dayDiv.appendChild(assignDiv);
+      }
+    });
+    calendar.appendChild(dayDiv);
+  }
+}
+generateCalendar();
+</script>
+</body>
+</html>
