@@ -2,38 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Select Level</title>
+  <title>Select Level | Innovation University</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
- <link rel="icon" type="image/png" href="../images/iu-logo.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+
   <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      text-align: center;
-      padding: 50px 20px;
-      position: relative;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: url('images/img.jpg') center/cover no-repeat;
-      filter: blur(3px);
-      transform: scale(1.1);
-      z-index: -1;
-    }
-
-    h1 {
-      font-size: 42px;
-      color: #0a3d62;
-      margin-bottom: 25px;
-      text-shadow: 0 0 9px #ffffff;
-    }
-
+    /* Specific overrides for Select Level page if needed, otherwise rely on style.css */
     .term-switch {
       display: flex;
       justify-content: center;
@@ -44,40 +21,43 @@
     .term-switch button {
       padding: 10px 30px;
       border-radius: 30px;
-      border: 2px solid #0a3d62;
-      background: transparent;
-      color: #0a3d62;
+      border: 2px solid var(--accent);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-light);
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.5s ease;
+      transition: var(--transition);
     }
 
     .term-switch button.active {
-      background: #0a3d62;
-      color: white;
+      background: var(--accent);
+      color: var(--primary);
       transform: scale(1.05);
-      box-shadow: 0 0px 9px rgba(255, 255, 255, 0.92);
+      box-shadow: 0 0 15px var(--accent-glow);
     }
 
     .term-switch button:hover:not(.disabled) {
-      transform: scale(1.22);
-      background-color: rgb(0, 66, 146);
-      color: #fff;
+      background-color: var(--accent);
+      color: var(--primary);
+      transform: scale(1.05);
     }
 
     .term-switch button.disabled {
-      opacity: 0.6;
+      opacity: 0.5;
       cursor: not-allowed;
+      border-color: var(--text-muted);
+      color: var(--text-muted);
     }
 
     #comingSoonMsg {
       margin-top: 10px;
       font-size: 13px;
-      color: #555;
+      color: var(--accent);
       opacity: 0;
       transform: translateY(-5px);
       transition: 0.4s ease;
       pointer-events: none;
+      position: absolute;
     }
 
     #comingSoonMsg.show {
@@ -85,188 +65,186 @@
       transform: translateY(0);
     }
 
-    .courses-container {
-      display: grid;
-      grid-template-columns: repeat(2, 320px);
-      gap: 35px;
-      justify-content: center;
-      animation: fadeSlide 0.6s ease;
+    .level-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
 
-    @keyframes fadeSlide {
-      from { opacity: 0; transform: translateY(25px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .course-card {
-      background: rgba(255, 255, 255, 0.21);
-      backdrop-filter: blur(23px);
-      border-radius: 13px;
-      padding: 27px 20px;
-      box-shadow: 0 0px 12px #00467a;
-      border: 1px solid rgb(142, 142, 142);
-      transition: 0.4s;
-    }
-
-    .course-card:hover { transform: translateY(-10px); }
-
-    .course-card h3 {
+    .level-card h3 {
       font-size: 24px;
-      color: #00406e;
+      color: var(--accent);
       margin-bottom: 10px;
-      border-bottom: 1px solid #0a3d62;
+      border-bottom: 1px solid var(--glass-border);
       padding-bottom: 8px;
+      width: 100%;
     }
 
-    .course-card p { font-size: 16px; color: #003c67; margin-bottom: 18px; }
+    .level-card p { 
+        font-size: 16px; 
+        color: var(--text-muted); 
+        margin-bottom: 25px; 
+    }
 
-    .buttons-container { display: flex; gap: 15px; }
-
+    .buttons-container { 
+        display: flex; 
+        gap: 15px; 
+        width: 100%;
+    }
+    
     .buttons-container button {
-      flex: 1;
-      border: none;
-      padding: 12px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #ffffff;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .pdf-btn { background: #044e83; }
-    .video-btn { background: #b60011; }
-
-    .buttons-container button:hover { transform: scale(1.05); }
-
-    .back-btn {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      padding: 8px 18px;
-      border-radius: 50px;
-      background: #003c68;
-      font-weight: 600;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.81);
-    }
-
-    @media (max-width: 700px) {
-      .courses-container { grid-template-columns: 1fr; }
+        flex: 1;
     }
   </style>
 </head>
-<body>
+<body class="faculty-theme">
 
-  <div class="back-btn" onclick="goHome()">← Back</div>
+  <div id="preloader"><div class="spinner"></div></div>
 
-  <h1>Select Your Level</h1>
-
-  <div class="term-switch">
-    <button id="term1Btn" class="active" onclick="switchTerm('term1')">Term 1</button>
-    <button id="term2Btn" class="disabled" onclick="switchTerm('term2')">
-      <i class="fa-solid fa-lock"></i> Term 2
-    </button>
-    <div id="comingSoonMsg">Coming Soon</div>
-  </div>
-
-  <div class="courses-container" id="courses">
-
-    <div class="course-card">
-      <h3>Level 1</h3>
-      <p>First Year Courses</p>
-      <div class="buttons-container">
-        <button class="pdf-btn" onclick="openPDF(1)"> <i class="fa-regular fa-file-pdf"></i> Open PDF </button>
-        <button class="video-btn" onclick="openVideo(1)"> <i class="fa-solid fa-circle-play"></i> Open Video </button>
+  <header>
+      <div class="nav-container">
+          <div class="logo">
+              <img src="../images/iu-logo.png" alt="IU Logo">
+              <span>IU | Faculty of Computers</span>
+          </div>
+          <div class="menu-icon" id="menuToggle"><i class="fas fa-bars"></i></div>
+          <nav id="navMenu">
+              <a href="iu.html">Home</a>
+              <a href="iu-details.html">About FCIT</a>
+              <a href="courses.html">Programs</a>
+              <a href="regulations.html">Regulations</a>
+              <a href="events.html">Events</a>
+              <a href="login.html" class="btn-premium btn-accent">Student Portal <i class="fas fa-sign-in-alt"></i></a>
+          </nav>
       </div>
+  </header>
+
+  <main class="main-content">
+      <h1 class="text-gold" style="text-align: center; margin-bottom: 30px;">Learning Resources</h1>
+
+      <div class="term-switch" style="position: relative;">
+        <button id="term1Btn" class="active" onclick="switchTerm('term1')">Fall Semester</button>
+        <button id="term2Btn" class="disabled" onclick="switchTerm('term2')">
+          <i class="fa-solid fa-lock"></i> Spring Semester
+        </button>
+        <div id="comingSoonMsg" style="bottom: -25px;">Coming Soon</div>
+      </div>
+
+      <div class="grid-2" id="courses">
+        <!-- Level cards same as before but with minor style fixes -->
+        <div class="glass-card section-card level-card">
+          <h3>Level 1</h3>
+          <p>Foundation year resources and lecture notes.</p>
+          <div class="buttons-container">
+            <button class="btn-premium btn-primary" onclick="openPDF(1)"> <i class="fa-regular fa-file-pdf"></i> Materials </button>
+            <button class="btn-premium btn-accent" onclick="openVideo(1)"> <i class="fa-solid fa-circle-play"></i> Lectures </button>
+          </div>
+        </div>
+
+        <div class="glass-card section-card level-card">
+          <h3>Level 2</h3>
+          <p>Core computing and software engineering materials.</p>
+          <div class="buttons-container">
+            <button class="btn-premium btn-primary" onclick="openPDF(2)"> <i class="fa-regular fa-file-pdf"></i> Materials </button>
+            <button class="btn-premium btn-accent" onclick="openVideo(2)"> <i class="fa-solid fa-circle-play"></i> Lectures </button>
+          </div>
+        </div>  
+
+        <div class="glass-card section-card level-card">
+          <h3>Level 3</h3>
+          <p>Advanced specialization and research materials.</p>
+          <div class="buttons-container">
+            <button class="btn-premium btn-primary" onclick="openPDF(3)"> <i class="fa-regular fa-file-pdf"></i> Materials </button>
+            <button class="btn-premium btn-accent" onclick="openVideo(3)"> <i class="fa-solid fa-circle-play"></i> Lectures </button>
+          </div>
+        </div>
+
+        <div class="glass-card section-card level-card">
+          <h3>Level 4</h3>
+          <p>Graduation projects and specialized tracks.</p>
+          <div class="buttons-container">
+            <button class="btn-premium btn-primary" onclick="openPDF(4)"> <i class="fa-regular fa-file-pdf"></i> Materials </button>
+            <button class="btn-premium btn-accent" onclick="openVideo(4)"> <i class="fa-solid fa-circle-play"></i> Lectures </button>
+          </div>
+        </div>
+      </div>
+  </main>
+
+<footer class="main-footer">
+    <div class="footer-grid">
+        <div class="footer-col">
+            <img src="../images/iu-logo.png" alt="IU Logo" style="width: 140px; margin-bottom: 30px;">
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.8;">Academic resources portal for FCIT students.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul class="footer-links">
+                <li><a href="iu.html">Home</a></li>
+                <li><a href="courses.html">Programs</a></li>
+                <li><a href="dashboard-STU.html">Dashboard</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Support</h4>
+            <ul class="footer-links">
+                <li><i class="fas fa-envelope" style="color: var(--accent);"></i> support@iu.edu.eg</li>
+                <li><i class="fas fa-phone-alt" style="color: var(--accent);"></i> 16856</li>
+            </ul>
+        </div>
     </div>
-
-    <div class="course-card">
-      <h3>Level 2</h3>
-      <p>Second Year Courses</p>
-      <div class="buttons-container">
-        <button class="pdf-btn" onclick="openPDF(2)"> <i class="fa-regular fa-file-pdf"></i> Open PDF </button>
-        <button class="video-btn" onclick="openVideo(2)"> <i class="fa-solid fa-circle-play"></i> Open Video </button>
-      </div>
-    </div>  
-
-    <div class="course-card">
-      <h3>Level 3</h3>
-      <p>Third Year Courses</p>
-      <div class="buttons-container">
-        <button class="pdf-btn" onclick="openPDF(3)"> <i class="fa-regular fa-file-pdf"></i> Open PDF </button>
-        <button class="video-btn" onclick="openVideo(3)"> <i class="fa-solid fa-circle-play"></i> Open Video </button>
-      </div>
+    <div class="footer-bottom">
+        <p>© 2026 Innovation University — Faculty of Computers. All Rights Reserved.</p>
     </div>
+</footer>
 
-    <div class="course-card">
-      <h3>Level 4</h3>
-      <p>Fourth Year Courses</p>
-      <div class="buttons-container">
-        <button class="pdf-btn" onclick="openPDF(4)"> <i class="fa-regular fa-file-pdf"></i> Open PDF </button>
-        <button class="video-btn" onclick="openVideo(4)"> <i class="fa-solid fa-circle-play"></i> Open Video </button>
-      </div>
-    </div>
-
-  </div>
-
+  <script src="../js/style.js"></script>
   <script>
-    // ----------------------------------------------------
-    // ملفات كل مستوى لكل ترم
-    // ----------------------------------------------------
-const files = {
-  term1: {
-    // المستوى الأول: الملفات موجودة في المجلد الرئيسي بجانب select-level.html
-    1: { 
-      pdf: 'levels-term1/level1-term1-pdf.html', 
-      video: 'levels-term1/level1-term1-video.html' 
-    },
-    // المستوى الثاني: المجلد اسمه "level2-term1.html"
-    2: { 
-      pdf: 'level2-term1.html/level2-term1-pdf.html', 
-      video: 'level2-term1.html/level2-term1-video.html' 
-    },
-    // المستوى الثالث: المجلد اسمه "level3-term1"
-    3: { 
-      pdf: 'level3-term1/level3-term1-pdf.html', 
-      video: 'level3-term1/level3-term1-video.html' 
-    },
-    // المستوى الرابع: المجلد اسمه "level4-term1-" (تأكد من الشرطة الأخيرة)
-   4: { 
-      pdf: 'level4-term1/level4-term1-pdf.html', 
-      video: 'level4-term1/level4-term1-video.html' 
+    // Navbar Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
     }
-  },
-  term2: {
-    
-    // أبقها فارغة حالياً ليظهر رسالة "Coming Soon" عند الضغط عليها
-    1: { pdf: 'level1/term2/pdf.html', video: 'level1/term2/video.html' },
-    2: { pdf: 'level2/term2/pdf.html', video: 'level2/term2/video.html' },
-    3: { pdf: 'level3/term2/pdf.html', video: 'level3/term2/video.html' },
-    4: { pdf: 'level4/term2/pdf.html', video: 'level4/term2/video.html' },
-  }
-};
+
+    // Preloader
+    window.addEventListener('load', () => {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => preloader.style.display = 'none', 500);
+            }, 800);
+        }
+    });
+
+    // Files Data Same as before
+    const files = {
+      term1: {
+        1: { pdf: 'levels-term1/level1-term1-pdf.html', video: 'levels-term1/level1-term1-video.html' },
+        2: { pdf: 'level2-term1.html/level2-term1-pdf.html', video: 'level2-term1.html/level2-term1-video.html' },
+        3: { pdf: 'level3-term1/level3-term1-pdf.html', video: 'level3-term1/level3-term1-video.html' },
+        4: { pdf: 'level4-term1/level4-term1-pdf.html', video: 'level4-term1/level4-term1-video.html' }
+      },
+      term2: {
+        1: { pdf: 'level1/term2/pdf.html', video: 'level1/term2/video.html' },
+        2: { pdf: 'level2/term2/pdf.html', video: 'level2/term2/video.html' },
+        3: { pdf: 'level3/term2/pdf.html', video: 'level3/term2/video.html' },
+        4: { pdf: 'level4/term2/pdf.html', video: 'level4/term2/video.html' },
+      }
+    };
 
     let currentTerm = 'term1';
     const term1Btn = document.getElementById('term1Btn');
     const term2Btn = document.getElementById('term2Btn');
 
-    // تفعيل ترم 2 تلقائيًا عند وجود ملفات
-    function checkTermAvailability() {
-      if (files['term2']) {
-        const hasFiles = Object.values(files['term2']).some(f => f.pdf && f.video);
-        if (hasFiles) term2Btn.classList.remove('disabled');
-      }
-    }
-    checkTermAvailability();
-
     function switchTerm(term) {
-      if(term === 'term2' && term2Btn.classList.contains('disabled')) {
+      if(term === 'term2') {
         showComingSoon();
         return;
       }
       currentTerm = term;
       term1Btn.classList.toggle('active', term==='term1');
-      term2Btn.classList.toggle('active', term==='term2');
     }
 
     function openPDF(level) {
@@ -283,10 +261,6 @@ const files = {
       } else {
         showComingSoon();
       }
-    }
-
-    function goHome() {
-      window.location.href = "iu.html";
     }
 
     function showComingSoon() {

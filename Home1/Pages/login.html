@@ -3,87 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login &amp; Signup Form</title>
+    <title>Login & Signup | Innovation University</title>
     <link rel="stylesheet" href="../css/style.css">
-   <link rel="icon" type="image/png" href="../images/iu-logo.png" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
-<body>
-<a href="iu.html" class="back-arrow"><i class="fas fa-arrow-left"></i></a> 
-    <div class="auth-wrapper">
-        <div class="background-shape"></div>
-        <div class="secondary-shape"></div>
-        <div class="credentials-panel signin">
-            <h2 class="slide-element">Login</h2>
-            <form action="#">
-                <div class="field-wrapper slide-element">
-                    <input type="text" required>
-                    <label for="#">Username</label>
-                    <i class="fa-solid fa-user"></i>
-                </div>
+<body class="faculty-theme">
 
-                <div class="field-wrapper slide-element">
-                    <input type="password" required>
-                    <label for="#">Password</label>
-                    <i class="fa-solid fa-lock"></i>
-                </div>
+<div id="preloader"><div class="spinner"></div></div>
 
-                <div class="field-wrapper slide-element">
-                    <button class="submit-button" type="submit">Login</button>
-                </div>
+<a href="iu.html" class="back-home"><i class="fas fa-arrow-left"></i> Back to Faculty Site</a>
 
-                <div class="switch-link slide-element">
-                    <p>Don't have an account? <br> <a href="#" class="register-trigger">Sign Up</a></p>
-                </div>
-            </form>
-        </div>
-
-        <div class="welcome-section signin">
-            <h2 class="slide-element">WELCOME BACK!</h2>
-        </div>
-
-        <div class="credentials-panel signup">
-            <h2 class="slide-element">Register</h2>
-            <form action="#">
-                <div class="field-wrapper slide-element">
-                    <input type="text" required>
-                    <label for="#">Username</label>
-                    <i class="fa-solid fa-user"></i>
-                </div>
-
-                <div class="field-wrapper slide-element">
-                    <input type="email" required>
-                    <label for="#">Email</label>
-                    <i class="fa-solid fa-envelope"></i>
-                </div>
-
-                <div class="field-wrapper slide-element">
-                    <input type="password" required>
-                    <label for="#">Password</label>
-                    <i class="fa-solid fa-lock"></i>
-                </div>
-
-                <div class="field-wrapper slide-element">
-                    <button class="submit-button" type="submit">Register</button>
-                </div>
-
-                <div class="switch-link slide-element">
-                    <p>Already have an account? <br> <a href="#" class="login-trigger">Log In</a></p>
-                </div>
-            </form>
-        </div>
-
-        <div class="welcome-section signup">
-            <h2 class="slide-element">WELCOME!</h2>
-        </div>
-        
+<div class="auth-wrapper">
+    <!-- Login Card -->
+    <div class="auth-card" id="loginCard">
+        <h2 class="auth-title">Student Portal Login</h2>
+        <form action="dashboard-STU.html">
+            <div class="input-group">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" placeholder="Username" required>
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn-premium btn-accent" style="width: 100%;">Sign In</button>
+            <div class="auth-switch">
+                Don't have an account? <a href="javascript:void(0)" onclick="toggleAuth()">Register Now</a>
+            </div>
+        </form>
     </div>
 
+    <!-- Register Card -->
+    <div class="auth-card" id="registerCard" style="display: none;">
+        <h2 class="auth-title">Register</h2>
+        <form action="#">
+            <div class="input-group">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" placeholder="Full Name" required>
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" placeholder="Email Address" required>
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn-premium btn-accent" style="width: 100%;">Create Account</button>
+            <div class="auth-switch">
+                Already have an account? <a href="javascript:void(0)" onclick="toggleAuth()">Log In</a>
+            </div>
+        </form>
+    </div>
+</div>
 
-    <script src="../js/style.js"></script>
+<script>
+    // Preloader
+    window.addEventListener('load', () => {
+        const preloader = document.getElementById('preloader');
+        setTimeout(() => {
+            preloader.style.opacity = '0';
+            setTimeout(() => preloader.style.display = 'none', 500);
+        }, 800);
+    });
+
+    // Toggle Auth Cards
+    function toggleAuth() {
+        const loginCard = document.getElementById('loginCard');
+        const registerCard = document.getElementById('registerCard');
+        
+        if (loginCard.style.display === 'none') {
+            loginCard.style.display = 'block';
+            registerCard.style.display = 'none';
+        } else {
+            loginCard.style.display = 'none';
+            registerCard.style.display = 'block';
+        }
+    }
+</script>
 
 </body>
-
 </html>

@@ -1,275 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Attendance Dashboard</title>
+  <title>Admin Attendance Dashboard | Innovation University</title>
+  
   <link rel="icon" type="image/png" href="../images/iu-logo.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
-    :root {
-      --bg: #020617;
-      --card: rgba(255, 255, 255, .05);
-      --text: #fff;
-      --green: #22c55e;
-      --red: #ef4444;
-      --blue: #3b82f6;
-    }
-
-    .light {
-      --bg: #f1f5f9;
-      --card: #fff;
-      --text: #020617;
-      --green: #16a34a;
-      --red: #dc2626;
-      --blue: #2563eb;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Inter
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      padding: 25px;
-      transition: .3s;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-    background: url('images/img.jpg') center/cover no-repeat;
-      filter: blur(6px) brightness(0.6);
-      transform: scale(1.1);
-      z-index: -1;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: auto
-    }
-
-    .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-      flex-wrap: wrap
-    }
-
-    .title {
-      font-size: 24px;
-      font-weight: 700
-    }
-
-    .toggle {
-      cursor: pointer;
-      background: var(--blue);
-      color: #fff;
-      padding: 6px 12px;
-      border-radius: 8px
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin: 15px 0
-    }
-
-    .stat {
-      background: var(--card);
-      padding: 12px;
-      border-radius: 12px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: .3s
-    }
-
-    .stat:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-    }
-
-    .stat b {
-      font-size: 18px;
-      margin-top: 6px
-    }
-
-    .stat .icon {
-      font-size: 22px;
-      margin-bottom: 4px
-    }
-
-    .card {
-      background: var(--card);
-      padding: 15px;
-      border-radius: 14px;
-      overflow-x: auto;
-      transition: .3s
-    }
-
+    /* Local specific overrides for admin attendance */
     .controls {
       display: flex;
-      gap: 10px;
-      margin-bottom: 10px;
-      flex-wrap: wrap
+      gap: 15px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
     }
 
     .controls input,
     .controls select {
-      padding: 8px;
-      border-radius: 8px;
-      border: none
+      flex: 1;
+      min-width: 150px;
+      padding: 12px 15px;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      outline: none;
     }
 
-    button {
-      padding: 8px 12px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: .2s
-    }
-
-    .presentBtn {
-      background: var(--green);
-      color: #fff
-    }
-
-    .absentBtn {
-      background: var(--red);
-      color: #fff
-    }
-
-    .deleteBtn {
-      background: var(--red);
-      color: #fff
-    }
-
-    .editBtn {
-      background: #f59e0b;
-      color: #fff
-    }
-
-    .pdfBtn {
-      background: var(--blue);
-      color: #fff
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      min-width: 700px
-    }
-
-    th,
-    td {
-      padding: 10px;
-      text-align: center
-    }
-
-    th {
-      background: var(--bg);
-    }
-
-    tr:nth-child(even) {
-      background: rgba(255, 255, 255, .03);
-    }
-
-    tr.present-row {
-      background: rgba(34, 197, 94, .1)
-    }
-
-    tr.absent-row {
-      background: rgba(239, 68, 68, .1)
-    }
-
-    tr:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .present {
-      color: var(--green);
-      font-weight: 600
-    }
-
-    .absent {
-      color: var(--red);
-      font-weight: 600
+    .controls input:focus, .controls select:focus {
+        border-color: var(--accent);
     }
 
     .timeline {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 12px;
-      margin-top: 15px;
-      transition: .3s
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 30px;
     }
 
     .timeline h4 {
-      font-size: 16px;
-      margin-bottom: 8px
+      margin-bottom: 15px;
+      color: var(--accent);
     }
 
     .timeline ul {
-      list-style: none
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
 
     .timeline li {
-      padding: 6px;
+      padding: 12px 0;
       display: flex;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(255, 255, 255, .1)
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
     .timeline li:last-child {
       border-bottom: none;
     }
 
-    @media (max-width: 800px) {
-      .stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    tr.present-row { background: rgba(34, 197, 94, 0.05); }
+    tr.absent-row { background: rgba(239, 68, 68, 0.05); }
+
+    .action-btns {
+        display: flex;
+        gap: 5px;
+        justify-content: center;
     }
 
-    .top {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px
+    .action-btns button {
+        padding: 5px 10px;
+        font-size: 0.8rem;
     }
   </style>
 </head>
 
-<body>
+<body class="lms-theme">
 
-  <div class="container">
+  <div id="preloader"><div class="spinner"></div></div>
 
-    <div class="top">
-      <div class="title">Admin Attendance Dashboard</div>
-      <div class="toggle" onclick="toggleMode()">🌙 / ☀</div>
+  <header>
+      <div class="nav-container">
+          <div class="logo">
+              <img src="../images/iu-logo.png" alt="IU Logo">
+              <span>IU | Admin Portal</span>
+          </div>
+          <div class="menu-icon" id="menuToggle"><i class="fas fa-bars"></i></div>
+          <nav id="navMenu">
+              <a href="iu.html">Home</a>
+              <a href="dashboard-admin.html">Dashboard</a>
+              <a href="admin-attendance.html" class="active">Attendance</a>
+              <a href="login.html" class="btn-premium btn-accent">Logout <i class="fas fa-sign-out-alt"></i></a>
+          </nav>
+      </div>
+  </header>
+
+  <main class="main-content">
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+      <h1 class="text-gold" style="margin: 0;">Admin Attendance</h1>
     </div>
 
     <!-- Stats -->
-    <div class="stats">
-      <div class="stat"><span class="icon">👥</span>Students<br><b id="totalStudents">0</b></div>
-      <div class="stat"><span class="icon">✅</span>Present Today<br><b id="presentToday">0</b></div>
-      <div class="stat"><span class="icon">❌</span>Absent Today<br><b id="absentToday">0</b></div>
-      <div class="stat"><span class="icon">🎯</span>Attendance %<br><b id="percent">0%</b></div>
+    <div class="grid-stats">
+      <div class="glass-card stat-card">
+        <div class="stat-info"><h3>Total Students</h3><div class="value" id="totalStudents">0</div></div>
+        <div class="icon-box"><i class="fas fa-users"></i></div>
+      </div>
+      <div class="glass-card stat-card">
+        <div class="stat-info"><h3>Present Today</h3><div class="value" id="presentToday" style="color: #22c55e;">0</div></div>
+        <div class="icon-box"><i class="fas fa-check-circle" style="color: #22c55e;"></i></div>
+      </div>
+      <div class="glass-card stat-card">
+        <div class="stat-info"><h3>Absent Today</h3><div class="value" id="absentToday" style="color: #ef4444;">0</div></div>
+        <div class="icon-box"><i class="fas fa-times-circle" style="color: #ef4444;"></i></div>
+      </div>
+      <div class="glass-card stat-card">
+        <div class="stat-info"><h3>Overall Attendance</h3><div class="value" id="percent">0%</div></div>
+        <div class="icon-box"><i class="fas fa-chart-pie"></i></div>
+      </div>
     </div>
 
-    <div class="card">
-
+    <div class="glass-card section-card">
+      
       <div class="controls">
         <input id="search" placeholder="Search Student ID / Name" oninput="renderTable()">
         <input type="date" id="date">
@@ -277,85 +137,125 @@
           <option>Lecture</option>
           <option>Section</option>
         </select>
-
-        <button class="presentBtn" onclick="mark(true)">Mark Present</button>
-        <button class="absentBtn" onclick="mark(false)">Mark Absent</button>
-        <button class="pdfBtn" onclick="exportPDF()">Export PDF</button>
+        
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <button class="btn-premium btn-accent" style="background: rgba(34,197,94,0.2); color: #22c55e; border-color: #22c55e;" onclick="mark(true)"><i class="fas fa-check"></i> Mark Present</button>
+            <button class="btn-premium btn-accent" style="background: rgba(239,68,68,0.2); color: #ef4444; border-color: #ef4444;" onclick="mark(false)"><i class="fas fa-times"></i> Mark Absent</button>
+            <button class="btn-premium btn-primary" onclick="exportPDF()"><i class="fas fa-file-pdf"></i> Export PDF</button>
+        </div>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="tbody"></tbody>
-      </table>
+      <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+      </div>
 
       <!-- Timeline -->
       <div class="timeline">
-        <h4>Recent Activities</h4>
+        <h4><i class="fas fa-history"></i> Recent Activities</h4>
         <ul id="recentList"></ul>
       </div>
 
     </div>
-  </div>
+  </main>
 
+  <footer>© 2026 Innovation University — All Rights Reserved. Built for Excellence.</footer>
+
+  <script src="../js/style.js"></script>
   <script>
+    // Navbar Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+    }
+
+    // Preloader
+    window.addEventListener('load', () => {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => preloader.style.display = 'none', 500);
+            }, 800);
+        }
+    });
+
     let students = [
-      { id: "2023001", name: "Shahd Alaa" },
-      { id: "2023002", name: "Mona Ahmed" },
-      { id: "2023003", name: "Sara Mohamed" }
+      { id: "25030087", name: "Shahd Alaa" },
+      { id: "25030410", name: "Ibrahim Lotfi" },
+      { id: "25030418", name: "Adham Mohamed" }
     ];
     let records = [];
 
     function renderStats() {
-      totalStudents.innerText = students.length;
+      document.getElementById('totalStudents').innerText = students.length;
       let p = records.filter(r => r.s).length;
       let a = records.filter(r => !r.s).length;
-      presentToday.innerText = p;
-      absentToday.innerText = a;
-      percent.innerText = records.length ? Math.round((p / records.length) * 100) + "%" : "0%";
+      document.getElementById('presentToday').innerText = p;
+      document.getElementById('absentToday').innerText = a;
+      document.getElementById('percent').innerText = records.length ? Math.round((p / records.length) * 100) + "%" : "0%";
     }
 
     function renderTable() {
+      let tbody = document.getElementById('tbody');
       tbody.innerHTML = "";
-      let q = search.value.toLowerCase();
+      let searchInput = document.getElementById('search');
+      let q = searchInput.value.toLowerCase();
+      
       records.filter(r => r.id.includes(q) || r.name.toLowerCase().includes(q))
         .forEach((r, i) => {
+          let statusHtml = `<span class="status-pill status-${r.s ? 'completed' : 'pending'}" style="background: ${r.s ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)'}; color: ${r.s ? '#22c55e' : '#ef4444'};">${r.s ? 'Present' : 'Absent'}</span>`;
+          
           tbody.innerHTML += `
-   <tr class="${r.s ? 'present-row' : 'absent-row'}">
-    <td>${r.id}</td>
-    <td>${r.name}</td>
-    <td>${r.date}</td>
-    <td>${r.type}</td>
-    <td class="${r.s ? 'present' : 'absent'}">${r.s ? 'Present' : 'Absent'}</td>
-    <td>
-      <button class="editBtn" onclick="toggleStatus(${i})">Edit</button>
-      <button class="deleteBtn" onclick="del(${i})">Delete</button>
-    </td>
-   </tr>
-  `;
+           <tr class="${r.s ? 'present-row' : 'absent-row'}">
+            <td>${r.id}</td>
+            <td>${r.name}</td>
+            <td>${r.date}</td>
+            <td>${r.type}</td>
+            <td>${statusHtml}</td>
+            <td>
+              <div class="action-btns">
+                  <button class="btn-premium btn-accent" style="background: #f59e0b; border: none; color: #fff;" onclick="toggleStatus(${i})"><i class="fas fa-edit"></i></button>
+                  <button class="btn-premium btn-accent" style="background: #ef4444; border: none; color: #fff;" onclick="del(${i})"><i class="fas fa-trash"></i></button>
+              </div>
+            </td>
+           </tr>
+          `;
         });
       renderStats();
       renderTimeline();
     }
 
     function mark(present) {
-      let id = search.value.trim();
+      let searchInput = document.getElementById('search');
+      let dateInput = document.getElementById('date');
+      let typeInput = document.getElementById('type');
+      
+      let id = searchInput.value.trim();
       if (!id) return;
+      
       let student = students.find(s => s.id == id || s.name.toLowerCase() == id.toLowerCase());
       if (!student) return alert("Student not found");
+      
+      let today = new Date().toISOString().split('T')[0];
+      
       records.push({
         id: student.id,
         name: student.name,
-        date: date.value || "Today",
-        type: type.value,
+        date: dateInput.value || today,
+        type: typeInput.value,
         s: present
       });
       renderTable();
@@ -372,18 +272,27 @@
       renderTable();
     }
 
-    function toggleMode() {
-      document.body.classList.toggle("light");
-    }
-
     function exportPDF() {
       const { jsPDF } = window.jspdf;
       const pdf = new jsPDF();
       pdf.setFontSize(16);
-      pdf.text("Attendance Report", 20, 20);
-      records.forEach((r, i) => {
-        pdf.text(`${r.id} - ${r.name} - ${r.date} - ${r.type} - ${r.s ? 'Present' : 'Absent'}`, 20, 30 + (i * 8));
-      });
+      pdf.text("Attendance Report - Innovation University", 20, 20);
+      
+      let y = 40;
+      pdf.setFontSize(12);
+      
+      if(records.length === 0) {
+          pdf.text("No attendance records found.", 20, y);
+      } else {
+          records.forEach((r, i) => {
+            if (y > 280) {
+                pdf.addPage();
+                y = 20;
+            }
+            pdf.text(`${r.id} | ${r.name} | ${r.date} | ${r.type} | ${r.s ? 'Present' : 'Absent'}`, 20, y);
+            y += 10;
+          });
+      }
       pdf.save("attendance-report.pdf");
     }
 
@@ -392,13 +301,19 @@
       recentList.innerHTML = "";
       records.slice(-5).reverse().forEach(r => {
         const li = document.createElement("li");
-        li.innerHTML = `<span>${r.date} - ${r.name} - ${r.type}</span><span class="${r.s ? 'present' : 'absent'}">${r.s ? 'Present' : 'Absent'}</span>`;
+        let statusHtml = `<span class="status-pill status-${r.s ? 'completed' : 'pending'}" style="background: ${r.s ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)'}; color: ${r.s ? '#22c55e' : '#ef4444'};">${r.s ? 'Present' : 'Absent'}</span>`;
+        li.innerHTML = `<span><i class="far fa-calendar-check"></i> ${r.date} - <strong>${r.name}</strong> (${r.type})</span>${statusHtml}`;
         recentList.appendChild(li);
       });
     }
 
-    renderTable();
+    // Pre-populate some records for demo
+    window.addEventListener('DOMContentLoaded', () => {
+        let today = new Date().toISOString().split('T')[0];
+        records.push({ id: "25030087", name: "Shahd Alaa", date: today, type: "Lecture", s: true });
+        records.push({ id: "25030410", name: "Ibrahim Lotfi", date: today, type: "Lecture", s: true });
+        renderTable();
+    });
   </script>
 </body>
-
 </html>

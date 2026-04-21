@@ -3,325 +3,292 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Attendance Dashboard</title>
- <link rel="icon" type="image/png" href="../images/iu-logo.png" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<title>Attendance Dashboard | Innovation University</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link rel="icon" type="image/png" href="../images/iu-logo.png" />
+<link rel="stylesheet" href="../css/style.css">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
-
-body{
-  background: radial-gradient(circle at top,#0f172a,#020617);
-  color:#fff;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  padding:40px 0;
+/* Local specific overrides for attendance */
+.search-box {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background: url('images/img.jpg') center/cover no-repeat;
-  filter:blur(6px) brightness(0.6);
-  transform:scale(1.1);
-  z-index:-1;
+.search-box input {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px 20px;
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  outline: none;
+  font-size: 1rem;
 }
 
-.container{width:1000px;max-width:95%}
-
-/* Header */
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
+.search-box input:focus {
+  border-color: var(--accent);
 }
 
-.title{
-  font-size:26px;
-  font-weight:700;
-  background:linear-gradient(90deg,#ffffff,#020617);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+.message {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  display: none;
+  border: 1px solid #ef4444;
 }
 
-/* Search */
-.search{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(14px);
-  padding:15px;
-  border-radius:14px;
-  display:flex;
-  gap:10px;
-  margin-bottom:10px;
+.student-card {
+  display: none;
+  animation: fadeUp 0.4s ease;
 }
 
-.search input{
-  flex:1;
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  background:#020617;
-  color:#fff;
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.search button{
-  padding:12px 22px;
-  border:none;
-  border-radius:10px;
-  background:linear-gradient(90deg,#ffffff,#020617);
-  color:#fff;
-  font-weight:600;
-  cursor:pointer;
-  transition:.3s;
+.student-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 15px;
 }
 
-.search button:hover{transform:scale(1.05)}
-
-.message{
-  margin-bottom:10px;
-  font-size:14px;
-  color:#ffffff;
-  display:none;
+.student-name {
+  font-size: 1.8rem;
+  color: var(--accent);
+  font-weight: 700;
 }
 
-/* Card */
-.card{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(18px);
-  border-radius:18px;
-  padding:25px;
-  display:none;
-  animation:fade .4s ease;
+.student-level {
+  color: var(--text-muted);
 }
 
-@keyframes fade{
-  from{opacity:0;transform:translateY(15px)}
-  to{opacity:1}
+.attendance-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
 }
 
-/* Top */
-.top{
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:20px;
+.attendance-stat {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.05);
 }
 
-.name{font-size:22px;font-weight:700}
-.level{opacity:.7;margin-top:5px}
-
-/* Stats */
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  margin:20px 0;
+.attendance-stat i {
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-bottom: 10px;
 }
 
-.stat{
-  background:#020617;
-  padding:14px;
-  border-radius:12px;
-  text-align:center;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+.attendance-stat b {
+  font-size: 1.5rem;
+  display: block;
+  margin-top: 5px;
+  color: #fff;
 }
 
-.stat b{font-size:18px;display:block;margin-top:6px}
-
-/* Badges / Icons */
-.stat .icon{
-  font-size:20px;
-  margin-bottom:5px;
+.warning {
+  display: none;
+  padding: 15px;
+  border-radius: 12px;
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  margin-bottom: 25px;
+  border: 1px solid #ef4444;
+  font-weight: 600;
+  text-align: center;
+  animation: shake 0.5s infinite alternate;
 }
 
-/* Warning */
-.warning{
-  display:none;
-  padding:12px;
-  border-radius:10px;
-  background:rgba(239,68,68,.1);
-  color:#ef4444;
-  margin-bottom:15px;
-  font-size:14px;
-  font-weight:600;
-  animation:shake 0.5s infinite alternate;
+@keyframes shake {
+  from { transform: translateX(-3px); }
+  to { transform: translateX(3px); }
 }
 
-@keyframes shake{
-  from{transform:translateX(-2px)}
-  to{transform:translateX(2px)}
+.filters-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
-/* Table */
-table{width:100%;border-collapse:collapse;margin-top:10px}
-
-th,td{padding:12px;text-align:center}
-
-th{background:#020617}
-
-tr:nth-child(even){background:rgba(255,255,255,.03)}
-
-tr.present-row{background:rgba(34,197,94,.1)}
-tr.absent-row{background:rgba(239,68,68,.1)}
-
-tr:hover{background:rgba(255,255,255,0.1);cursor:pointer;}
-
-.badge{
-  padding:4px 10px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:600;
+.filters-row select {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: rgba(0,0,0,0.3);
+  color: #fff;
+  outline: none;
 }
 
-.present{background:rgba(34,197,94,.15);color:#22c55e}
-.absent{background:rgba(239,68,68,.15);color:#ef4444}
-
-/* Footer */
-.footer{
-  display:flex;
-  justify-content:space-between;
-  margin-top:15px;
-  opacity:.7;
-  font-size:13px;
+.timeline {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 20px;
+  margin-top: 30px;
 }
 
-/* Filters */
-.filters{
-  display:flex;
-  gap:10px;
-  margin-bottom:15px;
+.timeline h4 {
+  margin-bottom: 15px;
+  color: var(--accent);
 }
 
-.filters select{
-  padding:8px;
-  border-radius:8px;
-  border:none;
-  background:#020617;
-  color:#fff;
+.timeline ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* Timeline / Recent Activities */
-.timeline{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(14px);
-  border-radius:12px;
-  padding:12px;
-  margin-top:15px;
+.timeline li {
+  padding: 12px 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-.timeline h4{
-  font-size:16px;
-  margin-bottom:8px;
+.timeline li:last-child {
+  border-bottom: none;
 }
 
-.timeline ul{
-  list-style:none;
-}
-
-.timeline li{
-  padding:6px;
-  display:flex;
-  justify-content:space-between;
-  border-bottom:1px solid rgba(255,255,255,.1);
-}
-
-.timeline li:last-child{border-bottom:none;}
-
-@media(max-width:700px){
-  .stats{grid-template-columns:repeat(2,1fr)}
-}
+tr.present-row { background: rgba(34, 197, 94, 0.05); }
+tr.absent-row { background: rgba(239, 68, 68, 0.05); }
 </style>
 </head>
 
-<body>
+<body class="lms-theme">
 
-<div class="container">
+<div id="preloader"><div class="spinner"></div></div>
 
-  <div class="header">
-    <div class="title">Student Attendance Dashboard</div>
-  </div>
+<header>
+    <div class="nav-container">
+        <div class="logo">
+            <img src="../images/iu-logo.png" alt="IU Logo">
+            <span>IU | Student Portal</span>
+        </div>
+        <div class="menu-icon" id="menuToggle"><i class="fas fa-bars"></i></div>
+        <nav id="navMenu">
+            <a href="iu.html">Home</a>
+            <a href="dashboard-STU.html">Dashboard</a>
+            <a href="attendance.html" class="active">Attendance</a>
+            <a href="schedule.html">Schedule</a>
+            <a href="login.html" class="btn-premium btn-accent">Logout <i class="fas fa-sign-out-alt"></i></a>
+        </nav>
+    </div>
+</header>
 
-  <!-- Search -->
-  <div class="search">
-<div class="back-btn" onclick="goBack()">← Back</div>
-    <input id="id" placeholder="Enter University ID">
-    <button onclick="loadStudent()">Search</button>
-    <button onclick="resetCard()">Reset</button>
-    <button onclick="window.print()">Print Report 🖨️</button>
-  </div>
+<main class="main-content" style="max-width: 1000px; margin: 0 auto;">
 
-  <div class="message" id="msg">Student not found!</div>
+  <h1 class="text-gold" style="text-align: center; margin-bottom: 30px;">Student Attendance</h1>
 
-
-  <!-- Card -->
-  <div class="card" id="card">
-
-    <div class="top">
-      <div>
-        <div class="name" id="name">—</div>
-        <div class="level" id="level">—</div>
+  <div class="glass-card section-card">
+      <div class="search-box">
+        <input id="id" placeholder="Enter University ID (e.g. 25030410)">
+        <button class="btn-premium btn-accent" onclick="loadStudent()"><i class="fas fa-search"></i> Search</button>
+        <button class="btn-premium btn-primary" onclick="resetCard()"><i class="fas fa-sync-alt"></i> Reset</button>
+        <button class="btn-premium btn-primary" onclick="window.print()"><i class="fas fa-print"></i> Print</button>
       </div>
-    </div>
 
-    <!-- Stats with Icons -->
-    <div class="stats">
-      <div class="stat"><span class="icon">📚</span>Lectures<b id="lec">0</b></div>
-      <div class="stat"><span class="icon">📝</span>Sections<b id="sec">0</b></div>
-      <div class="stat"><span class="icon">❌</span>Absent<b id="abs">0</b></div>
-      <div class="stat"><span class="icon">🎯</span>Attendance<b id="per">0%</b></div>
-    </div>
+      <div class="message" id="msg"><i class="fas fa-exclamation-circle"></i> Student not found! Please check the ID.</div>
 
-    <div class="warning" id="warn">
-      ⚠ Attendance below 75% — You may be at risk
-    </div>
+      <!-- Student Card Details -->
+      <div class="student-card" id="card">
 
-    <!-- Filters -->
-    <div class="filters">
-      <select id="filterType" onchange="applyFilter()">
-        <option value="all">All Types</option>
-        <option value="Lecture">Lecture</option>
-        <option value="Section">Section</option>
-      </select>
-      <select id="filterStatus" onchange="applyFilter()">
-        <option value="all">All Status</option>
-        <option value="Present">Present</option>
-        <option value="Absent">Absent</option>
-      </select>
-    </div>
+        <div class="student-header">
+          <div>
+            <div class="student-name" id="name">—</div>
+            <div class="student-level" id="level">—</div>
+          </div>
+          <div class="text-gold" style="font-size: 2rem;"><i class="fas fa-user-graduate"></i></div>
+        </div>
 
-    <!-- Table -->
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Type</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody id="tbody"></tbody>
-    </table>
+        <!-- Stats -->
+        <div class="attendance-stats">
+          <div class="attendance-stat"><i class="fas fa-book-reader"></i> <span>Lectures</span><b id="lec">0</b></div>
+          <div class="attendance-stat"><i class="fas fa-chalkboard-teacher"></i> <span>Sections</span><b id="sec">0</b></div>
+          <div class="attendance-stat"><i class="fas fa-times-circle" style="color: #ef4444;"></i> <span>Absent</span><b id="abs">0</b></div>
+          <div class="attendance-stat"><i class="fas fa-chart-pie" style="color: #22c55e;"></i> <span>Attendance</span><b id="per">0%</b></div>
+        </div>
 
-    <!-- Timeline / Recent Activities -->
-    <div class="timeline" id="timeline">
-      <h4>Recent Activities</h4>
-      <ul id="recentList"></ul>
-    </div>
+        <div class="warning" id="warn">
+          <i class="fas fa-exclamation-triangle"></i> Warning: Attendance below 75% — You may be at risk of failing the course!
+        </div>
 
-    <div class="footer">
-      <div>Total Classes: <span id="total">0</span></div>
-      <div>Last Update: Today</div>
-    </div>
+        <!-- Filters -->
+        <div class="filters-row">
+          <select id="filterType" onchange="applyFilter()">
+            <option value="all">All Types (Lecture & Section)</option>
+            <option value="Lecture">Lectures Only</option>
+            <option value="Section">Sections Only</option>
+          </select>
+          <select id="filterStatus" onchange="applyFilter()">
+            <option value="all">All Status (Present & Absent)</option>
+            <option value="Present">Present Only</option>
+            <option value="Absent">Absent Only</option>
+          </select>
+        </div>
 
+        <!-- Table -->
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline" id="timeline">
+          <h4><i class="fas fa-history"></i> Recent Activities</h4>
+          <ul id="recentList"></ul>
+        </div>
+
+      </div>
   </div>
 
-</div>
+</main>
 
+<footer>© 2026 Innovation University — All Rights Reserved. Built for Excellence.</footer>
+
+<script src="../js/style.js"></script>
 <script>
+    // Navbar Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+    }
+
+    // Preloader
+    window.addEventListener('load', () => {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => preloader.style.display = 'none', 500);
+            }, 800);
+        }
+    });
+
 /* Demo Students Data */
 const students={
   "25030087": {
@@ -341,7 +308,7 @@ const students={
     ]
   },
   "25030410": {
-    name:"Ibrahim lotfi",
+    name:"Ibrahim Lotfi",
     level:"Level 3 - Computer Science",
     lectures:15,
     sections:12,
@@ -357,14 +324,13 @@ const students={
       {d:"11 May",t:"Section",s:1},
     ]
  },
-
   "25030418": {
     name:"Adham Mohamed",
     level:"Level 1 - Computer Science",
     lectures:15,
     sections:12,
     absent:2,
-    percent:75,
+    percent:72,
     records:[
       {d:"2 May",t:"Lecture",s:1},
       {d:"4 May",t:"Section",s:0},
@@ -397,7 +363,6 @@ function loadStudent(){
   document.getElementById("sec").innerText=data.sections;
   document.getElementById("abs").innerText=data.absent;
   document.getElementById("per").innerText=data.percent+"%";
-  document.getElementById("total").innerText=data.records.length;
 
   // Warning
   document.getElementById("warn").style.display=data.percent<75?"block":"none";
@@ -422,7 +387,7 @@ function populateTable(records){
 
     const tr=document.createElement("tr");
     tr.className=r.s?"present-row":"absent-row";
-    tr.innerHTML=`<td>${r.d}</td><td>${r.t}</td><td><span class="badge ${r.s?'present':'absent'}">${status}</span></td>`;
+    tr.innerHTML=`<td>${r.d}</td><td>${r.t}</td><td><span class="status-pill status-${r.s?'completed':'pending'}" style="background: ${r.s?'rgba(34,197,94,0.1)':'rgba(239,68,68,0.1)'}; color: ${r.s?'#22c55e':'#ef4444'};">${status}</span></td>`;
     tbody.appendChild(tr);
   });
 }
@@ -433,7 +398,7 @@ function populateTimeline(records){
   recentList.innerHTML="";
   records.slice(-5).reverse().forEach(r=>{
     const li=document.createElement("li");
-    li.innerHTML=`<span>${r.d} - ${r.t}</span><span class="badge ${r.s?'present':'absent'}">${r.s?'Present':'Absent'}</span>`;
+    li.innerHTML=`<span><i class="far fa-calendar-alt"></i> ${r.d} - <strong>${r.t}</strong></span><span class="status-pill" style="background: ${r.s?'rgba(34,197,94,0.1)':'rgba(239,68,68,0.1)'}; color: ${r.s?'#22c55e':'#ef4444'};">${r.s?'Present':'Absent'}</span>`;
     recentList.appendChild(li);
   });
 }
@@ -448,9 +413,6 @@ function resetCard(){
   document.getElementById("id").value="";
   document.getElementById("card").style.display="none";
   document.getElementById("msg").style.display="none";
-}
-function goBack(){
-  window.location.href="iu.html";   // غيريها لو عايزة
 }
 </script>
 </body>
