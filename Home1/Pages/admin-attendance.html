@@ -3,195 +3,136 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Attendance Dashboard | Innovation University</title>
-  
+  <title>Admin Attendance | Innovation University</title>
   <link rel="icon" type="image/png" href="../images/iu-logo.png" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="../css/style.css">
-  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
   <style>
-    /* Local specific overrides for admin attendance */
-    .controls {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 25px;
-      flex-wrap: wrap;
-    }
-
-    .controls input,
-    .controls select {
-      flex: 1;
-      min-width: 150px;
-      padding: 12px 15px;
-      border-radius: 12px;
-      border: 1px solid var(--glass-border);
-      background: rgba(255,255,255,0.05);
-      color: #fff;
-      outline: none;
-    }
-
-    .controls input:focus, .controls select:focus {
-        border-color: var(--accent);
-    }
-
-    .timeline {
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 15px;
-      padding: 20px;
-      margin-top: 30px;
-    }
-
-    .timeline h4 {
-      margin-bottom: 15px;
-      color: var(--accent);
-    }
-
-    .timeline ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .timeline li {
-      padding: 12px 0;
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .timeline li:last-child {
-      border-bottom: none;
-    }
-
+    .controls { display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; }
+    .controls input, .controls select { flex: 1; min-width: 150px; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: #fff; outline: none; }
+    .controls input:focus, .controls select:focus { border-color: var(--accent); }
+    .timeline { background: rgba(0, 0, 0, 0.2); border-radius: 15px; padding: 20px; margin-top: 30px; }
+    .timeline h4 { margin-bottom: 15px; color: var(--accent); }
+    .timeline ul { list-style: none; padding: 0; margin: 0; }
+    .timeline li { padding: 12px 0; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); }
     tr.present-row { background: rgba(34, 197, 94, 0.05); }
     tr.absent-row { background: rgba(239, 68, 68, 0.05); }
-
-    .action-btns {
-        display: flex;
-        gap: 5px;
-        justify-content: center;
-    }
-
-    .action-btns button {
-        padding: 5px 10px;
-        font-size: 0.8rem;
-    }
   </style>
 </head>
-
 <body class="lms-theme">
+    <div id="preloader"><div class="spinner"></div></div>
 
-  <div id="preloader"><div class="spinner"></div></div>
-
-  <header>
-      <div class="nav-container">
-          <div class="logo">
-              <img src="../images/iu-logo.png" alt="IU Logo">
-              <span>IU | Admin Portal</span>
-          </div>
-          <div class="menu-icon" id="menuToggle"><i class="fas fa-bars"></i></div>
-          <nav id="navMenu">
-              <a href="iu.html">Home</a>
-              <a href="dashboard-admin.html">Dashboard</a>
-              <a href="admin-attendance.html" class="active">Attendance</a>
-              <a href="login.html" class="btn-premium btn-accent">Logout <i class="fas fa-sign-out-alt"></i></a>
-          </nav>
-      </div>
-  </header>
-
-  <main class="main-content">
-
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
-      <h1 class="text-gold" style="margin: 0;">Admin Attendance</h1>
-    </div>
-
-    <!-- Stats -->
-    <div class="grid-stats">
-      <div class="glass-card stat-card">
-        <div class="stat-info"><h3>Total Students</h3><div class="value" id="totalStudents">0</div></div>
-        <div class="icon-box"><i class="fas fa-users"></i></div>
-      </div>
-      <div class="glass-card stat-card">
-        <div class="stat-info"><h3>Present Today</h3><div class="value" id="presentToday" style="color: #22c55e;">0</div></div>
-        <div class="icon-box"><i class="fas fa-check-circle" style="color: #22c55e;"></i></div>
-      </div>
-      <div class="glass-card stat-card">
-        <div class="stat-info"><h3>Absent Today</h3><div class="value" id="absentToday" style="color: #ef4444;">0</div></div>
-        <div class="icon-box"><i class="fas fa-times-circle" style="color: #ef4444;"></i></div>
-      </div>
-      <div class="glass-card stat-card">
-        <div class="stat-info"><h3>Overall Attendance</h3><div class="value" id="percent">0%</div></div>
-        <div class="icon-box"><i class="fas fa-chart-pie"></i></div>
-      </div>
-    </div>
-
-    <div class="glass-card section-card">
-      
-      <div class="controls">
-        <input id="search" placeholder="Search Student ID / Name" oninput="renderTable()">
-        <input type="date" id="date">
-        <select id="type">
-          <option>Lecture</option>
-          <option>Section</option>
-        </select>
-        
-        <div style="display: flex; gap: 10px; align-items: center;">
-            <button class="btn-premium btn-accent" style="background: rgba(34,197,94,0.2); color: #22c55e; border-color: #22c55e;" onclick="mark(true)"><i class="fas fa-check"></i> Mark Present</button>
-            <button class="btn-premium btn-accent" style="background: rgba(239,68,68,0.2); color: #ef4444; border-color: #ef4444;" onclick="mark(false)"><i class="fas fa-times"></i> Mark Absent</button>
-            <button class="btn-premium btn-primary" onclick="exportPDF()"><i class="fas fa-file-pdf"></i> Export PDF</button>
+    <header>
+        <div class="nav-container">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="menu-icon" id="sidebarToggle" style="cursor: pointer; font-size: 1.2rem;"><i class="fas fa-bars"></i></div>
+                <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+                    <img src="../images/iu-logo.png" alt="IU Logo" style="width: 40px;">
+                    <span style="font-weight: 700; font-size: 1.1rem; color: #fff; letter-spacing: 0.5px;">Innovation University</span>
+                </div>
+            </div>
+            <div class="user-profile" style="display:flex; align-items:center; gap:12px;">
+                <div style="text-align: right; line-height: 1.2;" class="hide-mobile">
+                    <div style="font-size: 0.9rem; font-weight: 600;">System Admin</div>
+                    <div style="font-size: 0.7rem; color: var(--accent);">Faculty Control</div>
+                </div>
+                <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--accent); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700;">SA</div>
+            </div>
         </div>
-      </div>
+    </header>
 
-      <div class="table-responsive">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Type</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="tbody"></tbody>
-          </table>
-      </div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar">
+            <div style="padding: 10px 20px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; position: relative;">
+                <span class="sidebar-header-text" style="font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">Admin Console</span>
+                <div id="collapseToggle" style="position: absolute; right: 10px; top: 10px; cursor: pointer; color: var(--accent); font-size: 0.8rem; background: rgba(255,255,255,0.05); width: 25px; height: 25px; border-radius: 5px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                    <i class="fas fa-chevron-left" id="collapseIcon"></i>
+                </div>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard-admin.html"><i class="fas fa-chart-line"></i><span>Overview</span></a></li>
+                <li><a class="active" href="admin-attendance.html"><i class="fas fa-user-check"></i><span>Attendance Logs</span></a></li>
+                <li><a href="#"><i class="fas fa-users"></i><span>Manage Students</span></a></li>
+                <li><a href="#"><i class="fas fa-book"></i><span>Course Control</span></a></li>
+                <li><a href="#"><i class="fas fa-shield-alt"></i><span>Security Logs</span></a></li>
+                <div style="margin: 20px 0; border-top: 1px solid rgba(255,255,255,0.05);"></div>
+                <li><a href="iu.html" style="color: var(--accent);"><i class="fas fa-external-link-alt"></i><span>University Site</span></a></li>
+                <li><a href="login.html" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i><span>Log Out</span></a></li>
+            </ul>
+        </aside>
 
-      <!-- Timeline -->
-      <div class="timeline">
-        <h4><i class="fas fa-history"></i> Recent Activities</h4>
-        <ul id="recentList"></ul>
-      </div>
+        <main class="main-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; flex-wrap: wrap; gap: 20px;">
+                <h1 class="text-gold animate-up" style="margin: 0;">Attendance Control Center</h1>
+                <button class="btn-premium btn-primary animate-up" onclick="exportPDF()"><i class="fas fa-file-pdf"></i> Generate Report</button>
+            </div>
 
+            <div class="grid-stats">
+                <div class="glass-card stat-card animate-up" style="animation-delay: 0.1s;">
+                    <div class="stat-info">
+                        <h3>Active Students</h3>
+                        <div class="value" id="totalStudents">0</div>
+                    </div>
+                    <div class="icon-box"><i class="fas fa-users"></i></div>
+                </div>
+                <div class="glass-card stat-card animate-up" style="animation-delay: 0.2s;">
+                    <div class="stat-info">
+                        <h3>Present</h3>
+                        <div class="value" id="presentToday" style="color: #22c55e;">0</div>
+                    </div>
+                    <div class="icon-box" style="background: rgba(34, 197, 94, 0.1);"><i class="fas fa-check-double" style="color: #22c55e;"></i></div>
+                </div>
+                <div class="glass-card stat-card animate-up" style="animation-delay: 0.3s;">
+                    <div class="stat-info">
+                        <h3>Absent</h3>
+                        <div class="value" id="absentToday" style="color: #ef4444;">0</div>
+                    </div>
+                    <div class="icon-box" style="background: rgba(239, 68, 68, 0.1);"><i class="fas fa-user-times" style="color: #ef4444;"></i></div>
+                </div>
+            </div>
+
+            <div class="glass-card section-card animate-up" style="animation-delay: 0.4s; margin-top: 30px;">
+                <div class="controls">
+                    <input id="search" placeholder="Search ID or Name..." oninput="renderTable()" style="flex: 2;">
+                    <input type="date" id="date">
+                    <select id="type">
+                        <option>Main Lecture</option>
+                        <option>Practical Section</option>
+                    </select>
+                    <div style="display: flex; gap: 10px; flex: 1;">
+                        <button class="btn-premium btn-accent" style="flex: 1; color: #22c55e;" onclick="mark(true)">Present</button>
+                        <button class="btn-premium btn-accent" style="flex: 1; color: #ef4444;" onclick="mark(false)">Absent</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Full Name</th>
+                                <th>Session Date</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Manage</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody"></tbody>
+                    </table>
+                </div>
+
+                <div class="timeline animate-up" style="margin-top: 40px;">
+                    <h4><i class="fas fa-stream"></i> Real-time Activity</h4>
+                    <ul id="recentList"></ul>
+                </div>
+            </div>
+        </main>
     </div>
-  </main>
 
-  <footer>© 2026 Innovation University — All Rights Reserved. Built for Excellence.</footer>
-
-  <script src="../js/style.js"></script>
-  <script>
-    // Navbar Toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('navMenu');
-    if (menuToggle && navMenu) {
-        menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
-    }
-
-    // Preloader
-    window.addEventListener('load', () => {
-        const preloader = document.getElementById('preloader');
-        if (preloader) {
-            setTimeout(() => {
-                preloader.style.opacity = '0';
-                setTimeout(() => preloader.style.display = 'none', 500);
-            }, 800);
-        }
-    });
-
+    <script src="../js/style.js"></script>
+    <script>
     let students = [
       { id: "25030087", name: "Shahd Alaa" },
       { id: "25030410", name: "Ibrahim Lotfi" },
@@ -205,31 +146,24 @@
       let a = records.filter(r => !r.s).length;
       document.getElementById('presentToday').innerText = p;
       document.getElementById('absentToday').innerText = a;
-      document.getElementById('percent').innerText = records.length ? Math.round((p / records.length) * 100) + "%" : "0%";
     }
 
     function renderTable() {
       let tbody = document.getElementById('tbody');
       tbody.innerHTML = "";
-      let searchInput = document.getElementById('search');
-      let q = searchInput.value.toLowerCase();
+      let q = document.getElementById('search').value.toLowerCase();
       
       records.filter(r => r.id.includes(q) || r.name.toLowerCase().includes(q))
         .forEach((r, i) => {
-          let statusHtml = `<span class="status-pill status-${r.s ? 'completed' : 'pending'}" style="background: ${r.s ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)'}; color: ${r.s ? '#22c55e' : '#ef4444'};">${r.s ? 'Present' : 'Absent'}</span>`;
-          
           tbody.innerHTML += `
            <tr class="${r.s ? 'present-row' : 'absent-row'}">
             <td>${r.id}</td>
             <td>${r.name}</td>
             <td>${r.date}</td>
             <td>${r.type}</td>
-            <td>${statusHtml}</td>
+            <td><span style="color: ${r.s ? '#22c55e' : '#ef4444'}; font-weight: 600;">${r.s ? 'Present' : 'Absent'}</span></td>
             <td>
-              <div class="action-btns">
-                  <button class="btn-premium btn-accent" style="background: #f59e0b; border: none; color: #fff;" onclick="toggleStatus(${i})"><i class="fas fa-edit"></i></button>
-                  <button class="btn-premium btn-accent" style="background: #ef4444; border: none; color: #fff;" onclick="del(${i})"><i class="fas fa-trash"></i></button>
-              </div>
+              <button class="btn-premium btn-primary" style="padding: 5px 10px;" onclick="del(${i})"><i class="fas fa-trash"></i></button>
             </td>
            </tr>
           `;
@@ -239,81 +173,33 @@
     }
 
     function mark(present) {
-      let searchInput = document.getElementById('search');
-      let dateInput = document.getElementById('date');
-      let typeInput = document.getElementById('type');
-      
-      let id = searchInput.value.trim();
-      if (!id) return;
-      
-      let student = students.find(s => s.id == id || s.name.toLowerCase() == id.toLowerCase());
-      if (!student) return alert("Student not found");
-      
-      let today = new Date().toISOString().split('T')[0];
-      
-      records.push({
-        id: student.id,
-        name: student.name,
-        date: dateInput.value || today,
-        type: typeInput.value,
-        s: present
-      });
+      let idInput = document.getElementById('search').value.trim();
+      let dateInput = document.getElementById('date').value;
+      let typeInput = document.getElementById('type').value;
+      if (!idInput) return;
+      let student = students.find(s => s.id == idInput || s.name.toLowerCase() == idInput.toLowerCase());
+      if (!student) return alert("Student not found.");
+      records.push({ id: student.id, name: student.name, date: dateInput || new Date().toISOString().split('T')[0], type: typeInput, s: present });
       renderTable();
     }
 
-    function toggleStatus(i) {
-      records[i].s = !records[i].s;
-      renderTable();
-    }
-
-    function del(i) {
-      if (!confirm("Are you sure you want to delete this record?")) return;
-      records.splice(i, 1);
-      renderTable();
-    }
-
-    function exportPDF() {
-      const { jsPDF } = window.jspdf;
-      const pdf = new jsPDF();
-      pdf.setFontSize(16);
-      pdf.text("Attendance Report - Innovation University", 20, 20);
-      
-      let y = 40;
-      pdf.setFontSize(12);
-      
-      if(records.length === 0) {
-          pdf.text("No attendance records found.", 20, y);
-      } else {
-          records.forEach((r, i) => {
-            if (y > 280) {
-                pdf.addPage();
-                y = 20;
-            }
-            pdf.text(`${r.id} | ${r.name} | ${r.date} | ${r.type} | ${r.s ? 'Present' : 'Absent'}`, 20, y);
-            y += 10;
-          });
-      }
-      pdf.save("attendance-report.pdf");
-    }
+    function del(i) { records.splice(i, 1); renderTable(); }
 
     function renderTimeline() {
       let recentList = document.getElementById("recentList");
       recentList.innerHTML = "";
       records.slice(-5).reverse().forEach(r => {
         const li = document.createElement("li");
-        let statusHtml = `<span class="status-pill status-${r.s ? 'completed' : 'pending'}" style="background: ${r.s ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)'}; color: ${r.s ? '#22c55e' : '#ef4444'};">${r.s ? 'Present' : 'Absent'}</span>`;
-        li.innerHTML = `<span><i class="far fa-calendar-check"></i> ${r.date} - <strong>${r.name}</strong> (${r.type})</span>${statusHtml}`;
+        li.innerHTML = `<span><strong>${r.name}</strong>: ${r.s ? 'Present' : 'Absent'}</span> <small>${r.date}</small>`;
         recentList.appendChild(li);
       });
     }
 
-    // Pre-populate some records for demo
     window.addEventListener('DOMContentLoaded', () => {
         let today = new Date().toISOString().split('T')[0];
-        records.push({ id: "25030087", name: "Shahd Alaa", date: today, type: "Lecture", s: true });
-        records.push({ id: "25030410", name: "Ibrahim Lotfi", date: today, type: "Lecture", s: true });
+        records.push({ id: "25030087", name: "Shahd Alaa", date: today, type: "Main Lecture", s: true });
         renderTable();
     });
-  </script>
+    </script>
 </body>
 </html>

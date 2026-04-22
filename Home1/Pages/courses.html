@@ -1,34 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Departments & Careers | IU Faculty of Computers</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Academic Programs | Innovation University</title>
     <link rel="icon" type="image/png" href="../images/iu-logo.png" />
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <style>
-        .dept-card {
-            padding: 30px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        .dept-card i {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 20px;
-        }
         .career-badge {
             display: inline-block;
-            background: rgba(255, 215, 0, 0.1);
+            background: rgba(253, 185, 19, 0.1);
             color: var(--accent);
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
-            margin: 5px;
-            border: 1px solid rgba(255, 215, 0, 0.2);
+            margin: 5px 5px 5px 0;
+            border: 1px solid rgba(253, 185, 19, 0.2);
         }
     </style>
 </head>
@@ -44,112 +33,101 @@
             <div class="menu-icon" id="menuToggle"><i class="fas fa-bars"></i></div>
             <nav id="navMenu">
                 <a href="iu.html">Home</a>
-                <a href="iu-details.html">About FCIT</a>
-                <a href="courses.html">Programs</a>
+                <a href="iu-details.html">About Faculty</a>
+                <a href="courses.html" class="active">Programs</a>
                 <a href="regulations.html">Regulations</a>
                 <a href="events.html">Events</a>
-                <a href="login.html" class="btn-premium btn-accent">Student Portal <i class="fas fa-sign-in-alt"></i></a>
+                <a href="login.html" class="btn-premium btn-accent">Go to LMS <i class="fas fa-sign-in-alt"></i></a>
             </nav>
         </div>
     </header>
 
     <main class="main-content">
-        <h1 class="text-gold" style="text-align: center; margin-bottom: 50px;">Scientific Departments & Career Paths</h1>
-        
+        <div class="animate-up" style="text-align: center; margin-bottom: 60px;">
+            <h1 class="text-gold" style="font-size: 3rem;">Academic Programs</h1>
+            <p style="color: rgba(255,255,255,0.7); max-width: 800px; margin: 20px auto; line-height: 1.8;">
+                Our faculty offers cutting-edge specializations designed to meet the demands of the global technology market. We focus on practical skills, innovation, and research excellence.
+            </p>
+        </div>
+
         <div class="grid-2">
-            <!-- 1. CS -->
-            <div class="glass-card dept-card animate-up" style="animation-delay: 0.1s;">
-                <i class="fas fa-code"></i>
-                <h3 class="text-gold">Computer Science</h3>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Focuses on computational theory, algorithms, and software foundations.</p>
-                <div class="careers">
-                    <span class="career-badge">Software Developer</span>
-                    <span class="career-badge">Systems Researcher</span>
-                    <span class="career-badge">Algorithm Engineer</span>
+            <!-- AI Department -->
+            <div class="glass-card section-card animate-up" style="animation-delay: 0.1s; padding: 40px;">
+                <div style="display: flex; align-items: flex-start; gap: 25px; flex-wrap: wrap;">
+                    <div class="icon-box" style="width: 70px; height: 70px; font-size: 2rem; background: rgba(253,185,19,0.1); flex-shrink: 0;">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <h3 class="text-gold" style="font-size: 1.5rem; margin-bottom: 15px;">Artificial Intelligence & Data Science</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 25px; line-height: 1.7;">
+                            Focuses on machine learning, neural networks, and big data analytics. Students learn to build intelligent systems that solve complex real-world problems.
+                        </p>
+                        <div class="feature-list">
+                            <span class="career-badge">Machine Learning Engineer</span>
+                            <span class="career-badge">Data Scientist</span>
+                            <span class="career-badge">AI Researcher</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 2. SE -->
-            <div class="glass-card dept-card animate-up" style="animation-delay: 0.2s;">
-                <i class="fas fa-layer-group"></i>
-                <h3 class="text-gold">Software Engineering</h3>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Applying engineering principles to the entire software development lifecycle.</p>
-                <div class="careers">
-                    <span class="career-badge">Software Architect</span>
-                    <span class="career-badge">QA Engineer</span>
-                    <span class="career-badge">DevOps Engineer</span>
+            <!-- Software Engineering -->
+            <div class="glass-card section-card animate-up" style="animation-delay: 0.2s; padding: 40px;">
+                <div style="display: flex; align-items: flex-start; gap: 25px; flex-wrap: wrap;">
+                    <div class="icon-box" style="width: 70px; height: 70px; font-size: 2rem; background: rgba(253,185,19,0.1); flex-shrink: 0;">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <h3 class="text-gold" style="font-size: 1.5rem; margin-bottom: 15px;">Software Engineering</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 25px; line-height: 1.7;">
+                            Master the art of building scalable, high-performance software systems. Covers software architecture, web development, and mobile app design.
+                        </p>
+                        <div class="feature-list">
+                            <span class="career-badge">Full-Stack Developer</span>
+                            <span class="career-badge">System Architect</span>
+                            <span class="career-badge">QA Engineer</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 3. AI -->
-            <div class="glass-card dept-card animate-up" style="animation-delay: 0.3s;">
-                <i class="fas fa-brain"></i>
-                <h3 class="text-gold">AI & Data Science</h3>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Deep learning, neural networks, and harvesting insights from massive data.</p>
-                <div class="careers">
-                    <span class="career-badge">ML Engineer</span>
-                    <span class="career-badge">Data Scientist</span>
-                    <span class="career-badge">AI Consultant</span>
+            <!-- Cybersecurity -->
+            <div class="glass-card section-card animate-up" style="animation-delay: 0.3s; padding: 40px;">
+                <div style="display: flex; align-items: flex-start; gap: 25px; flex-wrap: wrap;">
+                    <div class="icon-box" style="width: 70px; height: 70px; font-size: 2rem; background: rgba(253,185,19,0.1); flex-shrink: 0;">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <h3 class="text-gold" style="font-size: 1.5rem; margin-bottom: 15px;">Cybersecurity & Networking</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 25px; line-height: 1.7;">
+                            Learn to protect critical infrastructure and information assets. Focuses on ethical hacking, network security, and digital forensics.
+                        </p>
+                        <div class="feature-list">
+                            <span class="career-badge">Security Analyst</span>
+                            <span class="career-badge">Ethical Hacker</span>
+                            <span class="career-badge">Network Admin</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 4. Cybersecurity -->
-            <div class="glass-card dept-card animate-up" style="animation-delay: 0.4s;">
-                <i class="fas fa-shield-halved"></i>
-                <h3 class="text-gold">Cybersecurity & Networks</h3>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Protecting digital assets and managing secure communication infrastructures.</p>
-                <div class="careers">
-                    <span class="career-badge">Security Analyst</span>
-                    <span class="career-badge">Network Admin</span>
-                    <span class="career-badge">Ethical Hacker</span>
-                </div>
-            </div>
-
-            <!-- 5. IS -->
-            <div class="glass-card dept-card animate-up" style="animation-delay: 0.5s;">
-                <i class="fas fa-database"></i>
-                <h3 class="text-gold">Information Systems</h3>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Integrating IT solutions with business processes for organizational growth.</p>
-                <div class="careers">
-                    <span class="career-badge">Database Manager</span>
-                    <span class="career-badge">IT Analyst</span>
-                    <span class="career-badge">ERP Specialist</span>
-                </div>
-            </div>
-
-            <!-- 6. Multimedia -->
-            <div class="glass-card dept-card animate-up" style="animation-delay: 0.6s;">
-                <i class="fas fa-clapperboard"></i>
-                <h3 class="text-gold">Multimedia & Digital Design</h3>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Creating immersive digital experiences through graphics, video, and UI/UX.</p>
-                <div class="careers">
-                    <span class="career-badge">UI/UX Designer</span>
-                    <span class="career-badge">Game Developer</span>
-                    <span class="career-badge">Digital Content Creator</span>
-                </div>
-            </div>
-
-            <!-- 7. Cloud -->
-            <div class="glass-card dept-card animate-up" style="animation-delay: 0.7s;">
-                <i class="fas fa-cloud"></i>
-                <h3 class="text-gold">Cloud Computing & DevOps</h3>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Mastering cloud architectures and continuous integration/delivery pipelines.</p>
-                <div class="careers">
-                    <span class="career-badge">Cloud Architect</span>
-                    <span class="career-badge">Cloud Engineer</span>
-                    <span class="career-badge">Site Reliability Engineer</span>
-                </div>
-            </div>
-
-            <!-- 8. Business Analytics -->
-            <div class="glass-card dept-card animate-up" style="animation-delay: 0.8s;">
-                <i class="fas fa-chart-line"></i>
-                <h3 class="text-gold">Business Analytics</h3>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Transforming data into strategic business decisions and growth models.</p>
-                <div class="careers">
-                    <span class="career-badge">Business Intelligence Analyst</span>
-                    <span class="career-badge">Data Manager</span>
-                    <span class="career-badge">Operations Analyst</span>
+            <!-- Information Systems -->
+            <div class="glass-card section-card animate-up" style="animation-delay: 0.4s; padding: 40px;">
+                <div style="display: flex; align-items: flex-start; gap: 25px; flex-wrap: wrap;">
+                    <div class="icon-box" style="width: 70px; height: 70px; font-size: 2rem; background: rgba(253,185,19,0.1); flex-shrink: 0;">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <h3 class="text-gold" style="font-size: 1.5rem; margin-bottom: 15px;">Business Information Systems</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 25px; line-height: 1.7;">
+                            The bridge between technology and business. Students learn how to manage information resources to optimize organizational performance.
+                        </p>
+                        <div class="feature-list">
+                            <span class="career-badge">Business Analyst</span>
+                            <span class="career-badge">ERP Specialist</span>
+                            <span class="career-badge">Project Manager</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -158,48 +136,37 @@
     <footer class="main-footer">
         <div class="footer-grid">
             <div class="footer-col">
-                <img src="../images/iu-logo.png" alt="IU Logo" style="width: 140px; margin-bottom: 30px;">
-                <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.8;">The Faculty of Computers at Innovation University is a hub for future tech leaders, providing world-class education in AI, CS, and Digital Informatics.</p>
-                <div class="social-links">
-                    <a href="https://facebook.com" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://linkedin.com" class="social-icon" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://instagram.com" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://twitter.com" class="social-icon" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                <div class="logo" style="margin-bottom: 20px;">
+                    <img src="../images/iu-logo.png" alt="IU Logo" style="width: 50px;">
+                    <span style="color: #fff;">Innovation University</span>
                 </div>
+                <p style="color: var(--text-muted); line-height: 1.6;">Empowering the next generation of technology leaders through innovation and excellence.</p>
             </div>
             <div class="footer-col">
                 <h4>Quick Links</h4>
                 <ul class="footer-links">
                     <li><a href="iu.html">Home</a></li>
-                    <li><a href="iu-details.html">About FCIT</a></li>
-                    <li><a href="events.html">Latest Events</a></li>
-                    <li><a href="login.html">Student Portal</a></li>
+                    <li><a href="iu-details.html">About Faculty</a></li>
+                    <li><a href="courses.html">Programs</a></li>
+                    <li><a href="login.html">LMS Portal</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Our Programs</h4>
-                <ul class="footer-links">
-                    <li><a href="courses.html">Computer Science</a></li>
-                    <li><a href="courses.html">Information Systems</a></li>
-                    <li><a href="courses.html">Artificial Intelligence</a></li>
-                    <li><a href="courses.html">Cybersecurity</a></li>
-                </ul>
+                <h4>Connect</h4>
+                <div class="social-links">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                </div>
             </div>
             <div class="footer-col">
-                <h4>Get In Touch</h4>
-                <ul class="footer-links">
-                    <li><i class="fas fa-phone-alt" style="color: var(--accent);"></i> <span>Hotline: 16856</span></li>
-                    <li><i class="fas fa-envelope" style="color: var(--accent);"></i> <span>info@iu.edu.eg</span></li>
-                    <li><i class="fas fa-map-marker-alt" style="color: var(--accent);"></i> <span>10th of Ramadan City, Egypt</span></li>
-                </ul>
+                <h4>Visit Us</h4>
+                <p style="color: var(--text-muted);"><i class="fas fa-map-marker-alt" style="color: var(--accent);"></i> New Cairo, Egypt</p>
+                <a href="https://maps.app.goo.gl/zooH9yxV8VfvKVJR8" target="_blank" class="btn-premium btn-accent" style="margin-top: 15px; padding: 10px 20px; font-size: 0.85rem;">View on Map</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2026 Innovation University — Faculty of Computers & IT. All Rights Reserved.</p>
-            <div class="footer-bottom-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Use</a>
-            </div>
+            <p>&copy; 2026 Innovation University. All rights reserved.</p>
         </div>
     </footer>
 

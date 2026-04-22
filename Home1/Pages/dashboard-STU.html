@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>IU University | Student Dashboard</title>
+  <title>Student Dashboard | IU Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../images/iu-logo.png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -12,218 +14,151 @@
 
 <div id="preloader"><div class="spinner"></div></div>
 
+<header>
+    <div class="nav-container">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div class="menu-icon" id="sidebarToggle" style="cursor: pointer; font-size: 1.2rem;"><i class="fas fa-bars"></i></div>
+            <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+                <img src="../images/iu-logo.png" alt="IU Logo" style="width: 40px;">
+                <span style="font-weight: 700; font-size: 1.1rem; color: #fff; letter-spacing: 0.5px;">Innovation University</span>
+            </div>
+        </div>
+        <div class="user-profile" style="display:flex; align-items:center; gap:12px;">
+            <div style="text-align: right; line-height: 1.2;" class="hide-mobile">
+                <div style="font-size: 0.9rem; font-weight: 600;">Ahmed Anter</div>
+                <div style="font-size: 0.7rem; color: var(--accent);">ID: 25030087</div>
+            </div>
+            <a href="profile.html" title="View Profile">
+                <img src="../images/Hema.jpeg" alt="Student" style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--accent); object-fit: cover;">
+            </a>
+        </div>
+    </div>
+</header>
+
 <div class="layout">
-  <aside class="sidebar" id="sidebar">
-    <h2>IU | Student Portal</h2>
-    <nav>
-        <a class="nav-item active" href="#"><i class="fas fa-chart-pie"></i><span>Dashboard</span></a>
-        <a class="nav-item" href="levels-term1/level1-term1-pdf.html"><i class="fas fa-book"></i><span>PDF Courses</span></a>
-        <a class="nav-item" href="levels-term1/level1-term1-video.html"><i class="fas fa-video"></i><span>Video Courses</span></a>
-        <a class="nav-item" href="levels-term1/level1-quizzes.html"><i class="fas fa-question-circle"></i><span>Quizzes</span></a>
-        <a class="nav-item" href="assignments.html"><i class="fas fa-file-signature"></i><span>Assignments</span></a>
-        <a class="nav-item" href="schedule.html"><i class="fas fa-calendar"></i><span>Schedule</span></a>
-        <a class="nav-item" href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a>
-        <hr style="border: 0; border-top: 1px solid var(--glass-border); margin: 20px 0;">
-        <a class="nav-item" href="iu.html"><i class="fas fa-house"></i><span>Home Page</span></a>
-    </nav>
-  </aside>
-
-  <main class="main-content">
-    <div class="topbar">
-      <div class="menu-icon" id="sidebarToggle"><i class="fas fa-bars"></i></div>
-      <div id="welcome-msg">
-          <h2 style="margin:0;">Good Morning, <span class="text-gold">Student</span></h2>
-      </div>
-      <div class="user-profile" style="display:flex; align-items:center; gap:15px;">
-          <img src="../images/Hema.jpeg" alt="Student" style="width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--accent);">
-      </div>
-    </div>
-
-    <section class="grid-stats">
-      <div class="glass-card stat-card">
-        <div class="stat-info">
-            <h3>Enrolled Courses</h3>
-            <div class="value">5</div>
-        </div>
-        <div class="icon-box"><i class="fas fa-book-open"></i></div>
-      </div>
-      <div class="glass-card stat-card">
-        <div class="stat-info">
-            <h3>Quizzes</h3>
-            <div class="value">12</div>
-        </div>
-        <div class="icon-box"><i class="fas fa-check-double"></i></div>
-      </div>
-      <div class="glass-card stat-card">
-        <div class="stat-info">
-            <h3>Ongoing Tasks</h3>
-            <div class="value">3</div>
-        </div>
-        <div class="icon-box"><i class="fas fa-clock"></i></div>
-      </div>
-      <div class="glass-card stat-card">
-        <div class="stat-info">
-            <h3>Average Score</h3>
-            <div class="value text-gold">85%</div>
-        </div>
-        <div class="icon-box"><i class="fas fa-star"></i></div>
-      </div>
-    </section>
-
-    <div class="grid-2">
-      <div class="col-left">
-        <div class="glass-card section-card">
-          <h3 class="section-title-icon"><i class="fas fa-play-circle"></i> Continue Learning</h3>
-          <div class="progress-container">
-              <div class="progress-header">
-                  <strong>Web Development - Module 12</strong>
-                  <span class="text-gold">65%</span>
-              </div>
-              <div class="progress-bar"><div class="progress-fill" style="width: 65%;"></div></div>
-          </div>
-          <button class="btn-premium btn-accent" style="padding: 8px 20px;">Continue Lesson</button>
-        </div>
-
-        <div class="glass-card section-card">
-          <h3 class="section-title-icon"><i class="fas fa-file-upload"></i> Pending Assignments</h3>
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--glass-border);">
-            <div>
-              <strong>Database Lab 4</strong><br>
-              <small style="color: var(--text-muted);">SQL Complex Joins</small>
+        <aside class="sidebar" id="sidebar">
+            <div id="collapseToggle"><i class="fas fa-chevron-left" id="collapseIcon"></i></div>
+            <div class="logo">
+                <img src="../images/iu-logo.png" alt="IU Logo">
+                <span>Innovation University</span>
             </div>
-            <div style="text-align: right;">
-              <span class="badge badge-warning">Due Tomorrow</span><br>
-              <button class="btn-premium btn-primary" style="padding: 5px 12px; font-size: 0.8rem; margin-top:5px;">Upload</button>
-            </div>
-          </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0;">
-            <div>
-              <strong>Computer Graphics</strong><br>
-              <small style="color: var(--text-muted);">Fractal Geometry Project</small>
-            </div>
-            <div style="text-align: right;">
-              <span class="badge badge-warning">3 Days Left</span><br>
-              <button class="btn-premium btn-primary" style="padding: 5px 12px; font-size: 0.8rem; margin-top:5px;">Upload</button>
-            </div>
-          </div>
-        </div>
-      </div>
+            <ul class="sidebar-menu">
+            <li><a class="active" href="dashboard-STU.html"><i class="fas fa-th-large"></i><span>Dashboard</span></a></li>
+            <li><a href="levels-term1/level1-term1-pdf.html"><i class="fas fa-file-pdf"></i><span>Course Materials</span></a></li>
+            <li><a href="levels-term1/level1-term1-video.html"><i class="fas fa-play-circle"></i><span>Video Lectures</span></a></li>
+            <li><a href="levels-term1/level1-quizzes.html"><i class="fas fa-tasks"></i><span>Quizzes & Tests</span></a></li>
+            <li><a href="assignments.html"><i class="fas fa-file-upload"></i><span>Assignments</span></a></li>
+            <li><a href="schedule.html"><i class="fas fa-calendar-alt"></i><span>Academic Table</span></a></li>
+            <li><a href="profile.html"><i class="fas fa-user-cog"></i><span>My Profile</span></a></li>
+            <div style="margin: 20px 0; border-top: 1px solid rgba(255,255,255,0.05);"></div>
+            <li><a href="iu.html" style="color: var(--accent);"><i class="fas fa-external-link-alt"></i><span>University Site</span></a></li>
+            <li><a href="login.html" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i><span>Log Out</span></a></li>
+        </ul>
+    </aside>
 
-      <div class="col-right">
-        <div class="glass-card section-card">
-          <h3 class="section-title-icon"><i class="fas fa-calendar-check"></i> Upcoming Quizzes</h3>
-          <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--glass-border);">
-            <span>Data Structures</span>
-            <span class="text-gold">Oct 25</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; padding: 10px 0;">
-            <span>Networks I</span>
-            <span class="text-gold">Oct 28</span>
-          </div>
+    <main class="main-content">
+        <div class="animate-up" style="margin-bottom: 30px;">
+            <h2 style="margin:0; font-size: 1.8rem;">Welcome, <span class="text-gold">Ahmed Anter</span></h2>
+            <p style="color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 5px;">Level 1 | Second Semester | Computer Science</p>
         </div>
 
-        <div class="glass-card section-card">
-          <h3 class="section-title-icon"><i class="fas fa-chart-line"></i> Performance</h3>
-          <canvas id="performanceChart" style="max-height: 180px;"></canvas>
+        <!-- Dashboard Hero Slider -->
+        <div class="hero-slider animate-up">
+            <div class="slide active" style="background-image: linear-gradient(to right, rgba(0,0,0,0.8), transparent), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=1470');">
+                <div class="slide-content">
+                    <h2>Innovation in AI</h2>
+                    <p>Explore our new Artificial Intelligence modules and stay ahead in the tech industry.</p>
+                    <button class="btn-premium btn-accent" style="margin-top: 20px;">Join Module <i class="fas fa-plus-circle"></i></button>
+                </div>
+            </div>
+            <div class="slide" style="background-image: linear-gradient(to right, rgba(0,0,0,0.8), transparent), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1470');">
+                <div class="slide-content">
+                    <h2>Cybersecurity Hub</h2>
+                    <p>Learn how to protect digital assets with our advanced security labs and workshops.</p>
+                    <button class="btn-premium btn-accent" style="margin-top: 20px;">Join Workshop <i class="fas fa-shield-alt"></i></button>
+                </div>
+            </div>
+            <div class="slide" style="background-image: linear-gradient(to right, rgba(0,0,0,0.8), transparent), url('https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=80&w=1420');">
+                <div class="slide-content">
+                    <h2>Robotics Workshop</h2>
+                    <p>Join the upcoming automation club sessions and build your own autonomous robots.</p>
+                    <button class="btn-premium btn-accent" style="margin-top: 20px;">Join Club <i class="fas fa-robot"></i></button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div class="grid-2" style="margin-top: 30px;">
-        <div class="glass-card section-card">
-            <h3 class="section-title-icon"><i class="fas fa-chart-pie"></i> Course Completion</h3>
-            <canvas id="pieChart" style="max-height: 200px;"></canvas>
+        <section class="grid-stats">
+            <div class="glass-card stat-card animate-up" style="animation-delay: 0.1s;">
+                <div class="stat-info">
+                    <h3>My Courses</h3>
+                    <div class="value">06</div>
+                </div>
+                <div class="icon-box" style="background: rgba(253, 185, 19, 0.1);"><i class="fas fa-graduation-cap" style="color: var(--accent);"></i></div>
+            </div>
+            <div class="glass-card stat-card animate-up" style="animation-delay: 0.2s;">
+                <div class="stat-info">
+                    <h3>Quiz Score</h3>
+                    <div class="value">92%</div>
+                </div>
+                <div class="icon-box" style="background: rgba(34, 197, 94, 0.1);"><i class="fas fa-award" style="color: #22c55e;"></i></div>
+            </div>
+            <div class="glass-card stat-card animate-up" style="animation-delay: 0.3s; cursor: pointer;" onclick="location.href='assignments.html'">
+                <div class="stat-info">
+                    <h3>Due Tasks</h3>
+                    <div class="value">02</div>
+                </div>
+                <div class="icon-box" style="background: rgba(239, 68, 68, 0.1);"><i class="fas fa-hourglass-half" style="color: #ef4444;"></i></div>
+            </div>
+        </section>
+
+        <div class="grid-2" style="margin-top: 30px;">
+            <div class="glass-card section-card animate-up" style="animation-delay: 0.4s;">
+                <h3 class="section-title-icon"><i class="fas fa-chart-line" style="color: var(--accent);"></i> Performance Trends</h3>
+                <canvas id="performanceChart" style="max-height: 250px; margin-top: 20px;"></canvas>
+            </div>
+            <div class="glass-card section-card animate-up" style="animation-delay: 0.5s;">
+                <h3 class="section-title-icon"><i class="fas fa-bell" style="color: var(--accent);"></i> Announcements</h3>
+                <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 15px;">
+                    <div style="padding: 15px; background: rgba(255,255,255,0.03); border-radius: 12px; border-left: 3px solid var(--accent);">
+                        <strong style="display: block; font-size: 0.95rem;">Midterm Exams Schedule</strong>
+                        <small style="color: rgba(255,255,255,0.5);">Midterm schedule for term 2 is now available.</small>
+                    </div>
+                    <div style="padding: 15px; background: rgba(255,255,255,0.03); border-radius: 12px; border-left: 3px solid var(--accent);">
+                        <strong style="display: block; font-size: 0.95rem;">New Course Materials</strong>
+                        <small style="color: rgba(255,255,255,0.5);">Database systems week 8 content uploaded.</small>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="glass-card section-card">
-            <h3 class="section-title-icon"><i class="fas fa-chart-area"></i> Weekly Activity</h3>
-            <canvas id="lineChart" style="height: 200px;"></canvas>
-        </div>
-    </div>
-  </main>
+    </main>
 </div>
 
+<script src="../js/style.js"></script>
 <script>
-  // Preloader
-  window.addEventListener('load', () => {
-    const preloader = document.getElementById('preloader');
-    setTimeout(() => {
-        preloader.style.opacity = '0';
-        setTimeout(() => preloader.style.display = 'none', 500);
-    }, 800);
-  });
-
-  // Sidebar Toggle
-  const sidebarToggle = document.getElementById('sidebarToggle');
-  const sidebar = document.getElementById('sidebar');
-  sidebarToggle.addEventListener('click', () => {
-    sidebar.classList.toggle('active');
-  });
-
-  // Performance Chart
-  const perfCtx = document.getElementById('performanceChart').getContext('2d');
-  new Chart(perfCtx, {
-    type: 'bar',
-    data: {
-      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-      datasets: [{
-        label: 'Grades',
-        data: [85, 90, 78, 92],
-        backgroundColor: '#FFD700',
-        borderRadius: 5
-      }]
-    },
-    options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: {
-            y: { grid: { display: false }, ticks: { color: '#fff' } },
-            x: { grid: { display: false }, ticks: { color: '#fff' } }
+    // Performance Chart
+    const ctx = document.getElementById('performanceChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+            datasets: [{
+                label: 'Score',
+                data: [65, 78, 72, 85, 90, 92],
+                borderColor: '#fdb913',
+                backgroundColor: 'rgba(253, 185, 19, 0.1)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.5)' } },
+                x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.5)' } }
+            }
         }
-    }
-  });
-
-  // Weekly Activity Chart
-  const lineCtx = document.getElementById('lineChart').getContext('2d');
-  new Chart(lineCtx, {
-    type: 'line',
-    data: {
-      labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      datasets: [{
-        label: 'Study Hours',
-        data: [4, 6, 3, 8, 5, 2, 7],
-        borderColor: '#FFD700',
-        backgroundColor: 'rgba(255, 215, 0, 0.1)',
-        tension: 0.4,
-        fill: true
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: { legend: { display: false } },
-      scales: {
-        y: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#fff' } },
-        x: { grid: { display: false }, ticks: { color: '#fff' } }
-      }
-    }
-  });
-
-  // Pie Chart
-  const pieCtx = document.getElementById('pieChart').getContext('2d');
-  new Chart(pieCtx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Completed', 'Ongoing', 'Pending'],
-      datasets: [{
-        data: [70, 20, 10],
-        backgroundColor: ['#002b5b', '#FFD700', '#004a9c'],
-        borderWidth: 0
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: { legend: { position: 'bottom', labels: { color: '#fff' } } }
-    }
-  });
+    });
 </script>
 </body>
-</html>
+</html>

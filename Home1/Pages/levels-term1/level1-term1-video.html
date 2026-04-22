@@ -1,269 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Courses Page</title>
-<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
- body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: rgba(143, 143, 143, 0.33);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Video Library | Level 1</title>
+    <link rel="icon" type="image/png" href="../../images/iu-logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        .courses {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
         }
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: url('../../images/img.jpg') center / cover no-repeat;
-            filter: blur(3px);
-            transform: scale(1.1);
-            z-index: -1;
+        .video-card {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
-
-header {
-    padding: 15px 40px;
-    background: rgba(0, 26, 85, 0.9);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-}
-
-header a {
-    color: white;
-    margin-left: 20px;
-    text-decoration: none;
-    font-weight: 836;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 50px auto;
-}
-
- h1 {
-      font-size: 40px;
-      color: #0a3d62;
-      margin-bottom: 25px;
-      text-shadow: 0 0 9px #ffffff;
-      font-weight: 836;
-     text-align: center;
-    }
-
-h2 {
-    font-size: 27px;
-    color: #ffffff;
-    margin-bottom: 17px;
-    text-shadow: 0 0 9px #ffffff;
-    font-weight: 600;
-    text-align: center;
-}
-h4 {
-    font-size: 18px;
-    color: #ffffff;
-    margin-bottom: 17px;
-    text-shadow: 0 0 9px #ffffff;
-    font-weight: 600;
-    text-align: center;
-}
-.courses {
-    display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 37px;
-    justify-items: center;
-}
-
-/* ===== CARD ===== */
-.card {
-    background: rgba(205, 205, 205, 0.21);
-    backdrop-filter: blur(4px); /
-    border-radius: 11px;
-    box-shadow: 0 4px 15px #0a4d9b;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 350px;
-    color: rgb(0, 22, 71);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 25px #1c5390;
-}
-
-/* Card header gradient */
-.card-header {
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 15px 15px 0 0;
-    font-size: 32px;
-    color: rgb(255, 255, 255);
-}
-
-/* Card body transparent */
-.card-body {
-    padding: 20px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    background: transparent;
-}
-
-/* Card text */
-.card h3 {
-    margin: 10px 0 5px;
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.card p {
-    flex-grow: 1;
-    font-size: 14px;
-    line-height: 1.4;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-}
-
-/* View button */
-.card .btn {
-    margin-top: 15px;
-    background: #0a3c74;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 10px;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.3s;
-}
-
-.card .btn:hover {
-    background: #002b5b;
-    transform: scale(1.05);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .courses {
-        grid-template-columns: 1fr; /* على الموبايل كارت واحد لكل سطر */
-    }
-}
-</style>
+        .video-thumbnail {
+            height: 160px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; position: relative;
+        }
+        .video-info { padding: 20px; text-align: center; }
+        .video-info h3 { margin: 0; font-size: 1.3rem; }
+    </style>
 </head>
-<body>
+<body class="lms-theme">
+    <div id="preloader"><div class="spinner"></div></div>
 
-<header>
-    <div>
-<h2>
-Innovation University
-</h2>
-</div>
-    <div>
-<h4>
-      
-        <a href="level1-term1-pdf.html">PDF</a>
-      <a href="./level1-quizzes.html">Quizzes</a>
-        <a href="../select-level.html">Levels</a>
-          <a href="../iu.html">Home</a>
-</h4>
+    <header>
+        <div class="nav-container">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="menu-icon" id="sidebarToggle" style="cursor: pointer; font-size: 1.2rem;"><i class="fas fa-bars"></i></div>
+                <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+                    <img src="../../images/iu-logo.png" alt="IU Logo" style="width: 40px;">
+                    <span style="font-weight: 700; font-size: 1.1rem; color: #fff; letter-spacing: 0.5px;">Innovation University</span>
+                </div>
+            </div>
+            <div class="user-profile" style="display:flex; align-items:center; gap:12px;">
+                <div style="text-align: right; line-height: 1.2;" class="hide-mobile">
+                    <div style="font-size: 0.9rem; font-weight: 600;">Ahmed Anter</div>
+                    <div style="font-size: 0.7rem; color: var(--accent);">ID: 25030087</div>
+                </div>
+                <img src="../../images/Hema.jpeg" alt="Student" style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--accent); object-fit: cover;">
+            </div>
+        </div>
+    </header>
 
+    <div class="layout">
+        <aside class="sidebar" id="sidebar">
+            <div style="padding: 10px 20px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; position: relative;">
+                <span class="sidebar-header-text" style="font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">Academic Portal</span>
+                <div id="collapseToggle" style="position: absolute; right: 10px; top: 10px; cursor: pointer; color: var(--accent); font-size: 0.8rem; background: rgba(255,255,255,0.05); width: 25px; height: 25px; border-radius: 5px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                    <i class="fas fa-chevron-left" id="collapseIcon"></i>
+                </div>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="../dashboard-STU.html"><i class="fas fa-th-large"></i><span>Dashboard</span></a></li>
+                <li><a href="level1-term1-pdf.html"><i class="fas fa-file-pdf"></i><span>Course Materials</span></a></li>
+                <li><a class="active" href="level1-term1-video.html"><i class="fas fa-play-circle"></i><span>Video Lectures</span></a></li>
+                <li><a href="level1-quizzes.html"><i class="fas fa-tasks"></i><span>Quizzes & Tests</span></a></li>
+                <li><a href="../assignments.html"><i class="fas fa-file-upload"></i><span>Assignments</span></a></li>
+                <li><a href="../schedule.html"><i class="fas fa-calendar-alt"></i><span>Academic Table</span></a></li>
+                <li><a href="../profile.html"><i class="fas fa-user-cog"></i><span>My Profile</span></a></li>
+                <div style="margin: 20px 0; border-top: 1px solid rgba(255,255,255,0.05);"></div>
+                <li><a href="../iu.html" style="color: var(--accent);"><i class="fas fa-external-link-alt"></i><span>University Site</span></a></li>
+                <li><a href="../login.html" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i><span>Log Out</span></a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="animate-up" style="text-align: center; margin-bottom: 50px;">
+                <h1 class="text-gold">Level 1 - Academic Video Library</h1>
+                <p style="color: rgba(255,255,255,0.7);">Watch expert-led video lectures and recorded sessions.</p>
+            </div>
+
+            <div class="courses">
+                <div class="glass-card video-card animate-up" style="animation-delay: 0.1s;">
+                    <div class="video-thumbnail">💻</div>
+                    <div class="video-info">
+                        <h3>Programming</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">Foundations of coding with C#.</p>
+                        <button class="btn-premium btn-primary" style="width: 100%; margin-top: 15px;" onclick="location.href='Videos/Introduction-programming-vid.html'">Watch Now</button>
+                    </div>
+                </div>
+
+                <div class="glass-card video-card animate-up" style="animation-delay: 0.2s;">
+                    <div class="video-thumbnail">📐</div>
+                    <div class="video-info">
+                        <h3>Mathematics 1</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">Calculus and Algebra sessions.</p>
+                        <button class="btn-premium btn-primary" style="width: 100%; margin-top: 15px;" onclick="location.href='Videos/math1-videos.html'">Watch Now</button>
+                    </div>
+                </div>
+
+                <div class="glass-card video-card animate-up" style="animation-delay: 0.3s;">
+                    <div class="video-thumbnail">⚛️</div>
+                    <div class="video-info">
+                        <h3>Physics</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">Mechanics and Physical Laws.</p>
+                        <button class="btn-premium btn-primary" style="width: 100%; margin-top: 15px;" onclick="location.href='Videos/physics-ved.html'">Watch Now</button>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
-</header>
 
-<div class="container">
-    <h1>Welcome to the Academic Video Library!</h1>
-    <h3 class="text">Start your learning journey now. You can return to the courses list anytime. </h3>
-    <div class="courses">
+    <footer class="footer-bottom" style="text-align: center; margin-top: 80px;">© 2026 Innovation University — All Rights Reserved. Built for Excellence.</footer>
 
-        <!-- Programming -->
-        <div class="card">
-            <div class="card-header" style="background: linear-gradient(135deg, #0040a6, #002b5b);">💻</div>
-            <div class="card-body">
-                <h3>Programming</h3>
-                <p>Learn the basics of programming and problem solving with C#.</p>
-                <button class="btn" onclick="window.location.href='Videos/Introduction-programming-vid.html'">View</button>
-            </div>
-        </div>
-
-        <!-- Math -->
-        <div class="card">
-            <div class="card-header" style="background: linear-gradient(135deg, #0040a6, #002b5b);">📐</div>
-            <div class="card-body">
-                <h3>Math 1</h3>
-                <p>Understand equations, algebra, and calculus easily.</p>
-                <button class="btn" onclick="window.location.href='Videos/math1-videos.html'">View</button>
-            </div>
-        </div>
-
-        <!-- Physics -->
-        <div class="card">
-            <div class="card-header" style="background: linear-gradient(135deg, #0040a6, #002b5b);">⚛️</div>
-            <div class="card-body">
-                <h3>Physics</h3>
-                <p>Explore motion, energy, and the laws of physics.</p>
-                <button class="btn" onclick="window.location.href='Videos/physics-ved.html'">View</button>
-            </div>
-        </div>
-
-        <!-- Computer -->
-        <div class="card">
-            <div class="card-header" style="background: linear-gradient(135deg, #0040a6, #002b5b);">🖥️</div>
-            <div class="card-body">
-                <h3>Computer</h3>
-                <p>Introduction to computers and basic concepts of computing.</p>
-                <button class="btn" onclick="window.location.href='Videos/computer-videos.html'">View</button>
-            </div>
-        </div>
-
-        <!-- English -->
-        <div class="card">
-            <div class="card-header" style="background: linear-gradient(135deg, #0040a6, #002b5b);">📖</div>
-            <div class="card-body">
-                <h3>English</h3>
-                <p>Improve your grammar, reading, and writing skills.</p>
-                <button class="btn" onclick="window.location.href='Videos/english-videos.html'">View</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" style="background: linear-gradient(135deg, #0040a6, #002b5b);">📐</div>
-            <div class="card-body">
-                <h3>Math0</h3>
-                <p>Learn basic of algebra and calculus..</p>
-                <button class="btn" onclick="window.location.href='Videos/Math0-ved.html'">View</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" style="background: linear-gradient(135deg, #0040a6, #002b5b);">📈</div>
-            <div class="card-body">
-                <h3>Intreprenureship &amp; Innovation</h3>
-                <p>Turning creative solutions into profitable businesses.</p>
-                <button class="btn" onclick="window.location.href='Videos/intreprenurship-ved.html'">View</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" style="background: linear-gradient(135deg, #0040a6, #002b5b);">⚖️</div>
-            <div class="card-body">
-                <h3>Human Rights</h3>
-                <p>Universal rules that protect the dignity and freedom of every individual.</p>
-                <button class="btn" onclick="window.location.href='Videos/human-ved.html'">View</button>
-            </div>
-        </div>
-
-        <!-- Add more courses similarly -->
-
-    </div>
-</div>
-
-<script src="../../js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/style.js"></script>
 </body>
 </html>

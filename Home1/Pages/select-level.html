@@ -1,273 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Select Level | Innovation University</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css">
-
-  <style>
-    /* Specific overrides for Select Level page if needed, otherwise rely on style.css */
-    .term-switch {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 40px;
-    }
-
-    .term-switch button {
-      padding: 10px 30px;
-      border-radius: 30px;
-      border: 2px solid var(--accent);
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text-light);
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .term-switch button.active {
-      background: var(--accent);
-      color: var(--primary);
-      transform: scale(1.05);
-      box-shadow: 0 0 15px var(--accent-glow);
-    }
-
-    .term-switch button:hover:not(.disabled) {
-      background-color: var(--accent);
-      color: var(--primary);
-      transform: scale(1.05);
-    }
-
-    .term-switch button.disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      border-color: var(--text-muted);
-      color: var(--text-muted);
-    }
-
-    #comingSoonMsg {
-      margin-top: 10px;
-      font-size: 13px;
-      color: var(--accent);
-      opacity: 0;
-      transform: translateY(-5px);
-      transition: 0.4s ease;
-      pointer-events: none;
-      position: absolute;
-    }
-
-    #comingSoonMsg.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .level-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .level-card h3 {
-      font-size: 24px;
-      color: var(--accent);
-      margin-bottom: 10px;
-      border-bottom: 1px solid var(--glass-border);
-      padding-bottom: 8px;
-      width: 100%;
-    }
-
-    .level-card p { 
-        font-size: 16px; 
-        color: var(--text-muted); 
-        margin-bottom: 25px; 
-    }
-
-    .buttons-container { 
-        display: flex; 
-        gap: 15px; 
-        width: 100%;
-    }
-    
-    .buttons-container button {
-        flex: 1;
-    }
-  </style>
-</head>
-<body class="faculty-theme">
-
-  <div id="preloader"><div class="spinner"></div></div>
-
-  <header>
-      <div class="nav-container">
-          <div class="logo">
-              <img src="../images/iu-logo.png" alt="IU Logo">
-              <span>IU | Faculty of Computers</span>
-          </div>
-          <div class="menu-icon" id="menuToggle"><i class="fas fa-bars"></i></div>
-          <nav id="navMenu">
-              <a href="iu.html">Home</a>
-              <a href="iu-details.html">About FCIT</a>
-              <a href="courses.html">Programs</a>
-              <a href="regulations.html">Regulations</a>
-              <a href="events.html">Events</a>
-              <a href="login.html" class="btn-premium btn-accent">Student Portal <i class="fas fa-sign-in-alt"></i></a>
-          </nav>
-      </div>
-  </header>
-
-  <main class="main-content">
-      <h1 class="text-gold" style="text-align: center; margin-bottom: 30px;">Learning Resources</h1>
-
-      <div class="term-switch" style="position: relative;">
-        <button id="term1Btn" class="active" onclick="switchTerm('term1')">Fall Semester</button>
-        <button id="term2Btn" class="disabled" onclick="switchTerm('term2')">
-          <i class="fa-solid fa-lock"></i> Spring Semester
-        </button>
-        <div id="comingSoonMsg" style="bottom: -25px;">Coming Soon</div>
-      </div>
-
-      <div class="grid-2" id="courses">
-        <!-- Level cards same as before but with minor style fixes -->
-        <div class="glass-card section-card level-card">
-          <h3>Level 1</h3>
-          <p>Foundation year resources and lecture notes.</p>
-          <div class="buttons-container">
-            <button class="btn-premium btn-primary" onclick="openPDF(1)"> <i class="fa-regular fa-file-pdf"></i> Materials </button>
-            <button class="btn-premium btn-accent" onclick="openVideo(1)"> <i class="fa-solid fa-circle-play"></i> Lectures </button>
-          </div>
-        </div>
-
-        <div class="glass-card section-card level-card">
-          <h3>Level 2</h3>
-          <p>Core computing and software engineering materials.</p>
-          <div class="buttons-container">
-            <button class="btn-premium btn-primary" onclick="openPDF(2)"> <i class="fa-regular fa-file-pdf"></i> Materials </button>
-            <button class="btn-premium btn-accent" onclick="openVideo(2)"> <i class="fa-solid fa-circle-play"></i> Lectures </button>
-          </div>
-        </div>  
-
-        <div class="glass-card section-card level-card">
-          <h3>Level 3</h3>
-          <p>Advanced specialization and research materials.</p>
-          <div class="buttons-container">
-            <button class="btn-premium btn-primary" onclick="openPDF(3)"> <i class="fa-regular fa-file-pdf"></i> Materials </button>
-            <button class="btn-premium btn-accent" onclick="openVideo(3)"> <i class="fa-solid fa-circle-play"></i> Lectures </button>
-          </div>
-        </div>
-
-        <div class="glass-card section-card level-card">
-          <h3>Level 4</h3>
-          <p>Graduation projects and specialized tracks.</p>
-          <div class="buttons-container">
-            <button class="btn-premium btn-primary" onclick="openPDF(4)"> <i class="fa-regular fa-file-pdf"></i> Materials </button>
-            <button class="btn-premium btn-accent" onclick="openVideo(4)"> <i class="fa-solid fa-circle-play"></i> Lectures </button>
-          </div>
-        </div>
-      </div>
-  </main>
-
-<footer class="main-footer">
-    <div class="footer-grid">
-        <div class="footer-col">
-            <img src="../images/iu-logo.png" alt="IU Logo" style="width: 140px; margin-bottom: 30px;">
-            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.8;">Academic resources portal for FCIT students.</p>
-        </div>
-        <div class="footer-col">
-            <h4>Quick Links</h4>
-            <ul class="footer-links">
-                <li><a href="iu.html">Home</a></li>
-                <li><a href="courses.html">Programs</a></li>
-                <li><a href="dashboard-STU.html">Dashboard</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>Support</h4>
-            <ul class="footer-links">
-                <li><i class="fas fa-envelope" style="color: var(--accent);"></i> support@iu.edu.eg</li>
-                <li><i class="fas fa-phone-alt" style="color: var(--accent);"></i> 16856</li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>© 2026 Innovation University — Faculty of Computers. All Rights Reserved.</p>
-    </div>
-</footer>
-
-  <script src="../js/style.js"></script>
-  <script>
-    // Navbar Toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('navMenu');
-    if (menuToggle && navMenu) {
-        menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
-    }
-
-    // Preloader
-    window.addEventListener('load', () => {
-        const preloader = document.getElementById('preloader');
-        if (preloader) {
-            setTimeout(() => {
-                preloader.style.opacity = '0';
-                setTimeout(() => preloader.style.display = 'none', 500);
-            }, 800);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Level | IU Portal</title>
+    <link rel="icon" type="image/png" href="../images/iu-logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .level-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
         }
-    });
+        .level-card {
+            text-align: center;
+            padding: 40px 20px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .level-card i {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+        .level-card:hover i {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .level-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body class="lms-theme">
+    <div id="preloader"><div class="spinner"></div></div>
 
-    // Files Data Same as before
-    const files = {
-      term1: {
-        1: { pdf: 'levels-term1/level1-term1-pdf.html', video: 'levels-term1/level1-term1-video.html' },
-        2: { pdf: 'level2-term1.html/level2-term1-pdf.html', video: 'level2-term1.html/level2-term1-video.html' },
-        3: { pdf: 'level3-term1/level3-term1-pdf.html', video: 'level3-term1/level3-term1-video.html' },
-        4: { pdf: 'level4-term1/level4-term1-pdf.html', video: 'level4-term1/level4-term1-video.html' }
-      },
-      term2: {
-        1: { pdf: 'level1/term2/pdf.html', video: 'level1/term2/video.html' },
-        2: { pdf: 'level2/term2/pdf.html', video: 'level2/term2/video.html' },
-        3: { pdf: 'level3/term2/pdf.html', video: 'level3/term2/video.html' },
-        4: { pdf: 'level4/term2/pdf.html', video: 'level4/term2/video.html' },
-      }
-    };
+    <header>
+        <div class="nav-container">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="menu-icon" id="sidebarToggle" style="cursor: pointer; font-size: 1.2rem;"><i class="fas fa-bars"></i></div>
+                <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+                    <img src="../images/iu-logo.png" alt="IU Logo" style="width: 40px;">
+                    <span style="font-weight: 700; font-size: 1.1rem; color: #fff; letter-spacing: 0.5px;">Innovation University</span>
+                </div>
+            </div>
+            <div class="user-profile" style="display:flex; align-items:center; gap:12px;">
+                <div style="text-align: right; line-height: 1.2;" class="hide-mobile">
+                    <div style="font-size: 0.9rem; font-weight: 600;">Ahmed Anter</div>
+                    <div style="font-size: 0.7rem; color: var(--accent);">ID: 25030087</div>
+                </div>
+                <img src="../images/Hema.jpeg" alt="Student" style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--accent); object-fit: cover;">
+            </div>
+        </div>
+    </header>
 
-    let currentTerm = 'term1';
-    const term1Btn = document.getElementById('term1Btn');
-    const term2Btn = document.getElementById('term2Btn');
+    <div class="layout">
+        <aside class="sidebar" id="sidebar">
+        <div style="padding: 10px 20px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; position: relative;">
+            <span class="sidebar-header-text" style="font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">Academic Portal</span>
+            <div id="collapseToggle" style="position: absolute; right: 10px; top: 10px; cursor: pointer; color: var(--accent); font-size: 0.8rem; background: rgba(255,255,255,0.05); width: 25px; height: 25px; border-radius: 5px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                <i class="fas fa-chevron-left" id="collapseIcon"></i>
+            </div>
+        </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard-STU.html"><i class="fas fa-th-large"></i><span>Dashboard</span></a></li>
+                <li><a href="levels-term1/level1-term1-pdf.html"><i class="fas fa-file-pdf"></i><span>Course Materials</span></a></li>
+                <li><a href="levels-term1/level1-term1-video.html"><i class="fas fa-play-circle"></i><span>Video Lectures</span></a></li>
+                <li><a href="levels-term1/level1-quizzes.html"><i class="fas fa-tasks"></i><span>Quizzes & Tests</span></a></li>
+                <li><a href="assignments.html"><i class="fas fa-file-upload"></i><span>Assignments</span></a></li>
+                <li><a href="schedule.html"><i class="fas fa-calendar-alt"></i><span>Academic Table</span></a></li>
+                <li><a href="profile.html"><i class="fas fa-user-cog"></i><span>My Profile</span></a></li>
+                <div style="margin: 20px 0; border-top: 1px solid rgba(255,255,255,0.05);"></div>
+                <li><a href="iu.html" style="color: var(--accent);"><i class="fas fa-external-link-alt"></i><span>University Site</span></a></li>
+                <li><a href="login.html" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i><span>Log Out</span></a></li>
+            </ul>
+        </aside>
 
-    function switchTerm(term) {
-      if(term === 'term2') {
-        showComingSoon();
-        return;
-      }
-      currentTerm = term;
-      term1Btn.classList.toggle('active', term==='term1');
-    }
+        <main class="main-content">
+            <div class="animate-up" style="text-align: center; margin-bottom: 50px;">
+                <h1 class="text-gold">Academic Level Selection</h1>
+                <p style="color: rgba(255,255,255,0.7);">Please select your current academic level to access your specialized materials.</p>
+            </div>
 
-    function openPDF(level) {
-      if(files[currentTerm] && files[currentTerm][level] && files[currentTerm][level].pdf) {
-        window.location.href = files[currentTerm][level].pdf;
-      } else {
-        showComingSoon();
-      }
-    }
+            <div class="level-grid">
+                <div class="glass-card level-card animate-up" style="animation-delay: 0.1s;" onclick="location.href='levels-term1/level1-term1-pdf.html'">
+                    <i class="fas fa-layer-group"></i>
+                    <h3>Level 1</h3>
+                    <p>Foundational concepts in Computing and Information Systems.</p>
+                    <button class="btn-premium btn-primary">Enter Level</button>
+                </div>
 
-    function openVideo(level) {
-      if(files[currentTerm] && files[currentTerm][level] && files[currentTerm][level].video) {
-        window.location.href = files[currentTerm][level].video;
-      } else {
-        showComingSoon();
-      }
-    }
+                <div class="glass-card level-card animate-up" style="animation-delay: 0.2s;">
+                    <i class="fas fa-code-branch"></i>
+                    <h3>Level 2</h3>
+                    <p>Intermediate programming and database architectures.</p>
+                    <button class="btn-premium btn-primary">Enter Level</button>
+                </div>
 
-    function showComingSoon() {
-      const msg = document.getElementById("comingSoonMsg");
-      msg.classList.add("show");
-      setTimeout(() => msg.classList.remove("show"), 2500);
-    }
-  </script>
+                <div class="glass-card level-card animate-up" style="animation-delay: 0.3s;">
+                    <i class="fas fa-microchip"></i>
+                    <h3>Level 3</h3>
+                    <p>Advanced Algorithms, AI and Machine Learning modules.</p>
+                    <button class="btn-premium btn-primary">Enter Level</button>
+                </div>
+
+                <div class="glass-card level-card animate-up" style="animation-delay: 0.4s;">
+                    <i class="fas fa-user-shield"></i>
+                    <h3>Level 4</h3>
+                    <p>Cybersecurity, Cloud Computing and Graduation Projects.</p>
+                    <button class="btn-premium btn-primary">Enter Level</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer-bottom" style="text-align: center; margin-top: 80px;">© 2026 Innovation University — All Rights Reserved. Built for Excellence.</footer>
+
+    <script src="../js/style.js"></script>
 </body>
 </html>

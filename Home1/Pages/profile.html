@@ -3,118 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Profile | Innovation University</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Student Profile | IU Portal</title>
+    <link rel="icon" type="image/png" href="../images/iu-logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
-</head>
-<body>
-
-<div id="preloader"><div class="spinner"></div></div>
-
-<a href="iu.html" class="back-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
-
-<div class="main-content" style="max-width: 1000px; margin: 0 auto; padding: 40px 20px;">
-    <!-- Profile Header -->
-    <div class="glass-card section-card" style="display: flex; align-items: center; gap: 30px; flex-wrap: wrap; justify-content: center; text-align: center;">
-        <img src="../images/Hema.jpeg" id="profile-img" alt="Student" style="width: 160px; height: 160px; border-radius: 50%; border: 4px solid var(--accent); object-fit: cover;">
-        <div style="flex: 1; min-width: 280px;">
-            <h1 id="profile-name" class="text-gold" style="margin-bottom: 10px;">Ebrahim Lotfi</h1>
-            <span id="profile-role" style="font-weight: 600; opacity: 0.8;">Computer Science Student</span>
-            <p id="profile-bio" style="margin-top: 15px; line-height: 1.6; color: var(--text-muted);">
-                A student interested in web development, building educational systems, and working on Front-End and Back-End projects using the latest technologies.
-            </p>
-        </div>
-    </div>
-
-    <!-- Details Grid -->
-    <div class="grid-2" style="margin-top: 30px;">
-        <!-- Personal Data -->
-        <div class="glass-card section-card">
-            <h3 class="section-title-icon"><i class="fas fa-user-circle"></i> Personal Data</h3>
-            <div style="display: flex; flex-direction: column; gap: 15px;">
-                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--glass-border); padding-bottom: 8px;">
-                    <span>Email</span><span id="profile-email" class="text-gold">ibrahim@gmail.com</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--glass-border); padding-bottom: 8px;">
-                    <span>Phone</span><span id="profile-phone" class="text-gold">01006513538</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--glass-border); padding-bottom: 8px;">
-                    <span>City</span><span id="profile-city" class="text-gold">Egypt</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--glass-border); padding-bottom: 8px;">
-                    <span>ID</span><span id="profile-ID" class="text-gold">25030410</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Skills -->
-        <div class="glass-card section-card">
-            <h3 class="section-title-icon"><i class="fas fa-tools"></i> Skills</h3>
-            <div class="progress-container">
-                <div class="progress-header"><span>HTML</span><span class="text-gold">90%</span></div>
-                <div class="progress-bar"><div class="progress-fill" id="skill-html" style="width:90%"></div></div>
-            </div>
-            <div class="progress-container">
-                <div class="progress-header"><span>CSS</span><span class="text-gold">85%</span></div>
-                <div class="progress-bar"><div class="progress-fill" id="skill-css" style="width:85%"></div></div>
-            </div>
-            <div class="progress-container">
-                <div class="progress-header"><span>JavaScript</span><span class="text-gold">80%</span></div>
-                <div class="progress-bar"><div class="progress-fill" id="skill-js" style="width:80%"></div></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Actions -->
-    <div style="margin-top: 40px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-        <button class="btn-premium btn-accent" style="padding: 12px 30px;" onclick="editProfile()">Edit Profile</button>
-        <button class="btn-premium btn-primary" style="padding: 12px 30px;" onclick="logout()">
-            <i class="fas fa-sign-out-alt"></i> Logout to Login
-        </button>
-    </div>
-</div>
-
-<footer>© 2026 Innovation University — All Rights Reserved. Built for Excellence.</footer>
-
-<script>
-    // Preloader
-    window.addEventListener('load', () => {
-        const preloader = document.getElementById('preloader');
-        setTimeout(() => {
-            preloader.style.opacity = '0';
-            setTimeout(() => preloader.style.display = 'none', 500);
-        }, 800);
-    });
-
-    // Profile Actions
-    function logout(){
-        localStorage.removeItem("profileData"); 
-        window.location.href = "login.html"; 
-    }
-
-    function editProfile() {
-        window.location.href = "edit-profile.html";
-    }
-
-    // Load Data
-    const data = JSON.parse(localStorage.getItem("profileData"));
-    if(data) {
-        if(data.imageUrl) document.getElementById("profile-img").src = data.imageUrl;
-        if(data.name) document.getElementById("profile-name").innerText = data.name;
-        if(data.role) document.getElementById("profile-role").innerText = data.role;
-        if(data.bio) document.getElementById("profile-bio").innerText = data.bio;
-        if(data.email) document.getElementById("profile-email").innerText = data.email;
-        if(data.phone) document.getElementById("profile-phone").innerText = data.phone;
-        if(data.city) document.getElementById("profile-city").innerText = data.city;
-        if(data.ID) document.getElementById("profile-ID").innerText = data.ID;
-
-        if(data.skills) {
-            if(data.skills.html) document.getElementById("skill-html").style.width = data.skills.html + "%";
-            if(data.skills.css) document.getElementById("skill-css").style.width = data.skills.css + "%";
-            if(data.skills.js) document.getElementById("skill-js").style.width = data.skills.js + "%";
+    <style>
+        .profile-stat-card {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
         }
-    }
-</script>
+        .profile-stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.08);
+            border-color: var(--accent);
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-row:last-child { border-bottom: none; }
+        .info-label { color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+        .info-value { color: #fff; font-weight: 600; }
+        
+        .skill-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(253, 185, 19, 0.1);
+            color: var(--accent);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin: 5px;
+            border: 1px solid rgba(253, 185, 19, 0.2);
+        }
+    </style>
+</head>
+<body class="lms-theme">
+    <div id="preloader"><div class="spinner"></div></div>
+
+    <header>
+        <div class="nav-container">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="menu-icon" id="sidebarToggle" style="cursor: pointer; font-size: 1.2rem;"><i class="fas fa-bars"></i></div>
+                <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+                    <img src="../images/iu-logo.png" alt="IU Logo" style="width: 40px;">
+                    <span style="font-weight: 700; font-size: 1.1rem; color: #fff; letter-spacing: 0.5px;">Innovation University</span>
+                </div>
+            </div>
+            <div class="user-profile" style="display:flex; align-items:center; gap:12px;">
+                <div style="text-align: right; line-height: 1.2;" class="hide-mobile">
+                    <div style="font-size: 0.9rem; font-weight: 600;">Ahmed Anter</div>
+                    <div style="font-size: 0.7rem; color: var(--accent);">ID: 25030087</div>
+                </div>
+                <a href="profile.html">
+                    <img src="../images/Hema.jpeg" alt="Student" style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--accent); object-fit: cover;">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="layout">
+        <aside class="sidebar" id="sidebar">
+            <div id="collapseToggle"><i class="fas fa-chevron-left" id="collapseIcon"></i></div>
+            <div class="logo" style="margin-bottom: 30px;">
+                <img src="../images/iu-logo.png" alt="IU Logo" style="width: 50px;">
+                <span style="font-size: 0.8rem;">Innovation University</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard-STU.html"><i class="fas fa-th-large"></i><span>Dashboard</span></a></li>
+                <li><a href="levels-term1/level1-term1-pdf.html"><i class="fas fa-file-pdf"></i><span>Materials</span></a></li>
+                <li><a href="levels-term1/level1-quizzes.html"><i class="fas fa-tasks"></i><span>Quizzes</span></a></li>
+                <li><a href="assignments.html"><i class="fas fa-file-upload"></i><span>Assignments</span></a></li>
+                <li><a href="schedule.html"><i class="fas fa-calendar-alt"></i><span>Schedule</span></a></li>
+                <li><a class="active" href="profile.html"><i class="fas fa-user-cog"></i><span>My Profile</span></a></li>
+                <div style="margin: 20px 0; border-top: 1px solid rgba(255,255,255,0.05);"></div>
+                <li><a href="iu.html" style="color: var(--accent);"><i class="fas fa-external-link-alt"></i><span>University Site</span></a></li>
+                <li><a href="login.html" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i><span>Log Out</span></a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content" style="max-width: 1100px;">
+            <!-- Profile Header -->
+            <div class="glass-card section-card animate-up" style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap; justify-content: center; text-align: center; padding: 50px 30px; margin-bottom: 30px;">
+                <div style="position: relative;">
+                    <img src="../images/Hema.jpeg" id="profile-img" alt="Student" style="width: 180px; height: 180px; border-radius: 50%; border: 4px solid var(--accent); object-fit: cover; box-shadow: 0 0 20px var(--accent-glow);">
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <h1 id="profile-name" class="text-gold" style="margin-bottom: 5px; font-size: 2.5rem;">Ahmed Anter</h1>
+                    <span id="profile-role" style="font-weight: 600; opacity: 0.8; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; font-size: 0.9rem;">Level 1 | Computer Science</span>
+                    <p id="profile-bio" style="margin-top: 20px; line-height: 1.8; color: var(--text-muted); max-width: 600px; margin-left: auto; margin-right: auto;">
+                        Aspiring software engineer focused on building innovative educational platforms and premium web experiences.
+                    </p>
+                    <a href="edit-profile.html" class="btn-premium btn-primary" style="margin-top: 20px; padding: 10px 30px;"><i class="fas fa-edit"></i> Edit Profile</a>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                <div class="profile-stat-card animate-up" style="animation-delay: 0.1s;">
+                    <span style="display: block; font-size: 1.8rem; font-weight: 800; color: var(--accent);">3.85</span>
+                    <span style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Current GPA</span>
+                </div>
+                <div class="profile-stat-card animate-up" style="animation-delay: 0.2s;">
+                    <span style="display: block; font-size: 1.8rem; font-weight: 800; color: var(--accent);">18</span>
+                    <span style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Credit Hours</span>
+                </div>
+                <div class="profile-stat-card animate-up" style="animation-delay: 0.3s;">
+                    <span style="display: block; font-size: 1.8rem; font-weight: 800; color: var(--accent);">92%</span>
+                    <span style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Attendance</span>
+                </div>
+                <div class="profile-stat-card animate-up" style="animation-delay: 0.4s;">
+                    <span style="display: block; font-size: 1.8rem; font-weight: 800; color: var(--accent);">A+</span>
+                    <span style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Rank Status</span>
+                </div>
+            </div>
+
+            <!-- Details Grid -->
+            <div class="grid-2">
+                <div class="glass-card section-card animate-up" style="animation-delay: 0.5s;">
+                    <h3 class="section-title-icon"><i class="fas fa-id-card"></i> Information</h3>
+                    <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 20px;">
+                        <div class="info-row"><span class="info-label">Full Name</span><span id="display-name" class="info-value">Ahmed Anter Mohamed</span></div>
+                        <div class="info-row"><span class="info-label">Email</span><span id="display-email" class="info-value">anter@iu.edu.eg</span></div>
+                        <div class="info-row"><span class="info-label">Phone</span><span id="display-phone" class="info-value">+20 123 456 7890</span></div>
+                        <div class="info-row"><span class="info-label">Address</span><span id="display-city" class="info-value">New Cairo, Egypt</span></div>
+                    </div>
+                </div>
+
+                <div class="glass-card section-card animate-up" style="animation-delay: 0.6s;">
+                    <h3 class="section-title-icon"><i class="fas fa-graduation-cap"></i> Academic Details</h3>
+                    <div style="margin-top: 20px;">
+                        <div class="info-row"><span class="info-label">Faculty</span><span class="info-value">Computers & IT</span></div>
+                        <div class="info-row"><span class="info-label">Department</span><span class="info-value">Software Engineering</span></div>
+                        <div class="info-row"><span class="info-label">Advisor</span><span class="info-value">Dr. Lamiaa Elrefaei</span></div>
+                    </div>
+                    
+                    <h3 class="section-title-icon" style="margin-top: 30px;"><i class="fas fa-star"></i> Skills</h3>
+                    <div style="margin-top: 15px;">
+                        <span class="skill-badge">UI/UX Design</span>
+                        <span class="skill-badge">Frontend Dev</span>
+                        <span class="skill-badge">Python</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer-bottom" style="text-align: center; margin-top: 80px;">© 2026 Innovation University — All Rights Reserved. Built for Excellence.</footer>
+
+    <script src="../js/style.js"></script>
+    <script>
+        // Sync profile data from localStorage
+        window.addEventListener("DOMContentLoaded", () => {
+            const data = JSON.parse(localStorage.getItem("profileData"));
+            if (data) {
+                if(data.name) {
+                    document.getElementById("profile-name").innerText = data.name;
+                    document.getElementById("display-name").innerText = data.name;
+                }
+                if(data.role) document.getElementById("profile-role").innerText = data.role;
+                if(data.bio) document.getElementById("profile-bio").innerText = data.bio;
+                if(data.email) document.getElementById("display-email").innerText = data.email;
+                if(data.phone) document.getElementById("display-phone").innerText = data.phone;
+                if(data.city) document.getElementById("display-city").innerText = data.city;
+                if(data.imageUrl) document.getElementById("profile-img").src = data.imageUrl;
+            }
+        });
+    </script>
 </body>
 </html>

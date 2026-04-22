@@ -1,230 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study Schedule | Innovation University</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Academic Schedule | Innovation University</title>
+    <link rel="icon" type="image/png" href="../images/iu-logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        .filter-section { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; align-items: center; }
-        .filter-section select { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: white; outline: none; }
-        input[type="time"], input[placeholder="Subject"], input[placeholder="e.g. 2h"] { background: transparent; border: none; color: white; text-align: center; width: 100%; outline: none; }
-        select { background: transparent; border: none; color: white; text-align-last: center; width: 100%; outline: none; cursor: pointer; }
-        option { background: var(--primary); color: white; }
+        /* Force display in case of preloader issues */
+        #preloader { display: none !important; }
+        body { opacity: 1 !important; visibility: visible !important; }
+        
+        .schedule-container { display: flex; flex-direction: column; gap: 40px; }
+        .timetable-card {
+            width: 100%;
+            overflow-x: auto;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            padding: 25px;
+        }
+        .timetable { width: 100%; border-collapse: separate; border-spacing: 10px; min-width: 800px; }
+        .timetable th { padding: 15px; color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; text-align: center; }
+        .time-slot { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; text-align: center; font-weight: 700; color: rgba(255,255,255,0.6); font-size: 0.8rem; min-width: 120px; }
+        .course-slot { background: rgba(253, 185, 19, 0.08); border: 1px solid rgba(253, 185, 19, 0.2); border-radius: 12px; padding: 15px; text-align: center; }
+        .course-slot strong { display: block; color: var(--accent); margin-bottom: 5px; font-size: 0.95rem; }
+        .course-slot span { font-size: 0.75rem; color: var(--text-muted); display: block; }
+        
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .nav-btn { background: rgba(253, 185, 19, 0.1); color: var(--accent); border: 1px solid var(--accent); width: 35px; height: 35px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
-<body class="lms-theme">
+<body class="lms-theme" style="opacity: 1; visibility: visible;">
+    <!-- Removed preloader to fix potential blocking -->
 
-<div id="preloader"><div class="spinner"></div></div>
-
-<header>
-    <div class="nav-container">
-        <div class="logo">
-            <img src="../images/iu-logo.png" alt="IU Logo">
-            <span>IU | Student Portal</span>
+    <header>
+        <div class="nav-container">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="menu-icon" id="sidebarToggle" style="cursor: pointer; font-size: 1.2rem;"><i class="fas fa-bars"></i></div>
+                <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+                    <img src="../images/iu-logo.png" alt="IU Logo" style="width: 40px;">
+                    <span style="font-weight: 700; font-size: 1.1rem; color: #fff; letter-spacing: 0.5px;">Innovation University</span>
+                </div>
+            </div>
+            <div class="user-profile" style="display:flex; align-items:center; gap:12px;">
+                <div style="text-align: right; line-height: 1.2;" class="hide-mobile">
+                    <div style="font-size: 0.9rem; font-weight: 600;">Ahmed Anter</div>
+                    <div style="font-size: 0.7rem; color: var(--accent);">ID: 25030087</div>
+                </div>
+                <a href="profile.html">
+                    <img src="../images/Hema.jpeg" alt="Student" style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--accent); object-fit: cover;">
+                </a>
+            </div>
         </div>
-        <div class="menu-icon" id="menuToggle"><i class="fas fa-bars"></i></div>
-        <nav id="navMenu">
-            <a href="iu.html">Home</a>
-            <a href="dashboard-STU.html">Dashboard</a>
-            <a href="schedule.html" class="active">Schedule</a>
-            <a href="login.html" class="btn-premium btn-accent">Logout <i class="fas fa-sign-out-alt"></i></a>
-        </nav>
+    </header>
+
+    <div class="layout">
+        <aside class="sidebar" id="sidebar">
+            <div id="collapseToggle"><i class="fas fa-chevron-left" id="collapseIcon"></i></div>
+            <div class="logo" style="margin-bottom: 30px;">
+                <img src="../images/iu-logo.png" alt="IU Logo" style="width: 50px;">
+                <span style="font-size: 0.8rem;">Innovation University</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard-STU.html"><i class="fas fa-th-large"></i><span>Dashboard</span></a></li>
+                <li><a href="levels-term1/level1-term1-pdf.html"><i class="fas fa-file-pdf"></i><span>Materials</span></a></li>
+                <li><a href="levels-term1/level1-quizzes.html"><i class="fas fa-tasks"></i><span>Quizzes</span></a></li>
+                <li><a href="assignments.html"><i class="fas fa-file-upload"></i><span>Assignments</span></a></li>
+                <li><a class="active" href="schedule.html"><i class="fas fa-calendar-alt"></i><span>Schedule</span></a></li>
+                <li><a href="profile.html"><i class="fas fa-user-cog"></i><span>My Profile</span></a></li>
+                <div style="margin: 20px 0; border-top: 1px solid rgba(255,255,255,0.05);"></div>
+                <li><a href="iu.html" style="color: var(--accent);"><i class="fas fa-external-link-alt"></i><span>University Site</span></a></li>
+                <li><a href="login.html" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i><span>Log Out</span></a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="content-header">
+                <div class="welcome-text">
+                    <h1>Academic Schedule</h1>
+                    <p>Track your weekly lectures and academic milestones.</p>
+                </div>
+            </header>
+
+            <div class="schedule-container">
+                <section class="animate-up">
+                    <h2 class="text-gold" style="margin-bottom: 20px;"><i class="fas fa-clock"></i> Weekly Timetable</h2>
+                    <div class="timetable-card">
+                        <table class="timetable">
+                            <thead>
+                                <tr><th>Time</th><th>Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="time-slot">09:00 - 11:00</td>
+                                    <td><div class="course-slot"><strong>AI Intro</strong><span>Room 302 | Dr. Ahmed</span></div></td>
+                                    <td>-</td>
+                                    <td><div class="course-slot"><strong>Data Struct</strong><span>Lab 04 | Eng. Sara</span></div></td>
+                                    <td>-</td>
+                                    <td><div class="course-slot"><strong>Discrete Math</strong><span>Hall B | Dr. Helmy</span></div></td>
+                                </tr>
+                                <tr>
+                                    <td class="time-slot">11:30 - 01:30</td>
+                                    <td>-</td>
+                                    <td><div class="course-slot"><strong>Web Dev</strong><span>Lab 01 | Eng. Ali</span></div></td>
+                                    <td>-</td>
+                                    <td><div class="course-slot"><strong>OS Intro</strong><span>Room 105 | Dr. Lamia</span></div></td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-slot">02:00 - 04:00</td>
+                                    <td><div class="course-slot"><strong>Ethics in IT</strong><span>Hall A | Dr. Fahmy</span></div></td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td><div class="course-slot"><strong>Algorithms</strong><span>Room 402 | Dr. Sara</span></div></td>
+                                    <td>-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="animate-up" style="animation-delay: 0.2s;">
+                    <h2 class="text-gold" style="margin-bottom: 20px;"><i class="fas fa-calendar-day"></i> Academic Calendar</h2>
+                    <div class="glass-card section-card" style="padding: 30px;">
+                        <div class="calendar-header">
+                            <h3 id="monthDisplay" style="color: #fff;">April 2026</h3>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="nav-btn" onclick="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                                <button class="nav-btn" onclick="changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        <div id="calendarGrid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px;"></div>
+                    </div>
+                </section>
+            </div>
+        </main>
     </div>
-</header>
 
-<main class="main-content">
-    <h1 class="text-gold" style="text-align: center; margin-bottom: 30px;">Study Schedule</h1>
+    <!-- JS Logic inside the file to ensure it runs -->
+    <script>
+        let currentViewDate = new Date(2026, 3);
+        const events = {"2026-04-15": "Midterm Exam", "2026-04-22": "Project Submission"};
 
-    <div class="grid-stats">
-        <div class="glass-card stat-card">
-            <div class="stat-info"><h3>Subjects</h3><div class="value" id="subCount">0</div></div>
-            <div class="icon-box"><i class="fas fa-book"></i></div>
-        </div>
-        <div class="glass-card stat-card">
-            <div class="stat-info"><h3>Total Duration</h3><div class="value" id="totalDuration">0h</div></div>
-            <div class="icon-box"><i class="fas fa-clock"></i></div>
-        </div>
-        <div class="glass-card stat-card">
-            <div class="stat-info"><h3>Completed</h3><div class="value" id="statusCount">0</div></div>
-            <div class="icon-box"><i class="fas fa-check-circle"></i></div>
-        </div>
-    </div>
-
-    <div class="glass-card section-card">
-        <div class="filter-section">
-            <select id="filter-day">
-                <option value="">All Days</option>
-                <option>Sunday</option><option>Monday</option><option>Tuesday</option>
-                <option>Wednesday</option><option>Thursday</option><option>Friday</option>
-                <option>Saturday</option>
-            </select>
-            <select id="filter-status">
-                <option value="">All Status</option>
-                <option>Completed</option><option>In Progress</option><option>Not Started</option>
-            </select>
-            <button class="btn-premium btn-accent" style="padding: 8px 15px;" onclick="addRow()">+ Add Subject</button>
-            <button class="btn-premium btn-primary" style="padding: 8px 15px;" onclick="autoFill()">Auto-Fill</button>
-            <button class="btn-premium btn-primary" style="padding: 8px 15px;" onclick="window.print()">🖨 Print</button>
-        </div>
-
-        <div class="table-responsive">
-            <table id="scheduleTable">
-                <thead>
-                    <tr>
-                        <th>Subject</th>
-                        <th>Day</th>
-                        <th>Time</th>
-                        <th>Duration</th>
-                        <th>Priority</th>
-                        <th>Status</th>
-                        <th>Progress</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="glass-card section-card" style="margin-top: 30px;">
-        <h3 class="section-title-icon"><i class="fas fa-chart-line"></i> Weekly Study Hours</h3>
-        <canvas id="studyChart" style="max-height: 250px;"></canvas>
-    </div>
-</main>
-
-<footer>© 2026 Innovation University — All Rights Reserved. Built for Excellence.</footer>
-
-<script>
-    // Preloader
-    window.addEventListener('load', () => {
-        const preloader = document.getElementById('preloader');
-        setTimeout(() => {
-            preloader.style.opacity = '0';
-            setTimeout(() => preloader.style.display = 'none', 500);
-        }, 800);
-    });
-
-    // Chart
-    const ctx = document.getElementById('studyChart').getContext('2d');
-    let studyChart = new Chart(ctx, {
-        type: 'line',
-        data: { labels: [], datasets: [{ label: 'Hours', data: [], borderColor: '#FFD700', backgroundColor: 'rgba(255, 215, 0, 0.1)', fill: true, tension: 0.4 }] },
-        options: { 
-            responsive: true,
-            plugins: { legend: { display: false } },
-            scales: { 
-                y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#fff' } },
-                x: { grid: { display: false }, ticks: { color: '#fff' } }
+        function renderCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            const monthDisplay = document.getElementById('monthDisplay');
+            if(!grid || !monthDisplay) return;
+            
+            grid.innerHTML = '';
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            days.forEach(d => grid.innerHTML += `<div style="text-align:center; font-weight:700; color:var(--accent); font-size:0.8rem; margin-bottom:15px;">${d}</div>`);
+            
+            const year = currentViewDate.getFullYear();
+            const month = currentViewDate.getMonth();
+            monthDisplay.innerText = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(currentViewDate);
+            
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            for (let i = 0; i < firstDay; i++) grid.innerHTML += `<div></div>`;
+            for (let d = 1; d <= daysInMonth; d++) {
+                const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+                const hasEvent = events[dateStr];
+                grid.innerHTML += `<div style="background: rgba(255,255,255,0.03); border-radius:10px; padding:12px; min-height:70px; border:1px solid ${hasEvent ? 'var(--accent)' : 'rgba(255,255,255,0.05)'};"><span style="font-weight:700; opacity:0.8;">${d}</span>${hasEvent ? `<div style="font-size:0.65rem; color:var(--accent); margin-top:8px; line-height:1.2;">${hasEvent}</div>` : ''}</div>`;
             }
         }
-    });
 
-    // Core Logic
-    document.addEventListener("DOMContentLoaded", loadFromStorage);
-
-    function addRow(subject = "", day = "", time = "", duration = "", priority = "Medium", status = "Not Started") {
-        const tbody = document.querySelector("#scheduleTable tbody");
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-            <td><input value="${subject}" placeholder="Subject"></td>
-            <td><select>
-                <option>Select Day</option>
-                ${["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"].map(d => `<option ${d === day ? "selected" : ""}>${d}</option>`).join("")}
-            </select></td>
-            <td><input type="time" value="${time}"></td>
-            <td><input placeholder="e.g. 2h" value="${duration}"></td>
-            <td><select>${["High", "Medium", "Low"].map(p => `<option ${p === priority ? "selected" : ""}>${p}</option>`).join("")}</select></td>
-            <td><select>${["Not Started", "In Progress", "Completed"].map(s => `<option ${s === status ? "selected" : ""}>${s}</option>`).join("")}</select></td>
-            <td>
-                <div class="progress-bar"><div class="progress-fill" style="width:${getProgressValue(status)}%"></div></div>
-            </td>
-            <td>
-                <button class="btn-premium btn-primary" style="padding: 5px 10px;" onclick="deleteRow(this)">🗑</button>
-            </td>
-        `;
-        tbody.appendChild(tr);
-        tr.querySelectorAll("input, select").forEach(el => el.addEventListener("change", saveSchedule));
-        updateSummary();
-    }
-
-    function deleteRow(btn) { btn.closest("tr").remove(); saveSchedule(); }
-
-    function getProgressValue(status) {
-        if (status === "Not Started") return 0;
-        if (status === "In Progress") return 50;
-        if (status === "Completed") return 100;
-        return 0;
-    }
-
-    function updateSummary() {
-        const rows = [...document.querySelectorAll("#scheduleTable tbody tr")];
-        document.getElementById("subCount").innerText = rows.length;
-        let totalH = 0, completed = 0, chartLabels = [], chartData = [];
-        rows.forEach(tr => {
-            const dur = tr.querySelector("td:nth-child(4) input").value;
-            if (dur.match(/\d+/)) totalH += parseInt(dur.match(/\d+/)[0]);
-            const status = tr.querySelector("td:nth-child(6) select").value;
-            if (status === "Completed") completed++;
-            tr.querySelector(".progress-fill").style.width = getProgressValue(status) + "%";
-            chartLabels.push(tr.querySelector("td:nth-child(1) input").value || "...");
-            chartData.push(dur.match(/\d+/) ? parseInt(dur.match(/\d+/)[0]) : 0);
-        });
-        document.getElementById("totalDuration").innerText = totalH + "h";
-        document.getElementById("statusCount").innerText = completed;
-        studyChart.data.labels = chartLabels;
-        studyChart.data.datasets[0].data = chartData;
-        studyChart.update();
-    }
-
-    function saveSchedule() {
-        const rows = [...document.querySelectorAll("#scheduleTable tbody tr")].map(tr => ({
-            subject: tr.querySelector("td:nth-child(1) input").value,
-            day: tr.querySelector("td:nth-child(2) select").value,
-            time: tr.querySelector("td:nth-child(3) input").value,
-            duration: tr.querySelector("td:nth-child(4) input").value,
-            priority: tr.querySelector("td:nth-child(5) select").value,
-            status: tr.querySelector("td:nth-child(6) select").value
-        }));
-        localStorage.setItem("StudyScheduleData", JSON.stringify(rows));
-        updateSummary();
-    }
-
-    function loadFromStorage() {
-        const saved = JSON.parse(localStorage.getItem("StudyScheduleData") || "[]");
-        if(saved.length === 0) {
-            addRow("Web Development", "Sunday", "09:00", "2h", "High", "In Progress");
-        } else {
-            saved.forEach(r => addRow(r.subject, r.day, r.time, r.duration, r.priority, r.status));
+        function changeMonth(dir) {
+            currentViewDate.setMonth(currentViewDate.getMonth() + dir);
+            renderCalendar();
         }
-        updateSummary();
-    }
 
-    function autoFill() {
-        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        document.querySelectorAll("#scheduleTable tbody tr").forEach((tr, i) => {
-            tr.querySelector("td:nth-child(2) select").value = days[i % 7];
-            tr.querySelector("td:nth-child(3) input").value = "10:00";
-        });
-        saveSchedule();
-    }
+        // Run immediately and also on load
+        renderCalendar();
+        window.onload = renderCalendar;
 
-    // Filters
-    document.getElementById("filter-day").addEventListener("change", applyFilters);
-    document.getElementById("filter-status").addEventListener("change", applyFilters);
-
-    function applyFilters() {
-        const day = document.getElementById("filter-day").value;
-        const status = document.getElementById("filter-status").value;
-        document.querySelectorAll("#scheduleTable tbody tr").forEach(tr => {
-            const tDay = tr.querySelector("td:nth-child(2) select").value;
-            const tStatus = tr.querySelector("td:nth-child(6) select").value;
-            tr.style.display = ((!day || tDay === day) && (!status || tStatus === status)) ? "" : "none";
-        });
-    }
-</script>
+        // Simple Mobile Sidebar Toggle (Fallback)
+        const toggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        if (toggle && sidebar) {
+            toggle.onclick = () => sidebar.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>

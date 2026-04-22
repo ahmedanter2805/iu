@@ -1,13 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events & Innovation | IU Faculty of Computers</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Faculty Events | Innovation University</title>
     <link rel="icon" type="image/png" href="../images/iu-logo.png" />
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .event-card {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.02);
+            transition: var(--transition);
+        }
+        .event-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent);
+        }
+        .event-image {
+            width: 350px;
+            min-height: 280px;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .event-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, transparent, rgba(0,0,0,0.3));
+        }
+        .event-details {
+            padding: 35px;
+            flex: 1;
+        }
+        .event-tag {
+            background: rgba(253, 185, 19, 0.1);
+            color: var(--accent);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            border: 1px solid rgba(253, 185, 19, 0.2);
+        }
+        .event-meta {
+            display: flex;
+            gap: 25px;
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .event-meta i { color: var(--accent); margin-right: 8px; }
+        
+        @media (max-width: 992px) {
+            .event-card { flex-direction: column; }
+            .event-image { width: 100%; height: 250px; }
+        }
+    </style>
 </head>
 <body class="faculty-theme">
     <div id="preloader"><div class="spinner"></div></div>
@@ -21,67 +81,129 @@
             <div class="menu-icon" id="menuToggle"><i class="fas fa-bars"></i></div>
             <nav id="navMenu">
                 <a href="iu.html">Home</a>
-                <a href="iu-details.html">About FCIT</a>
+                <a href="iu-details.html">About Faculty</a>
                 <a href="courses.html">Programs</a>
                 <a href="regulations.html">Regulations</a>
-                <a href="events.html">Events</a>
-                <a href="login.html" class="btn-premium btn-accent">Student Portal <i class="fas fa-sign-in-alt"></i></a>
+                <a href="events.html" class="active">Events</a>
+                <a href="login.html" class="btn-premium btn-accent">Go to LMS <i class="fas fa-sign-in-alt"></i></a>
             </nav>
         </div>
     </header>
 
     <main class="main-content">
-        <h1 class="text-gold" style="text-align: center; margin-bottom: 50px;">Campus Life & Innovation Events</h1>
+        <div class="animate-up" style="text-align: center; margin-bottom: 60px;">
+            <h1 class="text-gold" style="font-size: 3rem;">Events & Innovation Hub</h1>
+            <p style="color: rgba(255,255,255,0.7); max-width: 800px; margin: 20px auto; line-height: 1.8;">
+                Stay updated with the latest workshops, competitions, and seminars. We bring industry leaders and academic excellence together.
+            </p>
+        </div>
 
-        <div class="grid-2">
-            <!-- Event 1: Brilliant Projects -->
-            <div class="glass-card section-card">
-                <div style="height: 200px; background: url('../images/projects.jpg') center/cover; border-radius: 15px; margin-bottom: 20px;"></div>
-                <h3 class="text-gold">Two Days of Brilliant Projects</h3>
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin: 10px 0;">An annual flagship exhibition showcasing 75+ student projects in AI, Robotics, and Web Development. Attended by industry leaders and academic experts.</p>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-                    <span style="color: var(--accent); font-weight: 600;"><i class="fas fa-calendar"></i> Annual Event</span>
-                    <a href="#" class="btn-premium btn-primary" style="padding: 8px 20px; font-size: 0.8rem;">Read More</a>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <!-- Event 1: ICPC -->
+            <div class="glass-card event-card animate-up" style="animation-delay: 0.1s;">
+                <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800');"></div>
+                <div class="event-details">
+                    <span class="event-tag">Competition</span>
+                    <h3 class="text-gold" style="font-size: 1.8rem; margin-bottom: 15px;">ICPC Regional Training Camp</h3>
+                    <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 20px;">
+                        An intensive 5-day bootcamp preparing our top coding teams for the International Collegiate Programming Contest. Led by regional champions and expert problem solvers.
+                    </p>
+                    <div class="event-meta">
+                        <span><i class="far fa-calendar-alt"></i> Oct 12 - 17, 2026</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Innovation Lab 4</span>
+                        <span><i class="fas fa-users"></i> 50 Selected Students</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Event 2: NTI Tour -->
-            <div class="glass-card section-card">
-                <div style="height: 200px; background: url('../images/nti.jpg') center/cover; border-radius: 15px; margin-bottom: 20px;"></div>
-                <h3 class="text-gold">National Telecommunication Institute (NTI) Tour</h3>
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin: 10px 0;">Field tours for senior students to observe real-world technology implementation in telecommunications and networking infrastructure.</p>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-                    <span style="color: var(--accent); font-weight: 600;"><i class="fas fa-calendar"></i> Industry Training</span>
-                    <a href="#" class="btn-premium btn-primary" style="padding: 8px 20px; font-size: 0.8rem;">View Gallery</a>
+            <!-- Event 2: NTI -->
+            <div class="glass-card event-card animate-up" style="animation-delay: 0.2s;">
+                <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800');"></div>
+                <div class="event-details">
+                    <span class="event-tag">Workshop</span>
+                    <h3 class="text-gold" style="font-size: 1.8rem; margin-bottom: 15px;">Cybersecurity Defense Workshop with NTI</h3>
+                    <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 20px;">
+                        Practical training session on network security and threat detection in collaboration with the National Telecommunication Institute (NTI). Get hands-on experience with industry tools.
+                    </p>
+                    <div class="event-meta">
+                        <span><i class="far fa-calendar-alt"></i> Nov 05, 2026</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Main Auditorium</span>
+                        <span><i class="fas fa-certificate"></i> NTI Certified</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Event 3: Community Service -->
-            <div class="glass-card section-card">
-                <div style="height: 200px; background: url('../images/community.jpg') center/cover; border-radius: 15px; margin-bottom: 20px;"></div>
-                <h3 class="text-gold">Aswan Camp & Community Outreach</h3>
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin: 10px 0;">Engaging students in social entrepreneurship and community-impact projects through Enactus IU and our dedicated Volunteer Department.</p>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-                    <span style="color: var(--accent); font-weight: 600;"><i class="fas fa-calendar"></i> Social Responsibility</span>
-                    <a href="#" class="btn-premium btn-primary" style="padding: 8px 20px; font-size: 0.8rem;">Join Us</a>
+            <!-- Event 3: EHAF -->
+            <div class="glass-card event-card animate-up" style="animation-delay: 0.3s;">
+                <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800');"></div>
+                <div class="event-details">
+                    <span class="event-tag">Summit</span>
+                    <h3 class="text-gold" style="font-size: 1.8rem; margin-bottom: 15px;">Smart Cities & BIM Summit with EHAF</h3>
+                    <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 20px;">
+                        Exploring the role of IT in modern architecture and urban planning. Keynote session by EHAF Consulting Engineers on digital transformation in the construction industry.
+                    </p>
+                    <div class="event-meta">
+                        <span><i class="far fa-calendar-alt"></i> Dec 10, 2026</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Conference Hall B</span>
+                        <span><i class="fas fa-briefcase"></i> Networking Event</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Event 4: Automation Club -->
-            <div class="glass-card section-card">
-                <div style="height: 200px; background: url('../images/automation.jpg') center/cover; border-radius: 15px; margin-bottom: 20px;"></div>
-                <h3 class="text-gold">Automation Club Intensive Training</h3>
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin: 10px 0;">A 126-hour technical boot camp focusing on industrial automation, robotics, and market-ready engineering skills.</p>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-                    <span style="color: var(--accent); font-weight: 600;"><i class="fas fa-calendar"></i> 126-Hour Course</span>
-                    <a href="#" class="btn-premium btn-primary" style="padding: 8px 20px; font-size: 0.8rem;">Register</a>
+            <!-- Event 4: Graduation Expo -->
+            <div class="glass-card event-card animate-up" style="animation-delay: 0.4s;">
+                <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&q=80&w=800');"></div>
+                <div class="event-details">
+                    <span class="event-tag">Exhibition</span>
+                    <h3 class="text-gold" style="font-size: 1.8rem; margin-bottom: 15px;">Graduation Projects Showcase 2026</h3>
+                    <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 20px;">
+                        The annual celebration of our seniors' achievements. Top projects will be evaluated by industry experts from Microsoft, Oracle, and Google Egypt.
+                    </p>
+                    <div class="event-meta">
+                        <span><i class="far fa-calendar-alt"></i> July 20, 2026</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Faculty Plaza</span>
+                        <span><i class="fas fa-trophy"></i> Awards Ceremony</span>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
     <footer class="main-footer">
-        <!-- Footer content... (omitted for brevity, assume standardized version) -->
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 20px;">
+                    <img src="../images/iu-logo.png" alt="IU Logo" style="width: 50px;">
+                    <span style="color: #fff;">Innovation University</span>
+                </div>
+                <p style="color: var(--text-muted); line-height: 1.6;">Empowering the next generation of technology leaders through innovation and excellence.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="iu.html">Home</a></li>
+                    <li><a href="iu-details.html">About Faculty</a></li>
+                    <li><a href="courses.html">Programs</a></li>
+                    <li><a href="login.html">Go to LMS</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <div class="social-links">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Visit Us</h4>
+                <p style="color: var(--text-muted);"><i class="fas fa-map-marker-alt" style="color: var(--accent);"></i> New Cairo, Egypt</p>
+                <a href="https://maps.app.goo.gl/zooH9yxV8VfvKVJR8" target="_blank" class="btn-premium btn-accent" style="margin-top: 15px; padding: 10px 20px; font-size: 0.85rem;">View on Map</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Innovation University. All rights reserved.</p>
+        </div>
     </footer>
 
     <script src="../js/style.js"></script>

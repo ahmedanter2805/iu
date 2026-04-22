@@ -3,139 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Level Quizzes | Innovation University</title>
+    <title>Academic Quizzes | Level 1</title>
+    <link rel="icon" type="image/png" href="../../images/iu-logo.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../css/style.css">
     <style>
         .icon-circle {
-            width: 65px; height: 65px; border-radius: 50%;
+            width: 70px; height: 70px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            margin-bottom: 20px; font-size: 26px; color: var(--accent);
-            background: var(--primary); border: 1px solid var(--glass-border);
-            transition: 0.3s;
+            margin-bottom: 20px; font-size: 28px; color: var(--accent);
+            background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
+            transition: var(--transition);
         }
+        .category-section { margin-top: 50px; }
     </style>
 </head>
-<body>
+<body class="lms-theme">
+    <div id="preloader"><div class="spinner"></div></div>
 
-<div id="preloader"><div class="spinner"></div></div>
-
-<header>
-    <div class="nav-container">
-        <div class="logo">
-            <img src="../../images/iu-logo.png" alt="IU Logo">
-            <span>Innovation University</span>
+    <header>
+        <div class="nav-container">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="menu-icon" id="sidebarToggle" style="cursor: pointer; font-size: 1.2rem;"><i class="fas fa-bars"></i></div>
+                <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+                    <img src="../../images/iu-logo.png" alt="IU Logo" style="width: 40px;">
+                    <span style="font-weight: 700; font-size: 1.1rem; color: #fff; letter-spacing: 0.5px;">Innovation University</span>
+                </div>
+            </div>
+            <div class="user-profile" style="display:flex; align-items:center; gap:12px;">
+                <div style="text-align: right; line-height: 1.2;" class="hide-mobile">
+                    <div style="font-size: 0.9rem; font-weight: 600;">Ahmed Anter</div>
+                    <div style="font-size: 0.7rem; color: var(--accent);">ID: 25030087</div>
+                </div>
+                <img src="../../images/Hema.jpeg" alt="Student" style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--accent); object-fit: cover;">
+            </div>
         </div>
-        <div class="menu-icon" id="menuToggle"><i class="fas fa-bars"></i></div>
-        <nav id="navMenu">
-            <a href="../iu.html"><i class="fas fa-house"></i> Home</a>
-            <a href="../iu-details.html">Details</a>
-            <a href="../select-level.html">Courses</a>
-            <a href="../schedule.html">Schedule</a>
-            <a href="../dashboard-STU.html">Dashboard</a>
-            <a href="../login.html" class="btn-premium btn-accent">Login <i class="fas fa-sign-in-alt"></i></a>
-        </nav>
+    </header>
+
+    <div class="layout">
+        <aside class="sidebar" id="sidebar">
+            <div style="padding: 10px 20px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; position: relative;">
+                <span class="sidebar-header-text" style="font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">Academic Portal</span>
+                <div id="collapseToggle" style="position: absolute; right: 10px; top: 10px; cursor: pointer; color: var(--accent); font-size: 0.8rem; background: rgba(255,255,255,0.05); width: 25px; height: 25px; border-radius: 5px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                    <i class="fas fa-chevron-left" id="collapseIcon"></i>
+                </div>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="../dashboard-STU.html"><i class="fas fa-th-large"></i><span>Dashboard</span></a></li>
+                <li><a href="level1-term1-pdf.html"><i class="fas fa-file-pdf"></i><span>Course Materials</span></a></li>
+                <li><a href="level1-term1-video.html"><i class="fas fa-play-circle"></i><span>Video Lectures</span></a></li>
+                <li><a class="active" href="level1-quizzes.html"><i class="fas fa-tasks"></i><span>Quizzes & Tests</span></a></li>
+                <li><a href="../assignments.html"><i class="fas fa-file-upload"></i><span>Assignments</span></a></li>
+                <li><a href="../schedule.html"><i class="fas fa-calendar-alt"></i><span>Academic Table</span></a></li>
+                <li><a href="../profile.html"><i class="fas fa-user-cog"></i><span>My Profile</span></a></li>
+                <div style="margin: 20px 0; border-top: 1px solid rgba(255,255,255,0.05);"></div>
+                <li><a href="../iu.html" style="color: var(--accent);"><i class="fas fa-external-link-alt"></i><span>University Site</span></a></li>
+                <li><a href="../login.html" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i><span>Log Out</span></a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="animate-up" style="text-align: center; margin-bottom: 50px;">
+                <h1 class="text-gold">Level 1 - Academic Quizzes</h1>
+                <p style="color: rgba(255,255,255,0.7);">Test your knowledge across core sciences and general studies.</p>
+            </div>
+
+            <section class="category-section animate-up">
+                <h3 class="section-title-icon"><i class="fa-solid fa-microscope"></i> Core Sciences & IT</h3>
+                <div class="grid-stats">
+                    <div class="glass-card section-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 40px 20px;">
+                        <div class="icon-circle"><i class="fa-solid fa-code"></i></div>
+                        <h3>Programming</h3>
+                        <a href="./quizzes/programing-quiz.html" class="btn-premium btn-accent" style="width: 100%;">Start Quiz</a>
+                    </div>
+                    <div class="glass-card section-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 40px 20px;">
+                        <div class="icon-circle"><i class="fa-solid fa-square-root-variable"></i></div>
+                        <h3>Math 1</h3>
+                        <a href="./quizzes/math1-quiz.html" class="btn-premium btn-accent" style="width: 100%;">Start Quiz</a>
+                    </div>
+                    <div class="glass-card section-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 40px 20px;">
+                        <div class="icon-circle"><i class="fa-solid fa-atom"></i></div>
+                        <h3>Physics</h3>
+                        <a href="./quizzes/physics-quiz.html" class="btn-premium btn-accent" style="width: 100%;">Start Quiz</a>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
-</header>
 
-<main class="main-content">
-  <h1 class="text-gold" style="text-align: center; margin-bottom: 50px;">Level 1 Quizzes</h1>
+    <footer class="footer-bottom" style="text-align: center; margin-top: 80px;">© 2026 Innovation University — All Rights Reserved. Built for Excellence.</footer>
 
-  <section class="category-section">
-    <h3 class="section-title-icon"><i class="fa-solid fa-microscope"></i> Core Sciences & IT</h3>
-    <div class="grid-stats" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
-      <div class="glass-card section-card" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <div class="icon-circle"><i class="fa-solid fa-code"></i></div>
-        <h3>Programming</h3>
-        <a href="./quizzes/programing-quiz.html" class="btn-premium btn-accent" style="width: 100%;">Start Quiz</a>
-      </div>
-      <div class="glass-card section-card" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <div class="icon-circle"><i class="fa-solid fa-square-root-variable"></i></div>
-        <h3>Math 1</h3>
-        <a href="./quizzes/math1-quiz.html" class="btn-premium btn-accent" style="width: 100%;">Start Quiz</a>
-      </div>
-      <div class="glass-card section-card" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <div class="icon-circle"><i class="fa-solid fa-atom"></i></div>
-        <h3>Physics</h3>
-        <a href="./quizzes/physics-quiz.html" class="btn-premium btn-accent" style="width: 100%;">Start Quiz</a>
-      </div>
-      <div class="glass-card section-card" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <div class="icon-circle"><i class="fa-solid fa-desktop"></i></div>
-        <h3>Computer Science</h3>
-        <a href="./quizzes/computer-quiz.html" class="btn-premium btn-accent" style="width: 100%;">Start Quiz</a>
-      </div>
-      <div class="glass-card section-card" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <div class="icon-circle"><i class="fa-solid fa-calculator"></i></div>
-        <h3>Math 0</h3>
-        <a href="./quizzes/math0-quiz.html" class="btn-premium btn-accent" style="width: 100%;">Start Quiz</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="category-section" style="margin-top: 50px;">
-    <h3 class="section-title-icon"><i class="fa-solid fa-globe"></i> General Studies</h3>
-    <div class="grid-stats" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
-      <div class="glass-card section-card" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <div class="icon-circle"><i class="fa-solid fa-language"></i></div>
-        <h3>English</h3>
-        <a href="./quizzes/english-quiz.html" class="btn-premium btn-accent" style="width: 100%;">Start Quiz</a>
-      </div>
-      <div class="glass-card section-card" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <div class="icon-circle"><i class="fa-solid fa-lightbulb"></i></div>
-        <h3>Entrepreneurship</h3>
-        <a href="./quizzes/enterprenurship-quiz.html" class="btn-premium btn-accent" style="width: 100%;">Start Quiz</a>
-      </div>
-      <div class="glass-card section-card" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <div class="icon-circle"><i class="fa-solid fa-scale-balanced"></i></div>
-        <h3>Human Rights</h3>
-        <a href="./quizzes/human-rights-quiz.html" class="btn-premium btn-accent" style="width: 100%;">Start Quiz</a>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer>© 2026 Innovation University — All Rights Reserved. Built for Excellence.</footer>
-
-<div id="security-alert">⚠️ Security violation: Action restricted.</div>
-
-<script>
-// Navbar Toggle
-const menuToggle = document.getElementById('menuToggle');
-const navMenu = document.getElementById('navMenu');
-menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
-
-// Preloader
-window.addEventListener('load', () => {
-    const preloader = document.getElementById('preloader');
-    setTimeout(() => {
-        preloader.style.opacity = '0';
-        setTimeout(() => preloader.style.display = 'none', 500);
-    }, 800);
-});
-
-// Security System
-(function() {
-  const _s = {
-    _init: () => {
-      document.addEventListener('contextmenu', e => { e.preventDefault(); _s._show(); });
-      document.addEventListener('keydown', e => {
-        if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode)) || (e.ctrlKey && e.keyCode === 85)) {
-          e.preventDefault(); _s._show();
-        }
-      });
-      document.addEventListener('dragstart', e => e.preventDefault());
-    },
-    _show: () => {
-      const a = document.getElementById('security-alert');
-      a.style.display = 'block';
-      setTimeout(() => a.style.display = 'none', 3000);
-    }
-  };
-  _s._init();
-})();
-</script>
+    <script src="../../js/style.js"></script>
 </body>
 </html>
-
-

@@ -1,199 +1,277 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Edit Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Update Profile | Innovation University</title>
     <link rel="icon" type="image/png" href="../images/iu-logo.png" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
+        .edit-form-container {
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: url('../images/img.jpg') center/cover no-repeat;
-            filter: blur(3px);
-            transform: scale(1.1);
-            z-index: -1;
+        .form-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(25px);
+            border-radius: 25px;
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
         }
 
-        .container {
-            max-width: 700px;
-            margin: 40px auto;
-            background: rgba(56, 189, 248, 0.04);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 25px;
-            color: #1e293b;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 14px;
-            color: #000000;
-        }
-
-        input,
-        textarea {
-            width: 100%;
-            padding: 12px;
-            border-radius: 12px;
-            border: none;
-            outline: none;
-            background: rgba(0, 0, 0, 0.34);
-            color: #e5e7eb;
-            font-size: 14px;
-        }
-
-        textarea {
-            resize: none;
-            height: 90px;
-        }
-
-        input[type="file"] {
-            padding: 8px;
-        }
-
-        .skills {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        .form-section-header {
+            display: flex;
+            align-items: center;
             gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(253, 185, 19, 0.2);
         }
 
-        .actions {
-            text-align: center;
-            margin-top: 30px;
+        .form-section-header i {
+            font-size: 1.5rem;
+            color: var(--accent);
         }
 
-        button {
-            padding: 12px 28px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 14px;
-            margin: 5px;
-        }
-
-        .save {
-            background: #22c55e;
-            color: #020617;
-        }
-
-        .cancel {
-            background: #ef4444;
+        .form-section-header h3 {
+            font-size: 1.3rem;
             color: #fff;
+            margin: 0;
         }
 
-        @media(max-width:600px) {
-            .skills {
-                grid-template-columns: 1fr;
-            }
+        .input-box {
+            position: relative;
+            margin-bottom: 25px;
         }
 
-        .profile-img-container {
-            text-align: center;
+        .input-box i {
+            position: absolute;
+            left: 15px;
+            top: 45px;
+            color: var(--accent);
+            font-size: 1rem;
+            opacity: 0.7;
         }
 
-        .profile-img {
+        .input-box label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .edit-form-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-bottom: 50px;
+        }
+
+        .input-box input,
+        .input-box textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 12px 15px 12px 45px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .input-box input:focus {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 15px rgba(253, 185, 19, 0.1);
+            outline: none;
+        }
+
+        .profile-strength {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 35px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .profile-pic-edit {
+            position: relative;
             width: 120px;
             height: 120px;
+            margin: 0 auto 30px;
+        }
+
+        .profile-pic-edit img {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            display: block;
-            margin: auto;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .upload-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .profile-pic-edit:hover .upload-overlay {
+            opacity: 1;
+        }
+
+        .upload-overlay i {
+            color: #fff;
+            font-size: 1.5rem;
         }
     </style>
 </head>
 
-<body>
-
-    <div class="container">
-        <h2>Edit-Profile</h2>
-
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" id="name">
-        </div>
-
-        <div class="form-group">
-            <label>status</label>
-            <input type="text" id="role">
-        </div>
-
-        <div class="form-group">
-            <label>BIO</label>
-            <textarea id="bio"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Email</label>
-            <input type="email" id="email">
-        </div>
-
-        <div class="form-group">
-            <label>Phone</label>
-            <input type="text" id="phone">
-        </div>
-
-        <div class="form-group">
-            <label>City</label>
-            <input type="text" id="city">
-        </div>
-
-        <div class="form-group">
-            <label>ID</label>
-            <input type="text" id="ID">
-        </div>
-
-        <div class="form-group">
-            <label>الصورة الشخصية</label>
-            <div class="profile-img-container">
-                <img id="preview-img" src="../images/Hema.jpeg" alt="Profile Image" class="profile-img">
-                <input type="file" id="image" accept="image/*" style="margin-top:10px;">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>SKILLS (%)</label>
-            <div class="skills">
-                <input type="number" placeholder="HTML">
-                <input type="number" placeholder="CSS">
-                <input type="number" placeholder="JavaScript">
-                <input type="number" placeholder="C#">
-            </div>
-        </div>
-
-        <div class="actions">
-            <button class="save" onclick="saveProfile()">حفظ التعديلات</button>
-            <button class="cancel" onclick="cancelEdit()">إلغاء</button>
-        </div>
+<body class="lms-theme">
+    <div id="preloader">
+        <div class="spinner"></div>
     </div>
 
+    <div class="dashboard-container">
+        <aside class="sidebar" id="sidebar">
+            <div id="collapseToggle"><i class="fas fa-chevron-left" id="collapseIcon"></i></div>
+            <div class="logo">
+                <img src="../images/iu-logo.png" alt="IU Logo">
+                <span>Innovation University</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard-STU.html"><i class="fas fa-th-large"></i><span>Dashboard</span></a></li>
+                <li><a href="levels-term1/level1-term1-pdf.html"><i
+                            class="fas fa-file-pdf"></i><span>Materials</span></a></li>
+                <li><a href="levels-term1/level1-quizzes.html"><i class="fas fa-tasks"></i><span>Quizzes</span></a></li>
+                <li><a href="assignments.html"><i class="fas fa-file-upload"></i><span>Assignments</span></a></li>
+                <li><a href="schedule.html"><i class="fas fa-calendar-alt"></i><span>Schedule</span></a></li>
+                <li><a class="active" href="profile.html"><i class="fas fa-user-cog"></i><span>My Profile</span></a>
+                </li>
+                <div style="margin: 20px 0; border-top: 1px solid rgba(255,255,255,0.05);"></div>
+                <li><a href="iu.html" style="color: var(--accent);"><i
+                            class="fas fa-external-link-alt"></i><span>University Site</span></a></li>
+                <li><a href="login.html" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i><span>Log
+                            Out</span></a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="content-header" style="text-align: center; margin-bottom: 40px;">
+                <div class="welcome-text" style="margin: 0 auto;">
+                    <h1>Update Profile Details</h1>
+                    <p>Refine your digital presence and academic identity at Innovation University.</p>
+                </div>
+            </header>
+
+            <div class="edit-form-container animate-up">
+                <div class="profile-strength">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                        <span style="font-size:0.8rem; font-weight:700;">Profile Completion</span>
+                        <span style="color:var(--accent); font-weight:700;">85%</span>
+                    </div>
+                    <div style="height:6px; background:rgba(255,255,255,0.1); border-radius:3px; overflow:hidden;">
+                        <div
+                            style="width:85%; height:100%; background:var(--accent); box-shadow:0 0 10px var(--accent-glow);">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <div class="profile-pic-edit">
+                        <img id="preview-img" src="../images/Hema.jpeg" alt="Profile">
+                        <label for="imageInput" class="upload-overlay">
+                            <i class="fas fa-camera"></i>
+                        </label>
+                        <input type="file" id="imageInput" accept="image/*" style="display:none;">
+                    </div>
+
+                    <!-- Account Info -->
+                    <div class="form-section-header">
+                        <i class="fas fa-user-circle"></i>
+                        <h3>Account Information</h3>
+                    </div>
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:25px;">
+                        <div class="input-box">
+                            <label>Full Name</label>
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="name" placeholder="Ahmed Anter">
+                        </div>
+                        <div class="input-box">
+                            <label>University Email</label>
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" placeholder="anter@iu.edu.eg">
+                        </div>
+                        <div class="input-box">
+                            <label>Phone Number</label>
+                            <i class="fas fa-phone"></i>
+                            <input type="text" id="phone" placeholder="+20 123 456 7890">
+                        </div>
+                        <div class="input-box">
+                            <label>Academic Status</label>
+                            <i class="fas fa-graduation-cap"></i>
+                            <input type="text" id="role" placeholder="Computer Science Student">
+                        </div>
+                    </div>
+
+                    <!-- Extra Details -->
+                    <div class="form-section-header" style="margin-top:20px;">
+                        <i class="fas fa-info-circle"></i>
+                        <h3>About You</h3>
+                    </div>
+                    <div class="input-box">
+                        <label>Biography</label>
+                        <i class="fas fa-quote-left" style="top:45px;"></i>
+                        <textarea id="bio" rows="4"
+                            placeholder="Write a few lines about your academic journey..."></textarea>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:25px;">
+                        <div class="input-box">
+                            <label>Location</label>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <input type="text" id="city" placeholder="New Cairo, Egypt">
+                        </div>
+                        <div class="input-box">
+                            <label>Student ID</label>
+                            <i class="fas fa-id-badge"></i>
+                            <input type="text" id="studentID" placeholder="25030087">
+                        </div>
+                    </div>
+
+                    <div style="display:flex; gap:15px; justify-content:flex-end; margin-top:30px;">
+                        <button class="btn-premium btn-accent" style="padding:12px 30px;"
+                            onclick="location.href='profile.html'">Discard</button>
+                        <button class="btn-premium btn-primary" style="padding:12px 40px;" onclick="saveProfile()"><i
+                                class="fas fa-save" style="margin-right:8px;"></i> Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/style.js"></script>
     <script>
-        const uploadInput = document.getElementById("image");
+        const imageInput = document.getElementById("imageInput");
         const previewImg = document.getElementById("preview-img");
 
-        // تحميل البيانات عند فتح الصفحة
-        window.addEventListener("DOMContentLoaded", function () {
+        window.addEventListener("DOMContentLoaded", () => {
             const data = JSON.parse(localStorage.getItem("profileData"));
             if (data) {
                 document.getElementById("name").value = data.name || "";
@@ -202,34 +280,21 @@
                 document.getElementById("email").value = data.email || "";
                 document.getElementById("phone").value = data.phone || "";
                 document.getElementById("city").value = data.city || "";
-                document.getElementById("ID").value = data.ID || "";
-
-                const skills = document.querySelectorAll('.skills input');
-                skills[0].value = data.skills.html || 0;
-                skills[1].value = data.skills.css || 0;
-                skills[2].value = data.skills.js || 0;
-                skills[3].value = data.skills.csharp || 0;
-
-                if (data.imageUrl) {
-                    previewImg.src = data.imageUrl;
-                }
+                document.getElementById("studentID").value = data.ID || "";
+                if (data.imageUrl) previewImg.src = data.imageUrl;
             }
         });
 
-        // عرض الصورة فور رفعها
-        uploadInput.addEventListener("change", function () {
+        imageInput.addEventListener("change", function () {
             const file = this.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function () {
-                    previewImg.src = reader.result;
-                }
+                reader.onload = () => previewImg.src = reader.result;
                 reader.readAsDataURL(file);
             }
         });
 
         function saveProfile() {
-            const oldData = JSON.parse(localStorage.getItem("profileData")) || {};
             const profileData = {
                 name: document.getElementById("name").value,
                 role: document.getElementById("role").value,
@@ -237,27 +302,15 @@
                 email: document.getElementById("email").value,
                 phone: document.getElementById("phone").value,
                 city: document.getElementById("city").value,
-                ID: document.getElementById("ID").value,
+                ID: document.getElementById("studentID").value,
                 imageUrl: previewImg.src,
-        interests: oldData.interests || [],
-                skills: {
-                    html: document.querySelectorAll('.skills input')[0].value,
-                    css: document.querySelectorAll('.skills input')[1].value,
-                    js: document.querySelectorAll('.skills input')[2].value,
-                    csharp: document.querySelectorAll('.skills input')[3].value
-                }
+                skills: (JSON.parse(localStorage.getItem("profileData")) || {}).skills || {}
             };
-
             localStorage.setItem("profileData", JSON.stringify(profileData));
-            alert("تم حفظ التعديلات بنجاح");
+            alert("Profile updated successfully!");
             window.location.href = "profile.html";
         }
-
-        function cancelEdit() {
-            window.history.back();
-        }
     </script>
-
 </body>
 
 </html>

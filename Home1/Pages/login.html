@@ -1,30 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login & Signup | Innovation University</title>
+    <link rel="icon" type="image/png" href="../images/iu-logo.png" />
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body class="faculty-theme">
-
-    <div id="preloader">
-        <div class="spinner"></div>
-    </div>
+    <div id="preloader"><div class="spinner"></div></div>
 
     <a href="iu.html" class="back-home"><i class="fas fa-arrow-left"></i> Back to Faculty Site</a>
 
     <div class="auth-wrapper">
         <!-- Login Card -->
-        <div class="auth-card" id="loginCard">
-            <h2 class="auth-title">Login</h2>
+        <div class="auth-card animate-up" id="loginCard">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <img src="../images/iu-logo.png" alt="IU Logo" style="width: 80px;">
+            </div>
+            <h2 class="auth-title">Welcome Back</h2>
             <form action="dashboard-STU.html">
                 <div class="input-group">
                     <i class="fa-solid fa-user"></i>
-                    <input type="text" placeholder="Username" required>
+                    <input type="text" placeholder="Username or Student ID" required>
                 </div>
                 <div class="input-group">
                     <i class="fa-solid fa-lock"></i>
@@ -32,46 +33,40 @@
                 </div>
                 <button type="submit" class="btn-premium btn-accent" style="width: 100%;">Sign In</button>
                 <div class="auth-switch">
-                    Don't have an account? <a href="javascript:void(0)" onclick="toggleAuth()">Register Now</a>
+                    New student? <a href="javascript:void(0)" onclick="toggleAuth()">Create an Account</a>
                 </div>
             </form>
         </div>
 
         <!-- Register Card -->
-        <div class="auth-card" id="registerCard" style="display: none;">
-            <h2 class="auth-title">Register</h2>
+        <div class="auth-card animate-up" id="registerCard" style="display: none;">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <img src="../images/iu-logo.png" alt="IU Logo" style="width: 80px;">
+            </div>
+            <h2 class="auth-title">Student Registration</h2>
             <form action="#">
                 <div class="input-group">
-                    <i class="fa-solid fa-user"></i>
-                    <input type="text" placeholder="Full Name" required>
+                    <i class="fa-solid fa-id-badge"></i>
+                    <input type="text" placeholder="Full Academic Name" required>
                 </div>
                 <div class="input-group">
                     <i class="fa-solid fa-envelope"></i>
-                    <input type="email" placeholder="Email Address" required>
+                    <input type="email" placeholder="University Email" required>
                 </div>
                 <div class="input-group">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" placeholder="Password" required>
+                    <input type="password" placeholder="Secure Password" required>
                 </div>
-                <button type="submit" class="btn-premium btn-accent" style="width: 100%;">Create Account</button>
+                <button type="submit" class="btn-premium btn-accent" style="width: 100%;">Register Now</button>
                 <div class="auth-switch">
-                    Already have an account? <a href="javascript:void(0)" onclick="toggleAuth()">Log In</a>
+                    Already registered? <a href="javascript:void(0)" onclick="toggleAuth()">Return to Login</a>
                 </div>
             </form>
         </div>
     </div>
 
+    <script src="../js/style.js"></script>
     <script>
-        // Preloader
-        window.addEventListener('load', () => {
-            const preloader = document.getElementById('preloader');
-            setTimeout(() => {
-                preloader.style.opacity = '0';
-                setTimeout(() => preloader.style.display = 'none', 500);
-            }, 800);
-        });
-
-        // Toggle Auth Cards
         function toggleAuth() {
             const loginCard = document.getElementById('loginCard');
             const registerCard = document.getElementById('registerCard');
@@ -85,7 +80,5 @@
             }
         }
     </script>
-
 </body>
-
 </html>
